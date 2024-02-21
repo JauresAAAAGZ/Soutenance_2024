@@ -28,42 +28,71 @@
                 <div class="col-sm-12">
                     <!-- Authentication card start -->
                     <div class="login-card card-block auth-body mr-auto ml-auto">
-                        <form class="md-float-material" action="" method="post">
+                        <!-- Session Status -->
+                    <x-auth-session-status class="mb-4" :status="session('status')" />
+                        <form class="md-float-material" method="POST" action="{{ route('login') }}">
+                            @csrf
+
                             <div class="text-center">
                                 <img src="assets/images/logos12.png" alt="logo.png">
                             </div>
                             <div class="auth-box">
                                 <div class="row m-b-20">
                                     <div class="col-md-12">
-                                        <h3 class="text-left txt-primary">Sign In</h3>
+                                        <h3 class="text-left txt-primary">Connexion Enseignant</h3>
                                     </div>
                                 </div>
                                 <hr/>
+                                 <!-- Email Address -->
                                 <div class="input-group">
-                                    <input type="emailEns" class="form-control" placeholder="Entrez votre Mail">
-                                    <span class="md-line"></span>
+                                   
+                                    <x-text-input id="emailProfesseur" class="form-control" placeholder="Entrez votre Mail" type="emailProfesseur" name="emailProfesseur" :value="old('emailProfesseur')" required autofocus autocomplete="username" />
+                                    <x-input-error :messages="$errors->get('emailProfesseur')" class="mt-2" />
                                 </div>
+                                
                                 <div class="input-group">
-                                    <input type="passwordEns" class="form-control" placeholder="Entrez votre Matricule">
-                                    <span class="md-line"></span>
+                                   
+                                    <x-text-input id="numEmploye" class="form-control" placeholder="Entrez votre Matricule" type="text" name="numEmploye"  />
+                                    <x-input-error :messages="$errors->get('numEmploye')" class="mt-2" />
                                 </div>
-                                <div class="input-group">
-                                    <input type="passwordEns" class="form-control" placeholder="Entrez votre mot de passe">
-                                    <span class="md-line"></span>
+
+                                <!-- Password -->
+                                
+                                <div class="mt-4">
+                                    
+
+                                    <x-text-input id="pswdProfesseur" class="form-control"
+                                                    placeholder="Entrez votre mot de passe"
+                                                    type="password"
+                                                    name="pswdProfesseur"
+                                                    required autocomplete="current-password" />
+
+                                    <x-input-error :messages="$errors->get('pswdProfesseur')" class="mt-2" />
                                 </div>
+                                 
                                 <div class="row m-t-25 text-left">
                                     <div class="col-sm-5 col-xs-12 forgot-phone text-right">
                                         <a href={{route('registerens')}} class="text-right f-w-600 text-inverse">Inscription</a>
                                     </div>
+
                                     <div class="col-sm-5 col-xs-12 forgot-phone text-right">
-                                        <a href="auth-reset-password.blade.php" class="text-right f-w-600 text-inverse"> Forgot Your Password?</a>
+                                        @if (Route::has('password.request'))
+                                            <a class="text-right f-w-600 text-inverse" href="{{ route('password.request') }}">
+                                                {{ __('Mot de passe Oublié?') }}
+                                            </a>
+                                        @endif
                                     </div>
+                                   
+                                    
                                    
                                 </div>
                                 <div class="row m-t-30">
+                                    
                                     <div class="col-md-12">
-                                        <!--<button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Sign in</button>-->
-                                        <a href={{route('dashens')}} class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Sign in</a>
+                                        <x-primary-button class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">
+                                            {{ __('Log in') }}
+                                        </x-primary-button>
+                                       
                                     </div>
                                 </div>
                                 <hr/>
