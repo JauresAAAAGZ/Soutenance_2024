@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Fichier extends Model
 {
     use HasFactory;
+
+
+    public function depot()
+    {
+        return $this->belongsTo(Depot::class);
+    }
 }
