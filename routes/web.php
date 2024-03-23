@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\EtudiantController;
+use App\Http\Controllers\ProfesseurController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\Admin;
+use App\Models\Professeur;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +18,50 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+/*--------------------------------------Etudiant Route------------------------------------*/
+
+
+Route::prefix('etudiant')->group(function(){
+
+
+    Route::get('/login', [EtudiantController::class, 'index'])->name('etudiant.login');
+
+    Route::post('/login/treatement', [EtudiantController::class, 'login'])->name('etudiant.login.treatment');
+
+    Route::get('/dashboard', [EtudiantController::class, 'dashboard'])->name('etudiant.dashboard')->middleware('etudiant');
+
+
+
+
+});
+
+
+
+/*--------------------------------------End Etudiant Route--------------------------------*/
+
+
+/*--------------------------------------Professeur Route------------------------------------*/
+
+
+Route::prefix('professeur')->group(function(){
+
+
+    Route::get('/login', [ProfesseurController::class, 'index'])->name('professeur.login');
+
+    Route::post('/login/treatement', [ProfesseurController::class, 'login'])->name('professeur.login.treatment');
+
+    Route::get('/dashboard', [ProfesseurController::class, 'dashboard'])->name('professeur.dashboard')->middleware('professeur');
+
+
+
+
+});
+
+
+
+/*--------------------------------------End Professeur Route--------------------------------*/
+
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -22,22 +70,22 @@ Route::get('/dashboard-etudiant', function () {
     return view('dash-etu');
 })->name('dashetu');
 
-Route::get('/dashboard-enseignant', function () {
+/*Route::get('/dashboard-enseignant', function () {
     return view('dash-ens');
-})->name('dashens');
+})->name('dashens');*/
 
 
-Route::get('/login-etudiant', function () {
+/*Route::get('/login-etudiant', function () {
     return view('login-etu');
-})->name('loginetu');
+})->name('loginetu');*/
 
 Route::get('/register-etudiant', function () {
     return view('register-etu');
 })->name('registeretu');
 
-Route::get('/login-enseignant', function () {
+/*Route::get('/login-enseignant', function () {
     return view('login-ens');
-})->name('loginens');
+})->name('login-ens');*/
 
 Route::get('/register-enseignant', function () {
     return view('register-ens');

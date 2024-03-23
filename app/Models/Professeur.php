@@ -17,6 +17,7 @@ class Professeur extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $guard='professeur';
     protected $fillable = [
         'nomProfesseur', 'prenomProfesseur','emailProfesseur','pswdProfesseur'
     ];

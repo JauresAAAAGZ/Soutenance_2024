@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Professeur;
 use App\Http\Requests\StoreProfesseurRequest;
 use App\Http\Requests\UpdateProfesseurRequest;
+use App\Http\Requests\Auth\LoginRequest;
 
 class ProfesseurController extends Controller
 {
@@ -13,7 +14,23 @@ class ProfesseurController extends Controller
      */
     public function index()
     {
-        //
+         return view('login-ens');
+    }
+
+    /**
+     * Display a dashboard of the resource.
+     */
+    public function dashboard(Professeur $professeur)
+    {
+        return view('dash-ens');
+    }
+
+     /**
+     * treat the login request of the resource.
+     */
+        
+    public function login(LoginRequest $request){
+        dd($request->all);
     }
 
     /**

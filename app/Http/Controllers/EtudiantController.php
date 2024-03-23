@@ -6,14 +6,57 @@ use App\Models\Etudiant;
 use App\Http\Requests\StoreEtudiantRequest;
 use App\Http\Requests\UpdateEtudiantRequest;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 class EtudiantController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a login page of the resource.
      */
     public function index()
     {
-        //
+         return view('login-etu');
+    }
+
+    /**
+     * Display a dashboard of the resource.
+     */
+    public function dashboard(Etudiant $etudiant)
+    {
+        return view('dash-etu');
+    }
+
+
+ /**
+     * treat the login request of the resource.
+     */
+        
+     public function login(Request $request){
+        
+
+        $etudiant= Etudiant::where('emailEtudiant','=',$request->emailEtudiant)->first();
+        
+
+        if($etudiant && Hash::check($request->pswdEtudiant, $etudiant->pswdEtudiant)) 
+        {
+            Auth::guard('etudiant')->login($etudiant, true);
+
+            if(Auth::guard('etudiant')->check()){
+                
+                return redirect()->route('etudiant.dashboard')->with('error','Connexion Succesfull');
+
+            }
+            else{
+                return back()->with('error','Non connecté');
+            }
+           
+        }
+        else
+        {
+            return back()->with('error','Email ou mot de passe erroné');
+        }
     }
 
     /**
@@ -63,4 +106,5 @@ class EtudiantController extends Controller
     {
         //
     }
+   
 }

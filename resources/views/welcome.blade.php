@@ -13,11 +13,11 @@
     <div class="selection-container">
         <h2>Veuillez choisir votre statut</h2> <!-- Texte au-dessus des cercles -->
         <div class="circle-container">
-            <a href={{route('loginens')}} class="circle-link">
+            <a href={{route('professeur.login')}} class="circle-link">
                 <img src="assets/images/enseignant.png" alt="Enseignant" class="circle-image">
                 <div class="circle-text">Enseignant</div>
             </a>
-            <a href={{route('loginetu')}} class="circle-link">
+            <a href={{route('etudiant.login')}} class="circle-link">
                 <img src="assets/images/etudiant.png" alt="Étudiant" class="circle-image">
                 <div class="circle-text">Étudiant</div>
             </a>

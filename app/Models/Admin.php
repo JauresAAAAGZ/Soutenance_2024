@@ -6,7 +6,8 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+class Admin extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -15,6 +16,7 @@ class Admin extends Model
      *
      * @var array<int, string>
      */
+    protected $guard='admin';
     protected $fillable = [
         'nomAdmin','email','pswdAdmin'
     ];

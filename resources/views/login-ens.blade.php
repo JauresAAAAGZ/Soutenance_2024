@@ -30,11 +30,12 @@
                     <div class="login-card card-block auth-body mr-auto ml-auto">
                         <!-- Session Status -->
                     <x-auth-session-status class="mb-4" :status="session('status')" />
-                        <form class="md-float-material" method="POST" action="{{ route('login') }}">
+                    
+                        <form class="md-float-material" method="POST" action={{ route('professeur.login.treatment') }}>
                             @csrf
 
                             <div class="text-center">
-                                <img src="assets/images/logos12.png" alt="logo.png">
+                                <img src={{asset('assets/images/logos12.png')}} alt="logo.png">
                             </div>
                             <div class="auth-box">
                                 <div class="row m-b-20">
@@ -42,6 +43,14 @@
                                         <h3 class="text-left txt-primary">Connexion Enseignant</h3>
                                     </div>
                                 </div>
+                                @if (Session::has('error'))
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        <strong>Erreur de connexion !!!</strong> {{session::get('error')}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>    
+                                    @endif
                                 <hr/>
                                  <!-- Email Address -->
                                 <div class="input-group">

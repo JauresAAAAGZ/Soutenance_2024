@@ -4,7 +4,7 @@
     <div class="pcoded-inner-navbar main-menu">
         <div class="">
             <div class="main-menu-header">
-                <img class="img-40 img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
+                <img class="img-40 img-radius" src={{asset('assets/images/avatar-4.jpg')}} alt="User-Profile-Image">
                 <div class="user-details">
                     <span>John Doe</span>
                     <span id="more-details">UX Designer<i class="ti-angle-down"></i></span>
@@ -31,7 +31,7 @@
         <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">Layout</div>
         <ul class="pcoded-item pcoded-left-item">
             <li class="active">
-                <a href={{route('dashetu')}}>
+                <a href={{route('etudiant.dashboard')}}>
                     <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                     <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
                     <span class="pcoded-mcaret"></span>
@@ -161,7 +161,7 @@
                 </a>
                 <ul class="pcoded-submenu">
                     <li class=" ">
-                        <a href={{route('loginetu')}}>
+                        <a href={{route('etudiant.login')}}>
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Login</span>
                             <span class="pcoded-mcaret"></span>

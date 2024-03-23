@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Models;
-use Illuminate\Notifications\Notifiable;
+
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Notifications\Notifiable;
+
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -17,23 +19,16 @@ class Etudiant extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $guard='etudiant';
+    
     protected $fillable = [
         'nomEtudiant',
         'prenomEtudiant',
         'emailEtudiant',
-        'pswdEtudiant'
+        'pswdEtudiant',
     ];
 
-    public function filiere()
-    {
-        return $this->belongsTo(Filiere::class);
-    }
-
-    public function depots()
-    {
-        return $this->belongsToMany(Depot::class);
-    }
-
+  
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -53,4 +48,15 @@ class Etudiant extends Authenticatable
         'email_verified_at' => 'datetime',
         'pswdEtudiant' => 'hashed',
     ];
+
+    public function filiere()
+    {
+        return $this->belongsTo(Filiere::class);
+    }
+
+    public function depots()
+    {
+        return $this->belongsToMany(Depot::class);
+    }
+
 }
