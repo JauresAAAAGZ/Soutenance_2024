@@ -25,11 +25,14 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+       /* $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->intended(RouteServiceProvider::HOME);*/
+        
+        // Use the login function for authentication and redirection
+        return $this->login($request);
     }
 
     /**
@@ -44,5 +47,41 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    protected function login(Request $request){
+
+        $credentials=$request->validate([
+
+            'email'=>'required|email',
+            'password'=>'required'
+        ]);
+
+        if(Auth::attempt($credentials)){
+
+            $user_role=Auth::user()->role_id;
+
+            switch($user_role){
+
+                case 1:
+                    return redirect()->route('dashetu');
+                    break;
+                case 2:
+                    return redirect()->route('dashens');
+                    break;
+                case 3:
+                    return redirect()->route('dashadmin');
+                    break;
+                default:
+                    Auth::logout();
+                    redirect()->route('welcome')->with('error','no rule assigned');
+
+            }
+
+        }else{
+
+            return redirect()->route('welcome')->with('error','');
+        }
+
     }
 }

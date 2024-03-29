@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 /*--------------------------------------Etudiant Route------------------------------------*/
 
 
-Route::prefix('etudiant')->group(function(){
+/*Route::prefix('etudiant')->group(function(){
 
 
     Route::get('/login', [EtudiantController::class, 'index'])->name('etudiant.login');
@@ -34,7 +34,7 @@ Route::prefix('etudiant')->group(function(){
 
 
 
-});
+});*/
 
 
 
@@ -44,7 +44,7 @@ Route::prefix('etudiant')->group(function(){
 /*--------------------------------------Professeur Route------------------------------------*/
 
 
-Route::prefix('professeur')->group(function(){
+/*Route::prefix('professeur')->group(function(){
 
 
     Route::get('/login', [ProfesseurController::class, 'index'])->name('professeur.login');
@@ -56,24 +56,27 @@ Route::prefix('professeur')->group(function(){
 
 
 
-});
+});*/
 
 
 
 /*--------------------------------------End Professeur Route--------------------------------*/
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login-etu');
 })->name('welcome');
 
 Route::get('/dashboard-etudiant', function () {
     return view('dash-etu');
-})->name('dashetu');
+})->name('dashetu')->middleware('etudiant');
 
-/*Route::get('/dashboard-enseignant', function () {
+Route::get('/dashboard-enseignant', function () {
     return view('dash-ens');
-})->name('dashens');*/
+})->name('dashens')->middleware('professeur');
 
+Route::get('/dashboard-admin', function () {
+    return view('dash-admin');
+})->name('dashadmin')->middleware('admin');
 
 /*Route::get('/login-etudiant', function () {
     return view('login-etu');

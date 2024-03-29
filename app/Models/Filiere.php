@@ -16,4 +16,5 @@ class Filiere extends Model
     {
         return $this->hasMany(Etudiant::class);
     }
+    
 }

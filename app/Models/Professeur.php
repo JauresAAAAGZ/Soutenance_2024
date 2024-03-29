@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Professeur extends Authenticatable
+class Professeur extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -22,10 +22,7 @@ class Professeur extends Authenticatable
         'nomProfesseur', 'prenomProfesseur','emailProfesseur','pswdProfesseur'
     ];
 
-    public function depots()
-    {
-        return $this->hasMany(Depot::class);
-    }
+  
 
 
 
@@ -48,4 +45,14 @@ class Professeur extends Authenticatable
         'email_verified_at' => 'datetime',
         'pswdProfesseur' => 'hashed',
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
+
+    public function depots()
+    {
+        return $this->hasMany(Depot::class);
+    }
 }

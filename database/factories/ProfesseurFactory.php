@@ -24,7 +24,7 @@ class ProfesseurFactory extends Factory
             'nomProfesseur' => fake()->name(),
             'prenomProfesseur' => fake()->name(),
             'emailProfesseur'=>fake()->unique()->safeEmail(),
-           'pswdProfesseur' => static::$password ??= Hash::make('password'),
+            'pswdProfesseur' => static::$password ??= Hash::make('password'),
         ];
     }
 }

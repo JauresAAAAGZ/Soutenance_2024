@@ -18,12 +18,30 @@ class Etudiant
     {
         
 
-        if(!Auth::guard('etudiant')->check()){
+        if(!Auth::check()){
 
-            //return redirect()->route('etudiant.login')->with('error','Connectez-vous avec un compte étudiant');
+            return redirect()->route('welcome')->with('error','Connectez-vous');
 
         }
 
-        return $next($request);
+        $user=Auth::user();
+
+        if($user->role_id==1){
+
+            return $next($request);
+
+        }
+        if($user->role_id==2){
+
+            return redirect()->route('dashens');
+
+        }
+
+        if($user->role_id==3){
+
+            return redirect()->route('dashadmin');
+
+        }
+     
     }
 }

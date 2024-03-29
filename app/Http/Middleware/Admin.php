@@ -17,12 +17,31 @@ class Admin
     public function handle(Request $request, Closure $next): Response
     {
 
-        if(!Auth::guard('admin')->check()){
+        if(!Auth::check()){
 
-            return redirect()->route('welcome')->with('error','Please log in with an admin account');
+            return redirect()->route('welcome')->with('error','Connectez-vous');
 
         }
 
-        return $next($request);
+        $user=Auth::user();
+
+        if($user->role_id==3){
+
+            return $next($request);
+
+        }
+        if($user->role_id==1){
+
+            return redirect()->route('dashetu');
+
+        }
+
+        if($user->role_id==2){
+
+            return redirect()->route('dashens');
+
+        }
+     
+    
     }
 }

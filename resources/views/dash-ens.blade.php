@@ -6,6 +6,16 @@
     <title>Document</title>
 </head>
 <body>
-    <h1 style="text-align: center;">Bientôt disponible</h1>
+    <h1 style="text-align: center;">Bientôt disponible enseignant</h1>
+     <!-- Authentication deconnexion-->
+     <form method="POST" action="{{ route('logout') }}">
+        @csrf
+
+        <x-dropdown-link :href="route('logout')"
+                onclick="event.preventDefault();
+                            this.closest('form').submit();">
+            {{ __('Log Out') }}
+        </x-dropdown-link>
+    </form>
 </body>
 </html>

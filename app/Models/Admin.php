@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-class Admin extends Authenticatable
+class Admin extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -40,4 +40,10 @@ class Admin extends Authenticatable
         'email_verified_at' => 'datetime',
         'pswdAdmin' => 'hashed',
     ];
+
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
 }

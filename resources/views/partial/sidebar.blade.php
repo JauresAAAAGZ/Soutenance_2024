@@ -6,7 +6,8 @@
             <div class="main-menu-header">
                 <img class="img-40 img-radius" src={{asset('assets/images/avatar-4.jpg')}} alt="User-Profile-Image">
                 <div class="user-details">
-                    <span>John Doe</span>
+                    <div>{{ Auth::user()->name }}</div>
+
                     <span id="more-details">UX Designer<i class="ti-angle-down"></i></span>
                 </div>
             </div>
@@ -16,7 +17,18 @@
                     <li class="more-details">
                         <a href="#"><i class="ti-user"></i>View Profile</a>
                         <a href="#!"><i class="ti-settings"></i>Settings</a>
-                        <a href={{route("welcome")}}><i class="ti-layout-sidebar-left"></i>Logout</a>
+
+                       <!-- Authentication deconnexion-->
+                       <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                        <x-dropdown-link :href="route('logout')"
+                                onclick="event.preventDefault();
+                                            this.closest('form').submit();">
+                            {{ __('Log Out') }}
+                        </x-dropdown-link>
+                    </form>
+                    
                     </li>
                 </ul>
             </div>
@@ -31,7 +43,7 @@
         <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">Layout</div>
         <ul class="pcoded-item pcoded-left-item">
             <li class="active">
-                <a href={{route('etudiant.dashboard')}}>
+                <a href={{route('dashetu')}}>
                     <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                     <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
                     <span class="pcoded-mcaret"></span>
@@ -161,19 +173,13 @@
                 </a>
                 <ul class="pcoded-submenu">
                     <li class=" ">
-                        <a href={{route('etudiant.login')}}>
+                        <a href={{route('welcome')}}>
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Login</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
-                    <li class=" ">
-                        <a href={{route('registeretu')}}>
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Register</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
+                    
                     <li class=" ">
                         <a href="sample-page.html">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>

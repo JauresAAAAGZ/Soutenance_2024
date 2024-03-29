@@ -32,8 +32,10 @@
 
                     <!-- Authentication card start -->
                     <div class="login-card card-block auth-body mr-auto ml-auto">
+                         <!-- Session Status -->
+                         <x-auth-session-status class="mb-4" :status="session('status')" />
 
-                        <form class="md-float-material" action={{route('etudiant.login.treatment')}} method="post">
+                        <form class="md-float-material" method="POST" action="{{ route('login') }}">
                             @csrf
 
                             <div class="text-center">
@@ -42,7 +44,7 @@
                             <div class="auth-box">
                                 <div class="row m-b-20">
                                     <div class="col-md-12">
-                                        <h3 class="text-left txt-primary">Sign In</h3>
+                                        <h3 class="text-left txt-primary">Connexion</h3>
                                     </div>
                                 </div>
                                 
@@ -56,26 +58,46 @@
                                     @endif
 
                                 <hr/>
+
+                                <!-- Addresse mail -->
                                 <div class="input-group">
-                                    <input  type="email" class="form-control" name="emailEtudiant" placeholder="Votre adresse mail">
+                                    <x-input-label for="email" :value="__('Email: ')" style="color: black"/><br/>
+                                    <x-text-input id="email"  class="form-control" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
                                     <span class="md-line"></span>
+                                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                 </div>
-                                <div class="input-group">
-                                    <input  type="password" class="form-control" name="pswdEtudiant" placeholder="mot de passe">
-                                    <span class="md-line"></span>
+
+                                 <!-- mot de passe-->
+                                <div class="input-group">                                    
+
+                                    <x-input-label for="password" :value="__('Mot de passe: ')" style="color: black"/><br/>
+
+                                            <x-text-input id="password" class="form-control"
+                                                            type="password"
+                                                            name="password"
+                                                            required autocomplete="current-password" />
+                                            <span class="md-line"></span>
+
+                                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                 </div>
+
                                 <div class="row m-t-25 text-left">
+                                   
                                     <div class="col-sm-5 col-xs-12 forgot-phone text-right">
-                                        <a href={{ route('registeretu')}} class="text-right f-w-600 text-inverse">Inscription</a>
-                                    </div>
-                                    <div class="col-sm-5 col-xs-12 forgot-phone text-right">
-                                        <a href="auth-reset-password.blade.php" class="text-right f-w-600 text-inverse"> Forgot Your Password?</a>
+                                        @if (Route::has('password.request'))
+                                                <div class="text-center">
+                                                    <a class="large" href="{{ route('password.request') }}">
+                                                        {{ __('Mot de passe oublié?') }}
+                                                    </a>
+                                                </div>
+                                            @endif
                                     </div>
                                 </div>
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
-                                        <!--<button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Sign in</button>-->
-                                        <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Sign in</button>
+                                        <x-primary-button class="btn btn-primary btn-user btn-block">
+                                            {{ __('Se connecter') }}
+                                        </x-primary-button>
                                     </div>
                                 </div>
                                 <hr/>

@@ -17,12 +17,31 @@ class Professeur
     public function handle(Request $request, Closure $next): Response
     {
 
-        if(!Auth::guard('professeur')->check()){
+        if(!Auth::check()){
 
-            return redirect()->route('professeur.login')->with('error','Connectez-vous avec un compte enseignant');
+            return redirect()->route('welcome')->with('error','Connectez-vous');
 
         }
 
-        return $next($request);
+        $user=Auth::user();
+
+        if($user->role_id==2){
+
+            return $next($request);
+
+        }
+        if($user->role_id==1){
+
+            return redirect()->route('dashetu');
+
+        }
+
+        if($user->role_id==3){
+
+            return redirect()->route('dashadmin');
+
+        }
+     
+    
     }
 }
