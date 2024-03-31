@@ -10,7 +10,7 @@
               <i class="ti-search"></i>
           </a>
           <a href={{route('dashetu')}}>
-              <img class="img-fluid" src={{asset('assets/images/logo.png')}} alt="Theme-Logo" />
+              <img class="img-fluid" src={{asset('assets/images/la.png')}} alt="Theme-Logo" />
           </a>
           <a class="mobile-options">
               <i class="ti-more"></i>
@@ -75,15 +75,11 @@
               <li class="user-profile header-notification">
                   <a href="#!">
                       <img src={{asset('assets/images/avatar-4.jpg')}} class="img-radius" alt="User-Profile-Image">
-                      <span>John Doe</span>
+                      <span>{{ Auth::user()->name}}</span>
                       <i class="ti-angle-down"></i>
                   </a>
                   <ul class="show-notification profile-notification">
-                      <li>
-                          <a href="#!">
-                              <i class="ti-settings"></i> Settings
-                          </a>
-                      </li>
+                     
                       <li>
                           <a href="#">
                               <i class="ti-user"></i> Profile
@@ -91,14 +87,10 @@
                       </li>
                       <li>
                           <a href="#">
-                              <i class="ti-email"></i> My Messages
+                              <i class="ti-email"></i> Mes Messages
                           </a>
                       </li>
-                      <li>
-                          <a href="#">
-                              <i class="ti-lock"></i> Lock Screen
-                          </a>
-                      </li>
+                    
                       <li>
                           <a href={{route('welcome')}}>
                               <i class="ti-layout-sidebar-left"></i> Logout

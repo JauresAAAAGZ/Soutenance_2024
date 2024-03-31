@@ -2,6 +2,12 @@
 
 use App\Http\Controllers\EtudiantController;
 use App\Http\Controllers\ProfesseurController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DepotController;
+use App\Http\Controllers\FichierController;
+use App\Http\Controllers\FiliereController;
+use App\Http\Controllers\NiveauController;
+use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\Admin;
 use App\Models\Professeur;
@@ -62,6 +68,7 @@ use Illuminate\Support\Facades\Route;
 
 /*--------------------------------------End Professeur Route--------------------------------*/
 
+
 Route::get('/', function () {
     return view('login-etu');
 })->name('welcome');
@@ -77,6 +84,10 @@ Route::get('/dashboard-enseignant', function () {
 Route::get('/dashboard-admin', function () {
     return view('dash-admin');
 })->name('dashadmin')->middleware('admin');
+
+Route::get('/dashboard-admin-utilisateurs', function () {
+    return view('dash-admin-utilisateurs');
+})->name('dashadmin1')->middleware('admin');
 
 /*Route::get('/login-etudiant', function () {
     return view('login-etu');

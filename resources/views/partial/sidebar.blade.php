@@ -8,24 +8,24 @@
                 <div class="user-details">
                     <div>{{ Auth::user()->name }}</div>
 
-                    <span id="more-details">UX Designer<i class="ti-angle-down"></i></span>
+                    <span id="more-details">Role<i class="ti-angle-down"></i></span>
                 </div>
             </div>
 
             <div class="main-menu-content">
                 <ul>
                     <li class="more-details">
-                        <a href="#"><i class="ti-user"></i>View Profile</a>
-                        <a href="#!"><i class="ti-settings"></i>Settings</a>
+                        <a href="#"><i class="ti-user"></i>Profile</a>
+                       
 
                        <!-- Authentication deconnexion-->
                        <form method="POST" action="{{ route('logout') }}">
                         @csrf
-
+                        
                         <x-dropdown-link :href="route('logout')"
                                 onclick="event.preventDefault();
                                             this.closest('form').submit();">
-                            {{ __('Log Out') }}
+                            <i class="ti-layout-sidebar-left"></i>{{ __('Deconnexion') }}
                         </x-dropdown-link>
                     </form>
                     
@@ -43,16 +43,38 @@
         <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">Layout</div>
         <ul class="pcoded-item pcoded-left-item">
             <li class="active">
-                <a href={{route('dashetu')}}>
+
+                @if(  Auth::user()->role_id == 1  )
+
+                    <a href={{route('dashetu')}}>
+                @endif
+
+                @if(  Auth::user()->role_id == 2  )
+
+                    <a href={{route('dashens')}}>
+                @endif
+
+                @if(  Auth::user()->role_id == 3  )
+
+                    <a href={{route('dashadmin')}}>
+                @endif
+
                     <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                     <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
+
+           
+
             <li class="pcoded-hasmenu">
+
+                <!--Start Sidebar Etudiant -->
+                @if(  Auth::user()->role_id == 1  )
+
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                    <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Components</span>
+                    <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">pourEtu</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
                 <ul class="pcoded-submenu">
@@ -127,9 +149,170 @@
                         </a>
                     </li>
 
+
+                @endif
+                <!--End Sidebar Etudiant -->
+
+                <!--Start Sidebar Prof -->
+                @if(  Auth::user()->role_id == 2  )
+
+                <a href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+                    <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">pourProf</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class=" ">
+                        <a href="accordion.html">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Accordion</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="breadcrumb.html">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Breadcrumbs</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="button.html">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Button</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="tabs.html">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Tabs</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="color.html">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Color</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="label-badge.html">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Label Badge</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="tooltip.html">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Tooltip</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="typography.html">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Typography</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="notification.html">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Notification</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="icon-themify.html">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Icon</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+
+                @endif
+                <!--End Sidebar Prof-->
+
+
+                <!--Start Sidebar Admin -->
+
+                @if(  Auth::user()->role_id == 3  )
+
+                <a href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+                    <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Gestions des Utilisateurs</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class=" ">
+                        <a href="accordion.html">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Etudiants</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="breadcrumb.html">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Professeurs</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="button.html">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Admin</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    
+
                 </ul>
+
+                @endif
+
+               
+
+                
+
             </li>
+
+            @if(  Auth::user()->role_id == 3  )
+
+            <li> 
+                    <a href={{route('dashadmin')}}>   
+
+                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
+                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Gestion des Filieres</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+            </li>
+
+            <li> 
+                <a href={{route('dashadmin')}}>   
+
+                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
+                    <span class="pcoded-mtext" data-i18n="nav.dash.main">Gestion des Niveaux</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+
+            <li> 
+                <a href={{route('dashadmin')}}>   
+
+                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
+                    <span class="pcoded-mtext" data-i18n="nav.dash.main">Gestion des Matières</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+
+            @endif
+             <!--End Sidebar Admin-->
         </ul>
+
         <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Forms &amp; Tables</div>
         <ul class="pcoded-item pcoded-left-item">
             <li>
@@ -151,20 +334,8 @@
 
         <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Chart &amp; Maps</div>
         <ul class="pcoded-item pcoded-left-item">
-            <li>
-                <a href="chart.html">
-                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Chart</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
-            <li>
-                <a href="map-google.html">
-                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Maps</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
+           
+           
             <li class="pcoded-hasmenu">
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
@@ -180,61 +351,12 @@
                         </a>
                     </li>
                     
-                    <li class=" ">
-                        <a href="sample-page.html">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Sample Page</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
+                   
                 </ul>
             </li>
             
         </ul>
 
-        <div class="pcoded-navigatio-lavel" data-i18n="nav.category.other">Other</div>
-        <ul class="pcoded-item pcoded-left-item">
-            <li class="pcoded-hasmenu ">
-                <a href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Menu Levels</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-                <ul class="pcoded-submenu">
-                    <li class="">
-                        <a href="javascript:void(0)">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Menu Level 2.1</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class="pcoded-hasmenu ">
-                        <a href="javascript:void(0)">
-                            <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22.main">Menu Level 2.2</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                        <ul class="pcoded-submenu">
-                            <li class="">
-                                <a href="javascript:void(0)">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Menu Level 3.1</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="">
-                        <a href="javascript:void(0)">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">Menu Level 2.3</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-
-                </ul>
-            </li>
-        </ul>
-    </div>
+        
 </nav>
 <!-- End of Sidebar -->

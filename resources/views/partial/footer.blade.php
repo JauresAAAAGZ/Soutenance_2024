@@ -1,139 +1,81 @@
  <!-- Footer Start -->
- <div class="container-fluid bg-secondary text-white mt-5 py-5 px-sm-3 px-md-5">
-    <div class="row pt-5">
-      <div class="col-lg-3 col-md-6 mb-5">
-        <a
-          href=""
-          class="navbar-brand font-weight-bold text-primary m-0 mb-4 p-0"
-          style="font-size: 40px; line-height: 40px"
-        >
-          <i class="flaticon-043-teddy-bear"></i>
-          <span class="text-white">EduFlow</span>
-        </a>
-        <p>
-          EduFlow Depot, à travers son design pensé et sa conception soignée, offre une plateforme harmonieuse et fiable, associant sécurité, convivialité, et excellence.
-        </p>
-        <div class="d-flex justify-content-start mt-4">
-          <a
-            class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
-            style="width: 38px; height: 38px"
-            href="#"
-            ><i class="fab fa-twitter"></i
-          ></a>
-          <a
-            class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
-            style="width: 38px; height: 38px"
-            href="#"
-            ><i class="fab fa-facebook-f"></i
-          ></a>
-          <a
-            class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
-            style="width: 38px; height: 38px"
-            href="#"
-            ><i class="fab fa-linkedin-in"></i
-          ></a>
-          <a
-            class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
-            style="width: 38px; height: 38px"
-            href="#"
-            ><i class="fab fa-instagram"></i
-          ></a>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 mb-5">
-        <h3 class="text-primary mb-4">Get In Touch</h3>
-        <div class="d-flex">
-          <h4 class="fa fa-map-marker-alt text-primary"></h4>
-          <div class="pl-3">
-            <h5 class="text-white">Address</h5>
-            <p>Cotonou, Bénin, Afrique</p>
-          </div>
-        </div>
-        <div class="d-flex">
-          <h4 class="fa fa-envelope text-primary"></h4>
-          <div class="pl-3">
-            <h5 class="text-white">Email</h5>
-            <p>eduflowdepot@gmail.com</p>
-          </div>
-        </div>
-        <div class="d-flex">
-          <h4 class="fa fa-phone-alt text-primary"></h4>
-          <div class="pl-3">
-            <h5 class="text-white">Phone</h5>
-            <p>+229 XX XX XX XX</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 mb-5">
-        <h3 class="text-primary mb-4">Quick Links</h3>
-        <div class="d-flex flex-column justify-content-start">
-          <a class="text-white mb-2" href="#"
-            ><i class="fa fa-angle-right mr-2"></i>Home</a
-          >
-          <a class="text-white mb-2" href="#"
-            ><i class="fa fa-angle-right mr-2"></i>About Us</a
-          >
-          <a class="text-white mb-2" href="#"
-            ><i class="fa fa-angle-right mr-2"></i>Our Classes</a
-          >
-          <a class="text-white mb-2" href="#"
-            ><i class="fa fa-angle-right mr-2"></i>Our Teachers</a
-          >
-          <a class="text-white mb-2" href="#"
-            ><i class="fa fa-angle-right mr-2"></i>Our Blog</a
-          >
-          <a class="text-white" href="#"
-            ><i class="fa fa-angle-right mr-2"></i>Contact Us</a
-          >
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 mb-5">
-        <h3 class="text-primary mb-4">Newsletter</h3>
-        <form action="">
-          <div class="form-group">
-            <input
-              type="text"
-              class="form-control border-0 py-4"
-              placeholder="Your Name"
-              required="required"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              type="email"
-              class="form-control border-0 py-4"
-              placeholder="Your Email"
-              required="required"
-            />
-          </div>
-          <div>
-            <button
-              class="btn btn-primary btn-block border-0 py-3"
-              type="submit"
-            >
-              Submit Now
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div
-      class="container-fluid pt-5"
-      style="border-top: 1px solid rgba(23, 162, 184, 0.2) ;"
-    >
-      <p class="m-0 text-center text-white">
-        &copy;
-        <a class="text-primary font-weight-bold" href="#">EduFlow Depot</a>.
-        All Rights Reserved.
+ 
 
-        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-        Designed by
-        <a class="text-primary font-weight-bold" href="https://htmlcodex.com"
-          >HTML Codex</a
-        >
-        <br />Distributed By:
-        <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-      </p>
+   <!-- Warning Section Starts -->
+        <!-- Older IE warning message -->
+    <!--[if lt IE 9]>
+<div class="ie-warning">
+    <h1>Warning!!</h1>
+    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
+    <div class="iew-container">
+        <ul class="iew-download">
+            <li>
+                <a href="http://www.google.com/chrome/">
+                    <img src="assets/images/browser/chrome.png" alt="Chrome">
+                    <div>Chrome</div>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.mozilla.org/en-US/firefox/new/">
+                    <img src="assets/images/browser/firefox.png" alt="Firefox">
+                    <div>Firefox</div>
+                </a>
+            </li>
+            <li>
+                <a href="http://www.opera.com">
+                    <img src="assets/images/browser/opera.png" alt="Opera">
+                    <div>Opera</div>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.apple.com/safari/">
+                    <img src="assets/images/browser/safari.png" alt="Safari">
+                    <div>Safari</div>
+                </a>
+            </li>
+            <li>
+                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                    <img src="assets/images/browser/ie.png" alt="">
+                    <div>IE (9 & above)</div>
+                </a>
+            </li>
+        </ul>
     </div>
-  </div>
+    <p>Sorry for the inconvenience!</p>
+</div>
+<![endif]-->
+<!-- Warning Section Ends -->
+<!-- Required Jquery -->
+<script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
+<!-- jquery slimscroll js -->
+<script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+<!-- modernizr js -->
+<script type="text/javascript" src="assets/js/modernizr/modernizr.js"></script>
+<!-- am chart -->
+<script src="assets/pages/widget/amchart/amcharts.min.js"></script>
+<script src="assets/pages/widget/amchart/serial.min.js"></script>
+<!-- Todo js -->
+<script type="text/javascript " src="assets/pages/todo/todo.js "></script>
+<!-- Custom js -->
+<script type="text/javascript" src="assets/pages/dashboard/custom-dashboard.js"></script>
+<script type="text/javascript" src="assets/js/script.js"></script>
+<script type="text/javascript " src="assets/js/SmoothScroll.js"></script>
+<script src="assets/js/pcoded.min.js"></script>
+<script src="assets/js/demo-12.js"></script>
+<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script>
+var $window = $(window);
+var nav = $('.fixed-button');
+    $window.scroll(function(){
+        if ($window.scrollTop() >= 200) {
+         nav.addClass('active');
+     }
+     else {
+         nav.removeClass('active');
+     }
+ });
+</script>
   <!-- Footer End -->
