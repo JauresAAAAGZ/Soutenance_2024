@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Niveau extends Model
 {
     use HasFactory;
+
+    protected $fillable=['diplome_niveau'];
+
+    public function filieres()
+    {
+        return $this->belongsToMany(Filiere::class);
+    }
 }

@@ -20,11 +20,12 @@ class ProfesseurFactory extends Factory
     public function definition(): array
     {
         return [
-            //'numEmploye'=>
+            'numEmploye'=>'PROF' . mt_rand(10, 999),
             'nomProfesseur' => fake()->name(),
             'prenomProfesseur' => fake()->name(),
             'emailProfesseur'=>fake()->unique()->safeEmail(),
-            'pswdProfesseur' => static::$password ??= Hash::make('password'),
+            'date_naissance_prof' => $this->faker->dateTimeBetween('-30 years', '-18 years')->format('Y-m-d'),
+           
         ];
     }
 }

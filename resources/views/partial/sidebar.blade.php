@@ -250,6 +250,13 @@
                     <li class=" ">
                         <a href="accordion.html">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Utilisateurs</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href={{route('etudiants.index')}}>
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Etudiants</span>
                             <span class="pcoded-mcaret"></span>
                         </a>

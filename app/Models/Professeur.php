@@ -19,7 +19,7 @@ class Professeur extends Model
      */
     protected $guard='professeur';
     protected $fillable = [
-        'nomProfesseur', 'prenomProfesseur','emailProfesseur','pswdProfesseur'
+        'numEmploye','nomProfesseur', 'prenomProfesseur','emailProfesseur','date_naissance_prof'
     ];
 
   
@@ -54,5 +54,10 @@ class Professeur extends Model
     public function depots()
     {
         return $this->hasMany(Depot::class);
+    }
+
+    public function matieres()
+    {
+        return $this->belongsToMany(Matiere::class);
     }
 }

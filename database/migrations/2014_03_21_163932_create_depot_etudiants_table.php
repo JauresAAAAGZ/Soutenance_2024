@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('depot_id')->references('idDepot')->on('depots')->onDelete('cascade');
 
             $table->unsignedBigInteger('etudiant_id')->nullable();
-            $table->foreign('etudiant_id')->references('matricule')->on('etudiants')->onDelete('cascade');
+            $table->foreign('etudiant_id')->references('id')->on('etudiants')->onDelete('cascade');
             $table->timestamps();
         });
     }

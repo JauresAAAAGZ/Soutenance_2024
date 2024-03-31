@@ -10,6 +10,7 @@ use App\Http\Controllers\NiveauController;
 use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\Admin;
+use App\Models\Filiere;
 use App\Models\Professeur;
 use Illuminate\Support\Facades\Route;
 
@@ -25,48 +26,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-/*--------------------------------------Etudiant Route------------------------------------*/
 
-
-/*Route::prefix('etudiant')->group(function(){
-
-
-    Route::get('/login', [EtudiantController::class, 'index'])->name('etudiant.login');
-
-    Route::post('/login/treatement', [EtudiantController::class, 'login'])->name('etudiant.login.treatment');
-
-    Route::get('/dashboard', [EtudiantController::class, 'dashboard'])->name('etudiant.dashboard')->middleware('etudiant');
-
-
-
-
-});*/
-
-
-
-/*--------------------------------------End Etudiant Route--------------------------------*/
-
-
-/*--------------------------------------Professeur Route------------------------------------*/
-
-
-/*Route::prefix('professeur')->group(function(){
-
-
-    Route::get('/login', [ProfesseurController::class, 'index'])->name('professeur.login');
-
-    Route::post('/login/treatement', [ProfesseurController::class, 'login'])->name('professeur.login.treatment');
-
-    Route::get('/dashboard', [ProfesseurController::class, 'dashboard'])->name('professeur.dashboard')->middleware('professeur');
-
-
-
-
-});*/
-
-
-
-/*--------------------------------------End Professeur Route--------------------------------*/
 
 
 Route::get('/', function () {
@@ -112,6 +72,14 @@ Route::get('/recontact', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+
+
+Route::resource('etudiants', EtudiantController::class);
+Route::resource('professeurs', ProfesseurController::class);
+Route::resource('filieres', FiliereController::class);
+Route::resource('admins', AdminController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

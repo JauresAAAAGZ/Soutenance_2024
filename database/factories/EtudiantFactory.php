@@ -24,11 +24,14 @@ class EtudiantFactory extends Factory
     public function definition(): array
     {
         return [
+            'matricule'=> 'ETU' . mt_rand(10000, 99999),
             'nomEtudiant' => fake()->name(),
             'prenomEtudiant' => fake()->name(),
             'emailEtudiant' => fake()->unique()->safeEmail(),
+            'date_naissance_etu' => $this->faker->dateTimeBetween('-30 years', '-18 years')->format('Y-m-d'),
+            'niveau_etude'=>'Licence',
             'email_verified_at' => now(),
-            'pswdEtudiant' => static::$password ??= Hash::make('password'),
+            
             'remember_token' => Str::random(10),
         ];
     }

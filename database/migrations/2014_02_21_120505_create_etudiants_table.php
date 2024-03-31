@@ -12,14 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('etudiants', function (Blueprint $table) {
-            $table->id('matricule');
+            $table->id();
+            $table->string('matricule')->unique();
             $table->string('nomEtudiant');
             $table->string('prenomEtudiant');
             $table->string('emailEtudiant')->unique();
+            $table->date('date_naissance_etu');
             $table->unsignedBigInteger('filiere_id')->nullable();
             $table->foreign('filiere_id')->references('idFiliere')->on('filieres')->onDelete('cascade');
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('pswdEtudiant');
+            $table->string('niveau_etude');
+            $table->timestamp('email_verified_at')->nullable();            
             $table->rememberToken();
             $table->timestamps();
         });

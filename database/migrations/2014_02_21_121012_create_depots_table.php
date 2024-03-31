@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('delai');
             $table->date('dateFermeture');
             $table->unsignedBigInteger('professeur_id')->nullable();
-            $table->foreign('professeur_id')->references('numEmploye')->on('professeurs')->onDelete('cascade');
+            $table->foreign('professeur_id')->references('id')->on('professeurs')->onDelete('cascade');
             $table->timestamps();
         });
     }

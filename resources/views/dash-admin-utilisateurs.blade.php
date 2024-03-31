@@ -62,11 +62,27 @@
 
                                     <div class="page-body">
                                         <div class="row">
+                                              <!-- card1 start -->
+                                              <div class="col-md-6 col-xl-3">
+                                                <div class="card widget-card-1">
+                                                    <div class="card-block-small">
+                                                        <a href=""><i class="icofont icofont-pie-chart bg-c-yellow card1-icon"></i></a>
+                                                        <span class="text-c-yellow f-w-600">Utilisateurs</span>
+                                                        <h4>+99</h4>
+                                                        <div>
+                                                            <span class="f-left m-t-10 text-muted">
+                                                                <i class="text-c-yellow f-16 icofont icofont-warning m-r-10"></i>Créer, Modifier, Sup...
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- card1 end -->
                                             <!-- card1 start -->
                                             <div class="col-md-6 col-xl-3">
                                                 <div class="card widget-card-1">
                                                     <div class="card-block-small">
-                                                        <a href=""><i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i></a>
+                                                        <a href={{route('etudiants.index')}}><i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i></a>
                                                         <span class="text-c-blue f-w-600">Etudiants</span>
                                                         <h4>+99</h4>
                                                         <div>

@@ -20,13 +20,13 @@ return new class extends Migration
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
 
             $table->unsignedBigInteger('etudiant_id')->nullable();
-            $table->foreign('etudiant_id')->references('matricule')->on('etudiants')->onDelete('cascade');
+            $table->foreign('etudiant_id')->references('id')->on('etudiants')->onDelete('cascade');
             
             $table->unsignedBigInteger('professeur_id')->nullable();
-            $table->foreign('professeur_id')->references('numEmploye')->on('professeurs')->onDelete('cascade');
+            $table->foreign('professeur_id')->references('id')->on('professeurs')->onDelete('cascade');
 
             $table->unsignedBigInteger('admin_id')->nullable();
-            $table->foreign('admin_id')->references('idAdmin')->on('admins')->onDelete('cascade');
+            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
             
             $table->string('password');
 

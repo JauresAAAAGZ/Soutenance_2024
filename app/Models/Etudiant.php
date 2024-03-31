@@ -22,10 +22,12 @@ class Etudiant extends Model
     protected $guard='etudiant';
     
     protected $fillable = [
+        'matricule',
         'nomEtudiant',
         'prenomEtudiant',
         'emailEtudiant',
-        'pswdEtudiant',
+        'date_naissance_etu',
+        'niveau_etude',
     ];
 
   
