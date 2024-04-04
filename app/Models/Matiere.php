@@ -9,7 +9,9 @@ class Matiere extends Model
 {
     use HasFactory;
 
-    protected $fillable=['intitule', 'duree'];
+
+    protected $fillable=['intitule', 'codeMatiere', 'duree'];
+
 
     public function professeurs()
     {

@@ -13,7 +13,15 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        try{
+            $admins = Admin::all();
+           
+            return view('admin.admins.index', compact('admins',))->with('message', 'Operation reussi');
+                   
+        }
+        catch(\Exception $e){
+            return view('admin.admins.index', compact('admins',))->with('error', 'Operation echoue!');
+        }
     }
 
     /**
@@ -21,7 +29,14 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        try{
+            $admins=Admin::all();
+           
+            return view('admin.admins.create', compact("admins"));
+        }
+        catch(\Exception $e){
+           return redirect(route('admins.index'))->with('error', 'Operation echoue!');
+        }
     }
 
     /**
@@ -29,7 +44,28 @@ class AdminController extends Controller
      */
     public function store(StoreAdminRequest $request)
     {
-        //
+        try{
+            $admins = new Admin();
+           /* $validatedData = $request->validate([
+                'matricule'=> 'required|unique:admins|min:3|max:100',
+                'date_naissance_etu' => 'date',
+                'nomadmin' => 'required|min:3|max:100',
+                'prenomadmin' => 'required|min:3|max:100',
+                 
+            ]);*/
+            //$admins->idadmin = $request->idadmin;
+
+            $admins->nomAdmin = $request->nomAdmin;
+            
+            $admins->emailAdmin = $request->emailAdmin;
+            
+            $admins->save();
+    
+            return redirect()->route('admins.index')->with('message', 'L\' admin a été creé avec succès');
+        }
+        catch(\Exception $e){
+            return redirect()->route('admins.index')->with('error', 'L\' admin n\'a pas été creé');
+        }
     }
 
     /**
@@ -37,7 +73,13 @@ class AdminController extends Controller
      */
     public function show(Admin $admin)
     {
-        //
+        try{
+       
+            return view('admin.admins.show', compact('admin'));
+        }
+        catch(\Exception $e){
+           return redirect(route('admins.index'))->with('error', 'Operation echoue!');
+        }
     }
 
     /**
@@ -45,7 +87,14 @@ class AdminController extends Controller
      */
     public function edit(Admin $admin)
     {
-        //
+        try{
+            
+           
+            return view('admin.admins.edit', compact('admin'));
+        }
+        catch(\Exception $e){
+           return redirect(route('admins.index'))->with('error', 'Operation echoue!');
+        }
     }
 
     /**
@@ -53,7 +102,26 @@ class AdminController extends Controller
      */
     public function update(UpdateAdminRequest $request, Admin $admin)
     {
-        //
+        try{
+            $admins = Admin::find($admin->id);
+            /*$validatedData = $request->validate([
+                'matricule'=> 'required|min:3|max:100',
+                'date_naissance_etu' => 'date',
+                'nomadmin' => 'required|min:3|max:100',
+                'prenomadmin' => 'required|min:3|max:100',
+                 
+            ]);*/
+            $admins->nomAdmin = $request->nomAdmin;
+            
+            $admins->emailAdmin = $request->emailAdmin;
+
+            $admins->save();
+    
+            return redirect()->route('admins.index', $admins)->with('message1', 'L\' admin a été modifier avec succes');
+        }
+        catch(\Exception $e){
+           return redirect(route('admins.index'))->with('error', 'Operation echoue!'.$e);
+        }
     }
 
     /**
@@ -61,6 +129,14 @@ class AdminController extends Controller
      */
     public function destroy(Admin $admin)
     {
-        //
+        try{         
+           
+            $admin->delete();
+
+            return redirect()->route('admins.index')->with('danger', 'La admin a été supprimée avec succès.');
+    }
+    catch(\Exception $e){
+       return redirect(route('admins.index'))->with('error', 'Operation echoue!');
+    }
     }
 }

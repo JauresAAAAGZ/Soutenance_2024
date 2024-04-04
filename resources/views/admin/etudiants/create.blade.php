@@ -91,11 +91,7 @@
                     
                 </div>
                 
-                <div class="col mb-3">
-                    <label for="Niveau_Etude" class="form-label">Niveau d'étude</label>
-                    <input type="text" class="form-control" id="Niveau_Etude" name="niveau_etude" required>
-                   
-                </div>
+               
                 <div class="col mb-3">
                     <label for="Date_Naissance" class="form-label">Date de naissance</label>
                     <input type="date" class="form-control" id="Date_Naissance" name="date_naissance_etu" required>
@@ -110,7 +106,17 @@
                     <select name="filiere_id" id="filiere" class="form-control">
                         <option disabled selected value> Choisir une filière</option>
                         @foreach ($filieres as $filiere)
-                        <option value="{{$filiere->idFiliere}}" >{{$filiere->nomFiliere}}</option>
+                        <option value="{{$filiere->id}}" >{{$filiere->nomFiliere}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col mb-3">
+                    <label for="niveau" class="form-label">Niveau</label>
+                    <select name="niveau_id" id="niveau" class="form-control">
+                        <option disabled selected value> Choisir un Niveau</option>
+                        @foreach ($niveaux as $niveau)
+                        <option value="{{$niveau->id}}" >{{$niveau->diplome_niveau}}</option>
                         @endforeach
                     </select>
                 </div>

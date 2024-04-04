@@ -92,11 +92,7 @@
                             
                         </div>
                         
-                        <div class="col mb-3">
-                            <label for="Niveau_Etude" class="form-label">Niveau d'étude</label>
-                            <input type="text" class="form-control" id="Niveau_Etude" name="niveau_etude" required value="{{ $etudiant->niveau_etude }}">
-                           
-                        </div>
+                        
                         <div class="col mb-3">
                             <label for="Date_Naissance" class="form-label">Date de naissance</label>
                             <input type="date" class="form-control" id="Date_Naissance" name="date_naissance_etu" required value="{{ $etudiant->date_naissance_etu }}">
@@ -120,6 +116,23 @@
                             
                            
                         </select>
+
+                        <label for="niveau" class="form-label">Niveau</label>
+                        <select name="niveau_id" id="niveau" class="form-control">
+                            
+                            @foreach ($niveaux as $niveau)
+                            <option value="{{$niveau->id}}"
+                            @if ($niveau->id == $etudiant->niveau_id)
+                            selected
+                            @endif
+                            
+                            >{{$niveau->diplome_niveau}}</option>
+                            @endforeach
+                            
+                           
+                        </select>
+
+
                     </div>
                     
                       

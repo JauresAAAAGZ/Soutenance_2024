@@ -1,64 +1,112 @@
 @extends('layout.app')
 
+<body>
+
 @section('content')
 
 
-   <!-- Sidebar -->
-    @if (auth()->user()->isAdmin())
-                @include('partial.sidebar')
-            @elseif (auth()->user()->isDE())
-                @include('partial.sidebar_DE')
-            @elseif (auth()->user()->isCoordonateur())
-                @include('partial.sidebar_Coordonateur')
-            @elseif (auth()->user()->isADE())
-                @include('partial.sidebar_Assistant_Directeur_des_Etudes')
-            @endif
-   
-   <!-- End of Sidebar -->
+   <!-- Pre-loader start -->
+   <div class="theme-loader">
+    <div class="ball-scale">
+        <div class='contain'>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
 
-   <!-- Content Wrapper -->
-   <div id="content-wrapper" class="d-flex flex-column">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Pre-loader end -->
+<div id="pcoded" class="pcoded">
+    <div class="pcoded-overlay-box"></div>
+    <div class="pcoded-container navbar-wrapper">
 
-       <!-- Main Content -->
-       <div id="content">
+        
+            @include("partial.headbar")
+        <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            @include("partial.sidebar")
+    
+                <div class="pcoded-content">
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
 
-           <!-- Topbar -->
-           @include('partial.header')
-           <!-- End of Topbar -->
-
-           <!-- Begin Page Content -->
-           <h1 class="mb-0">Créer Filiere</h1>
+                                <div class="page-body">
+           
+           <h1 class="mb-0">Créer filiere</h1>
            <hr />
+
           <form action="{{route('filieres.store')}}" method="post" id="addfil">
             @csrf
             <div class="row">
+                
                 <div class="col mb-3">
-                    <label for="Intitule_Filiere" class="form-label">Intitule_Filiere</label>
-                    <input type="text" class="form-control" id="Intitule_Filiere" name="Intitule_Filiere" required>
-                    @error('Intitule_Filiere')
-                    <p class="text-red-500">{{ $message }}</p>
-                   @enderror
-                  </div>
-
+                    <label for="nomFiliere" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="nomFiliere" name="nomFiliere" required>
+                  
+                </div>
                 <div class="col mb-3">
-                    <label for="Niveau_Filiere" class="form-label">Niveau_Filiere</label>
-                    <input type="text" class="form-control" id="Niveau_Filiere" name="Niveau_Filiere" required>
-                    @error('Niveau_Filiere')
-                    <p class="text-red-500">{{ $message }}</p>
-                   @enderror
-                  </div>
+                    <label for="code" class="form-label">Code</label>
+                    <input type="text" class="form-control" id="code" name="codeFiliere" required>
+                    
+                </div>
+               
+                
             </div>
-            
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="niveau" class="form-label">Niveau</label>
+                    <select name="niveaux[]" id="niveau" class="form-control" multiple>
+                        <option disabled selected value> Choisir les Niveaux</option>
+                        @foreach ($niveaux as $niveau)
+                        <option value="{{$niveau->id}}" >{{$niveau->diplome_niveau}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                
+              
+
+               
+            </div>
+          
+            <button id="filadd" type="submit" class="btn btn-warning">Créer filiere</button>
            
-            <button id="filadd" type="submit" class="btn btn-primary">Créer la filiere</button>
         </form>
         </div>
         <!-- /.card-body -->
 
       </div>
       <!-- /.card -->
-
-    </section>
+    </div>
+    
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -82,3 +130,7 @@
 </script>
 
 @endsection
+
+
+    
+</body>

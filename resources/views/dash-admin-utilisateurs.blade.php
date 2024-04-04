@@ -98,7 +98,7 @@
                                             <div class="col-md-6 col-xl-3">
                                                 <div class="card widget-card-1">
                                                     <div class="card-block-small">
-                                                        <a href=""><i class="icofont icofont-ui-home bg-c-pink card1-icon"></i></a>
+                                                        <a href={{route('professeurs.index')}}><i class="icofont icofont-ui-home bg-c-pink card1-icon"></i></a>
                                                         <span class="text-c-pink f-w-600">Professeurs</span>
                                                         <h4>+5</h4>
                                                         <div>
@@ -114,7 +114,7 @@
                                             <div class="col-md-6 col-xl-3">
                                                 <div class="card widget-card-1">
                                                     <div class="card-block-small">
-                                                        <a href=""><i class="icofont icofont-warning-alt bg-c-green card1-icon"></i></a>
+                                                        <a href={{route('admins.index')}}><i class="icofont icofont-warning-alt bg-c-green card1-icon"></i></a>
                                                         <span class="text-c-green f-w-600">Admins</span>
                                                         <h4>5</h4>
                                                         <div>

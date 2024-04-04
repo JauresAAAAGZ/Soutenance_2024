@@ -1,32 +1,65 @@
 @extends('layout.app')
 
+<body>
 
 @section('content')
 
+
+   <!-- Pre-loader start -->
+   <div class="theme-loader">
+    <div class="ball-scale">
+        <div class='contain'>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Pre-loader end -->
+<div id="pcoded" class="pcoded">
+    <div class="pcoded-overlay-box"></div>
+    <div class="pcoded-container navbar-wrapper">
+
+        
+            @include("partial.headbar")
+        <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            @include("partial.sidebar")
     
+                <div class="pcoded-content">
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
 
-        <!-- Sidebar -->
-         @if (auth()->user()->isAdmin())
-                @include('partial.sidebar')
-            @elseif (auth()->user()->isDE())
-                @include('partial.sidebar_DE')
-            @elseif (auth()->user()->isCoordonateur())
-                @include('partial.sidebar_Coordonateur')
-            @elseif (auth()->user()->isADE())
-                @include('partial.sidebar_Assistant_Directeur_des_Etudes')
-            @endif
-   
-        <!-- End of Sidebar -->
-
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Topbar -->
-                @include('partial.header')
-                <!-- End of Topbar -->
+                                <div class="page-body">
 
                 <!-- Begin Page Content -->
                 <h1 class="mb-0">Editer Professeur</h1>
@@ -36,42 +69,71 @@
                     @method('PUT')
                     <div class="row">
                         <div class="col mb-3">
-                            <label class="form-label">Nom_Professeur</label>
-                            <input type="text" name="Nom_Professeur" class="form-control" placeholder="Nom_Professeur" value="{{ $professeur->Nom_Professeur }}">
-                            @error('Nom_Professeur')
-                            <p class="text-red-500">{{ $message }}</p>
-                           @enderror
+                            <label for="numEmploye" class="form-label">Numero Employé</label>
+                            <input type="text" class="form-control" id="numEmploye" name="numEmploye" required value="{{ $professeur->numEmploye }}">
+                           
+                        </div>
+        
+                        <div class="col mb-3">
+                            <label for="Nom" class="form-label">Nom</label>
+                            <input type="text" class="form-control" id="Nom" name="nomProfesseur" required value="{{ $professeur->nomProfesseur }}">
+                          
                         </div>
                         <div class="col mb-3">
-                            <label class="form-label">Prenom_Professeur</label>
-                            <input type="text" name="Prenom_Professeur" class="form-control" placeholder="Prenom_Professeur" value="{{ $professeur->Prenom_Professeur }}" >
-                            @error('Prenom_Professeur')
-                            <p class="text-red-500">{{ $message }}</p>
-                           @enderror
+                            <label for="Prenom" class="form-label">Prenom</label>
+                            <input type="text" class="form-control" id="Prenom" name="prenomProfesseur" required value="{{ $professeur->prenomProfesseur }}">
+                            
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mb-3">
-                            <label class="form-label">Grade</label>
-                            <input type="text" name="Grade" class="form-control" placeholder="Grade" value="{{ $professeur->Grade }}">
-                            @error('Grade')
-                            <p class="text-red-500">{{ $message }}</p>
-                           @enderror
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="emailProfesseur" required value="{{ $professeur->emailProfesseur }}">
+                            
                         </div>
                         
+                        
+                        <div class="col mb-3">
+                            <label for="Date_Naissance" class="form-label">Date de naissance</label>
+                            <input type="date" class="form-control" id="Date_Naissance" name="date_naissance_prof" required value="{{ $professeur->date_naissance_prof }}">
+                           
+                        </div>
+        
+                       
+                    </div>
+                    <div class="mb-3">
+                        <label for="matiere" class="form-label">matiere</label>
+                            <select name="matieres[]" id="matiere" class="form-control" multiple>
+                                <option disabled selected value> Choisir les matieres</option>
+
+                                     
+
+                                    @foreach ($matieres as $matiere)
+                                    <option value="{{$matiere->id}}"  @if ($professeur->matieres->contains($matiere->id))
+                                        selected
+                                    @endif>{{$matiere->intitule}}</option>
+                                    @endforeach
+                                
+                             
+                            </select>
+
+
+                    </div>
+                    
+                      
                     </div>
                     <div class="row">
                         <div class="d-grid">
-                            <button class="btn btn-warning" type="submit" id="profedit">Modifier</button>
+                            <button id="profedit" class="btn btn-warning" type="submit">Modifier</button>
                         </div>
                     </div>
+                   
                 </form>
             <!-- End of Main Content -->
 
-           @include('partial.footer')
+         
             </div>
         </div>
-
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 var formulaire = document.getElementById('editprof');
@@ -91,5 +153,7 @@
             
         </script>
     
-    
 @endsection
+
+    
+</body>

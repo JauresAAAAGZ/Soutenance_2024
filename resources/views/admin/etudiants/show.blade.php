@@ -72,16 +72,19 @@
                         <li>Matricule : {{$etudiant->matricule}}</li>
                         <li>Nom : {{$etudiant->nomEtudiant}}</li>
                         <li>Prenom : {{$etudiant->prenomEtudiant}}</li>
-                        <li>Niveau d'étude : {{$etudiant->niveau_etude}}</li>
-                        <li>Date de naissance : {{$etudiant->date_naissance_etu}}</li>
-                        
-
+                        <li>Niveau d'étude : @if ($etudiant->niveau)
+                            {{$etudiant->niveau->diplome_niveau }}
+                            @endif</li>
                         <li>Filiere :  @if ($etudiant->filiere)
                             {{$etudiant->filiere->intitule }}
                             @endif
                           
                         </li>
 
+                        <li>Date de naissance : {{$etudiant->date_naissance_etu}}</li>
+                        
+
+                        
                       
 
                     </ul>

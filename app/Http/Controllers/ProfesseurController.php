@@ -6,6 +6,7 @@ use App\Models\Professeur;
 use App\Http\Requests\StoreProfesseurRequest;
 use App\Http\Requests\UpdateProfesseurRequest;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Matiere;
 
 class ProfesseurController extends Controller
 {
@@ -14,31 +15,34 @@ class ProfesseurController extends Controller
      */
     public function index()
     {
-         return view('login-ens');
+        try{
+            $professeurs = Professeur::all();
+            
+           
+            return view('admin.professeurs.index', compact('professeurs'))->with('message', 'Operation reussi');
+                   
+        }
+        catch(\Exception $e){
+            return view('admin.professeurs.index', compact('professeurs',))->with('error', 'Operation echoue!');
+        }
     }
 
-    /**
-     * Display a dashboard of the resource.
-     */
-    public function dashboard(Professeur $professeur)
-    {
-        return view('dash-ens');
-    }
-
-     /**
-     * treat the login request of the resource.
-     */
-        
-    public function login(LoginRequest $request){
-        dd($request->all);
-    }
+   
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        
+                  
+            $professeurs=Professeur::all();
+            $matieres=Matiere::all();
+    
+    
+    
+            return view('admin.professeurs.create', compact("professeurs", "matieres"));
+        
     }
 
     /**
@@ -46,7 +50,34 @@ class ProfesseurController extends Controller
      */
     public function store(StoreProfesseurRequest $request)
     {
-        //
+        try{
+            $professeurs = new Professeur();
+           /* $validatedData = $request->validate([
+                'matricule'=> 'required|unique:professeurs|min:3|max:100',
+                'date_naissance_etu' => 'date',
+                'nomprofesseur' => 'required|min:3|max:100',
+                'prenomprofesseur' => 'required|min:3|max:100',
+                 
+            ]);*/
+            //$professeurs->idprofesseur = $request->idprofesseur;
+            $professeurs->numEmploye = $request->numEmploye;
+            
+            $professeurs->nomProfesseur = $request->nomProfesseur;
+            
+            $professeurs->prenomProfesseur = $request->prenomProfesseur;
+            $professeurs->emailProfesseur = $request->emailProfesseur;
+            $professeurs->date_naissance_prof = $request->date_naissance_prof;
+           
+            
+          
+            $professeurs->save();
+            $professeurs->matieres()->sync($request->matieres);
+    
+            return redirect()->route('professeurs.index')->with('message', 'Le professeur a été creé avec succès');
+        }
+        catch(\Exception $e){
+            return redirect()->route('professeurs.index')->with('error', 'Le professeur n\'a pas été creé'.$e);
+        }
     }
 
     /**
@@ -54,7 +85,14 @@ class ProfesseurController extends Controller
      */
     public function show(Professeur $professeur)
     {
-        //
+        try{
+           
+            
+            return view('admin.professeurs.show', compact('professeur'));
+        }
+        catch(\Exception $e){
+           return redirect(route('professeurs.index'))->with('error', 'Operation echoue!');
+        }
     }
 
     /**
@@ -62,7 +100,14 @@ class ProfesseurController extends Controller
      */
     public function edit(Professeur $professeur)
     {
-        //
+        try{
+            $matieres=Matiere::all();
+           
+            return view('admin.professeurs.edit', compact('professeur','matieres'));
+        }
+        catch(\Exception $e){
+           return redirect(route('professeurs.index'))->with('error', 'Operation echoue!'.$e);
+        }
     }
 
     /**
@@ -70,7 +115,34 @@ class ProfesseurController extends Controller
      */
     public function update(UpdateProfesseurRequest $request, Professeur $professeur)
     {
-        //
+        try{
+            $professeurs = Professeur::find($professeur->id);
+            /*$validatedData = $request->validate([
+                'matricule'=> 'required|min:3|max:100',
+                'date_naissance_etu' => 'date',
+                'nomprofesseur' => 'required|min:3|max:100',
+                'prenomprofesseur' => 'required|min:3|max:100',
+                 
+            ]);*/
+           
+            $professeurs->numEmploye = $request->numEmploye;
+            
+            $professeurs->nomProfesseur = $request->nomProfesseur;
+            
+            $professeurs->prenomProfesseur = $request->prenomProfesseur;
+            $professeurs->emailProfesseur = $request->emailProfesseur;
+            $professeurs->date_naissance_prof = $request->date_naissance_prof;
+           
+            
+          
+            $professeurs->save();
+            $professeurs->matieres()->sync($request->matieres);
+    
+            return redirect()->route('professeurs.index', $professeurs)->with('message1', 'Le professeur a été modifier avec succes');
+        }
+        catch(\Exception $e){
+           return redirect(route('professeurs.index'))->with('error', 'Operation echoue!');
+        }
     }
 
     /**
@@ -78,6 +150,14 @@ class ProfesseurController extends Controller
      */
     public function destroy(Professeur $professeur)
     {
-        //
+        try{         
+           
+            $professeur->delete();
+
+            return redirect()->route('professeurs.index')->with('danger', 'Le professeur a été supprimée avec succès.');
+    }
+    catch(\Exception $e){
+       return redirect(route('professeurs.index'))->with('error', 'Operation echoue!');
+    }
     }
 }

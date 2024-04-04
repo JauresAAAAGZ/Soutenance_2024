@@ -9,10 +9,15 @@ class Niveau extends Model
 {
     use HasFactory;
 
-    protected $fillable=['diplome_niveau'];
+    protected $fillable=['diplome_niveau','codeNiveau'];
 
     public function filieres()
     {
         return $this->belongsToMany(Filiere::class);
+    }
+
+    public function etudiants()
+    {
+        return $this->hasMany(Etudiant::class);
     }
 }

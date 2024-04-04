@@ -82,7 +82,7 @@
                                             <div class="col-md-6 col-xl-3">
                                                 <div class="card widget-card-1">
                                                     <div class="card-block-small">
-                                                        <a href=""><i class="icofont icofont-ui-home bg-c-pink card1-icon"></i></a>
+                                                        <a href={{route('filieres.index')}}><i class="icofont icofont-ui-home bg-c-pink card1-icon"></i></a>
                                                         <span class="text-c-pink f-w-600">Filieres</span>
                                                         <h4>+5</h4>
                                                         <div>
@@ -98,7 +98,7 @@
                                             <div class="col-md-6 col-xl-3">
                                                 <div class="card widget-card-1">
                                                     <div class="card-block-small">
-                                                        <a href=""><i class="icofont icofont-warning-alt bg-c-green card1-icon"></i></a>
+                                                        <a href={{route('niveaux.index')}}><i class="icofont icofont-warning-alt bg-c-green card1-icon"></i></a>
                                                         <span class="text-c-green f-w-600">Niveaux</span>
                                                         <h4>5</h4>
                                                         <div>
@@ -114,7 +114,7 @@
                                              <div class="col-md-6 col-xl-3">
                                                 <div class="card widget-card-1">
                                                     <div class="card-block-small">
-                                                        <a href=""><i class="icofont icofont-warning-alt bg-c-yellow card1-icon"></i></a>
+                                                        <a href={{route('matieres.index')}}><i class="icofont icofont-warning-alt bg-c-yellow card1-icon"></i></a>
                                                         <span class="text-c-yellow f-w-600">Matières</span>
                                                         <h4>5</h4>
                                                         <div>

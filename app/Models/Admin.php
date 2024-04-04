@@ -18,7 +18,7 @@ class Admin extends Model
      */
     protected $guard='admin';
     protected $fillable = [
-        'nomAdmin','email','pswdAdmin'
+        'nomAdmin','emailAdmin',
     ];
 
         /**

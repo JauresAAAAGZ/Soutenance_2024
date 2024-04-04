@@ -1,59 +1,122 @@
 @extends('layout.app')
 
+<body>
 
 @section('content')
 
+
+   <!-- Pre-loader start -->
+   <div class="theme-loader">
+    <div class="ball-scale">
+        <div class='contain'>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Pre-loader end -->
+<div id="pcoded" class="pcoded">
+    <div class="pcoded-overlay-box"></div>
+    <div class="pcoded-container navbar-wrapper">
+
+        
+            @include("partial.headbar")
+        <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            @include("partial.sidebar")
     
+                <div class="pcoded-content">
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
 
-        <!-- Sidebar -->
-         @if (auth()->user()->isAdmin())
-                @include('partial.sidebar')
-            @elseif (auth()->user()->isDE())
-                @include('partial.sidebar_DE')
-            @elseif (auth()->user()->isCoordonateur())
-                @include('partial.sidebar_Coordonateur')
-            @elseif (auth()->user()->isADE())
-                @include('partial.sidebar_Assistant_Directeur_des_Etudes')
-            @endif
-   
-        <!-- End of Sidebar -->
-
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Topbar -->
-                @include('partial.header')
-                <!-- End of Topbar -->
+                                <div class="page-body">
 
                 <!-- Begin Page Content -->
-                <h1 class="mb-0">Editer Filiere</h1>
+                <h1 class="mb-0">Editer filiere</h1>
                 <hr />
                 <form action="{{ route('filieres.update', $filiere) }}" method="post" id="editfil">
                     @csrf
                     @method('PUT')
                     <div class="row">
+                
                         <div class="col mb-3">
-                            <label class="form-label">Intitule_Filiere</label>
-                            <input type="text" name="Intitule_Filiere" class="form-control" placeholder="Intitule_Filiere" value="{{ $filiere->Intitule_Filiere }}">
+                            <label for="nomFiliere" class="form-label">Nom</label>
+                            <input type="text" class="form-control" id="nomFiliere" name="nomFiliere" value="{{$filiere->nomFiliere}}" required>
+                          
                         </div>
                         <div class="col mb-3">
-                            <label class="form-label">Niveau_Filiere</label>
-                            <input type="text" name="Niveau_Filiere" class="form-control" placeholder="Niveau_Filiere" value="{{ $filiere->Niveau_Filiere }}" >
+                            <label for="code" class="form-label">Code</label>
+                            <input type="text" class="form-control" id="code" name="codeFiliere" value="{{$filiere->codeFiliere}}" required>
+                            
                         </div>
+                       
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="niveau" class="form-label">Niveau</label>
+                            <select name="niveaux[]" id="niveau" class="form-control" multiple>
+                                <option disabled selected value> Choisir les Niveaux</option>
+
+                                     
+
+                                    @foreach ($niveaux as $niveau)
+                                    <option value="{{$niveau->id}}"  @if ($filiere->niveaux->contains($niveau->id))
+                                        selected
+                                    @endif>{{$niveau->diplome_niveau}}</option>
+                                    @endforeach
+                                
+                             
+                            </select>
+                        </div>
+                        
+                      
+        
+                       
                     </div>
                     
+                      
+                    </div>
                     <div class="row">
                         <div class="d-grid">
                             <button id="filedit" class="btn btn-warning" type="submit">Modifier</button>
                         </div>
                     </div>
+                   
                 </form>
             <!-- End of Main Content -->
 
-           @include('partial.footer')
+         
             </div>
         </div>
         <script>
@@ -75,5 +138,7 @@
             
         </script>
     
-    
 @endsection
+
+    
+</body>

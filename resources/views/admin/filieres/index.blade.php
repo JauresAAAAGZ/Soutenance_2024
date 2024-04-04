@@ -1,184 +1,221 @@
-@extends('layout.app')
+@extends("layout.app")
 
-@section('content')
-<style>
 
-    td,th{
+  <body>
 
-       white-space: nowrap;
-    }
-</style>
 
-        <!-- Sidebar -->
-         @if (auth()->user()->isAdmin())
-                @include('partial.sidebar')
-            @elseif (auth()->user()->isDE())
-                @include('partial.sidebar_DE')
-            @elseif (auth()->user()->isCoordonateur())
-                @include('partial.sidebar_Coordonateur')
-            @elseif (auth()->user()->isADE())
-                @include('partial.sidebar_Assistant_Directeur_des_Etudes')
-            @endif
-   
-        <!-- End of Sidebar -->
+    @section("content")
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="ball-scale">
+            <div class='contain'>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
 
-            <!-- Main Content -->
-            <div id="content">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
 
-                <!-- Topbar -->
-                @include('partial.header')
-                <!-- End of Topbar -->
+            
+                @include("partial.headbar")
+            <div class="pcoded-main-container">
+            <div class="pcoded-wrapper">
+                @include("partial.sidebar")
+        
+                    <div class="pcoded-content">
+                        <div class="pcoded-inner-content">
+                            <div class="main-body">
+                                <div class="page-wrapper">
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-                    
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Les Filieres</h1>
-                    
-                    <!-- DataTales -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3 col-12">
-                            <h6 class="m-0 font-weight-bold text-primary col-6">Filieres</h6>
-                            <a href="{{ route('filieres.create') }}" class="btn btn-info">Ajouter</a>
-                        </div>
-                        @if(session('message'))
-                        <div id="success-message" class="alert alert-success">
-                            {{session('message')}}
-                        </div>
-                        @endif
-                        @if(session('danger'))
-                        <div id="success-message" class="alert alert-danger">
-                            {{session('danger')}}
-                        </div>
-                        @endif
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <div class="page-body">
 
-                                <thead>
-                                        <tr>
-                                            <th>Intitule_Filiere</th>
-                                            <th>Niveau_Filiere</th>
-                                           
-                                            <th>Opérations</th>
-                
-                                        </tr>
-                                    </thead>
-                                    <!--<tfoot>
-                                        <tr>
-                                            <th>Jury</th>
-                                            <th>Salle</th>
-                                            <th>Date Et Heure</th>
-                                            <th>Niveau_Filiere et Prénoms</th>
-                                            <th>Thème</th>
-                                            <th>Directeur</th>
-                                            <th>Président</th>
-                                            <th>Examinateur</th>
-                                            <th>Rapporteur</th>
-                                        </tr>
-                                    </tfoot>-->
-                                    <tbody>
-                                        @foreach($filieres as $filiere)
-                                            <tr>
-                                                <td>
-                                                {{ $filiere->Intitule_Filiere }}
-                                                </td>
-                                                <td>
-                                                    {{ $filiere->Niveau_Filiere }}
-                                                </td>
+                                        @if(session('message'))
+                                        <div id="success-message" class="alert alert-success">
+                                            {{session('message')}}
+                                        </div>
+                                        @endif
+                                        @if(session('message1'))
+                                        <div id="success-message" class="alert alert-success">
+                                            {{session('message1')}}
+                                        </div>
+                                        @endif
+                                        @if(session('danger'))
+                                        <div id="success-message" class="alert alert-danger">
+                                            {{session('danger')}}
+                                        </div>
+                                        @endif
+                                        @if(session('error'))
+                                        <div id="success-message" class="alert alert-danger">
+                                            {{session('error')}}
+                                        </div>
+                                        @endif
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5>Liste des filieres</h5>
+                                                <a href="{{ route('filieres.create') }}" class="btn btn-info">Ajouter</a>
+
+                                                <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
+                                            </div>
+
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Filiere N°</th>
+                                                        <th>Nom</th>
+                                                        <th>Code</th>
+                                                        <th>Niveaux</th>
+                                                                                                               
+                                                        <th>Opérations</th>
+                                                    </tr>
+                                                </thead>
                                               
-                                                <td>
-                                                    <a href="{{ route('filieres.show', $filiere) }}" class="btn btn-info">Voir</a>
-                                                    <a href="{{ route('filieres.edit', $filiere) }}" class="btn btn-primary">Modifier</a>
-                                                    <form action="{{ route('filieres.destroy', $filiere) }}" method="POST" style="display: inline;" id="supprimer-filiere-{{ $filiere->id }}">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" onclick="confirmerSuppression({{ $filiere->id }})" class="btn btn-danger">Supprimer</button>
-                                                    </form>
-                                                </td>
-                        
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                                                <tbody>
+                                                    @foreach($filieres as $filiere)
+                                                        <tr>
+                                                            <td>
+                                                            {{ $filiere->id }}
+                                                            </td>
+                                                            
+                                                            <td>
+                                                                {{ $filiere->nomFiliere }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $filiere->codeFiliere }}
+                                                            </td>
+                                                                                                            
+                                                            <td>
+                                                                @foreach($filiere->niveaux as $niveau)
+                                                                    {{ $niveau->diplome_niveau}} 
+                                                                @endforeach
+                                                            </td>
+                                               
+                                                           
+                                                            <td>
+                                                                <a href={{route('filieres.show', $filiere)}} class="btn btn-info">Voir</a>
+                                                                <a href={{route('filieres.edit', $filiere)}} class="btn btn-primary">Modifier</a>
+                                                                <form action={{route('filieres.destroy', $filiere)}} method="POST" style="display: inline;" id="supprimer-filiere-{{ $filiere->id }}">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="button" onclick="confirmerSuppression({{ $filiere->id }})" class="btn btn-danger">Supprimer</button>
+                                                                </form>
+                                                            </td>
+                                    
+                                                        </tr>
 
-                </div>
-                <!-- /.container-fluid -->
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                            
+                                        </div>
+                                
+                                           
+                                    </div>
+                                            
+                                           
+                                                               
 
-            </div>
-            <!-- End of Main Content -->
-
-           @include('partial.footer')
-        </div>
-        <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="confirmationModalLabel">Confirmation de suppression</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                      <div class="modal-body" style="color:red;">
-                        Êtes-vous sûr de vouloir supprimer ce cette filiere ? TOUS LES ELEVES DE LA FILIERE SERONT SUPPRIMES AVEC CETTE ACTION !!!
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                        <button type="button" class="btn btn-danger" onclick="supprimerFiliere()">Supprimer</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var successMessage = document.getElementById('success-message');
         
-                if (successMessage) {
-                    // Set the timeout in milliseconds (e.g., 5000ms = 5 seconds)
-                    var timeout = 3000;
-        
-                    // Automatically dismiss the success message after the timeout
-                    setTimeout(function () {
-                        successMessage.style.display = 'none'; // Hide the message
-                    }, timeout);
-                }
-            });
-        </script>
+    @endsection
+</body>
+
+<!-- Modal de confirmation de suppression -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationModalLabel">Confirmation de suppression</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Êtes-vous sûr de vouloir supprimer cette filiere ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger" onclick="supprimerfiliere()">Supprimer</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
-   function confirmerSuppression(filiereId) {
-    // Verification que l'ID de l'étudiant est correct
-    var filiereId = parseInt(filiereId);
+    document.addEventListener('DOMContentLoaded', function () {
+        var successMessage = document.getElementById('success-message');
 
-    if (isNaN(filiereId)) {
-        return;
-    }
+        if (successMessage) {
+            // Set the timeout in milliseconds (e.g., 5000ms = 5 seconds)
+            var timeout = 3000;
 
-    // Mis à jour de l'attribut data-id de la boîte de dialogue de confirmation avec l'ID de l'étudiant
-    $('#confirmationModal').attr('data-id', filiereId);
-
-    // Affichage de la boîte de dialogue de confirmation
-    $('#confirmationModal').modal('show');
-}
-
-function supprimerFiliere() {
-    // Récupération l'ID de l'étudiant à partir de l'attribut data-id de la boîte de dialogue
-    var filiereId = $('#confirmationModal').attr('data-id');
-
-    // Fermez la boîte de dialogue de confirmation
-    $('#confirmationModal').modal('hide');
-
-    // Obtenez le formulaire de suppression correspondant à l'ID de l'étudiant et soumettez-le
-    var form = document.querySelector('form#supprimer-filiere-' + filiereId);
-    if (form) {
-        form.submit();
-    }
-}
+            // Automatically dismiss the success message after the timeout
+            setTimeout(function () {
+                successMessage.style.display = 'none'; // Hide the message
+            }, timeout);
+        }
+    });
 </script>
-@endsection
+<script>
+function confirmerSuppression(filiereId) {
+// Verification que l'ID de l'étudiant est correct
+var filiereId = parseInt(filiereId);
+
+if (isNaN(filiereId)) {
+return;
+}
+
+// Mis à jour de l'attribut data-id de la boîte de dialogue de confirmation avec l'ID de l'étudiant
+$('#confirmationModal').attr('data-id', filiereId);
+
+// Affichage de la boîte de dialogue de confirmation
+$('#confirmationModal').modal('show');
+}
+
+function supprimerfiliere() {
+// Récupération l'ID de l'étudiant à partir de l'attribut data-id de la boîte de dialogue
+var filiereId = $('#confirmationModal').attr('data-id');
+
+// Fermez la boîte de dialogue de confirmation
+$('#confirmationModal').modal('hide');
+
+// Obtenez le formulaire de suppression correspondant à l'ID de l'étudiant et soumettez-le
+var form = document.querySelector('form#supprimer-filiere-' + filiereId);
+if (form) {
+form.submit();
+}
+}
+
+</script>

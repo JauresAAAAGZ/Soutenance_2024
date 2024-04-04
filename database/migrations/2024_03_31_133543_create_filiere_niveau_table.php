@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('filiere_niveaus', function (Blueprint $table) {
+        Schema::create('filiere_niveau', function (Blueprint $table) {
             $table->unsignedBigInteger('filiere_id')->nullable();
-            $table->foreign('filiere_id')->references('idFiliere')->on('filieres')->onDelete('cascade');
+            $table->foreign('filiere_id')->references('id')->on('filieres')->onDelete('cascade');
 
 
             $table->unsignedBigInteger('niveau_id')->nullable();
-            $table->foreign('niveau_id')->references('idNiveau')->on('niveaux')->onDelete('cascade');
+            $table->foreign('niveau_id')->references('id')->on('niveaux')->onDelete('cascade');
         });
     }
 

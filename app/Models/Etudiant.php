@@ -55,6 +55,10 @@ class Etudiant extends Model
     {
         return $this->belongsTo(Filiere::class);
     }
+    public function niveau()
+    {
+        return $this->belongsTo(Niveau::class);
+    }
 
     public function depots()
     {

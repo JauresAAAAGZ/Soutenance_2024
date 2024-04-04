@@ -67,6 +67,11 @@
                                             {{session('message')}}
                                         </div>
                                         @endif
+                                        @if(session('message1'))
+                                        <div id="success-message" class="alert alert-success">
+                                            {{session('message1')}}
+                                        </div>
+                                        @endif
                                         @if(session('danger'))
                                         <div id="success-message" class="alert alert-danger">
                                             {{session('danger')}}
@@ -93,7 +98,7 @@
                                                         <th>Nom</th>
                                                         <th>Prenom</th>
                                                         <th>Courriel</th>
-                                                        <th>Niveau_Etude</th>
+                                                        <th>Niveau Etude</th>
                                                         <th>Date_Naissance</th>
                                                         
                                                         <th>Filiere</th>
@@ -118,7 +123,11 @@
                                                                 {{ $etudiant->emailEtudiant }}
                                                             </td>
                                                             <td>
-                                                                {{ $etudiant->niveau_etude }}
+                                                                @if ($etudiant->niveau)
+
+                                                                {{$etudiant->niveau->diplome_niveau}}
+                                                               
+                                                                @endif
                                                             </td>
 
                                                             <td>
@@ -127,7 +136,7 @@
                                                            
                                                             <td>
                                                                 @if ($etudiant->filiere)
-                                                                {{$etudiant->filiere->intitule }}
+                                                                {{$etudiant->filiere->nomFiliere }}
                                                                 @endif
                                                             </td>
 

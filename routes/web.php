@@ -11,6 +11,8 @@ use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\Admin;
 use App\Models\Filiere;
+use App\Models\Matiere;
+use App\Models\Niveau;
 use App\Models\Professeur;
 use Illuminate\Support\Facades\Route;
 
@@ -80,6 +82,8 @@ Route::resource('etudiants', EtudiantController::class);
 Route::resource('professeurs', ProfesseurController::class);
 Route::resource('filieres', FiliereController::class);
 Route::resource('admins', AdminController::class);
+Route::resource('matieres', MatiereController::class);
+Route::resource('niveaux', NiveauController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

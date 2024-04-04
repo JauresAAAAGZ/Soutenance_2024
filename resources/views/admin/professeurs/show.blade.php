@@ -1,38 +1,67 @@
-@extends('layout.app')
+@extends("layout.app")
 
-@section('content')
 
-    
-   
+  <body>
 
-        <!-- Sidebar -->
-         @if (auth()->user()->isAdmin())
-                @include('partial.sidebar')
-            @elseif (auth()->user()->isDE())
-                @include('partial.sidebar_DE')
-            @elseif (auth()->user()->isCoordonateur())
-                @include('partial.sidebar_Coordonateur')
-            @elseif (auth()->user()->isADE())
-                @include('partial.sidebar_Assistant_Directeur_des_Etudes')
-            @endif
-   
-        <!-- End of Sidebar -->
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+    @section("content")
 
-            <!-- Main Content -->
-            <div id="content">
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="ball-scale">
+            <div class='contain'>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
 
-                <!-- Topbar -->
-                @include('partial.header')
-                <!-- End of Topbar -->
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+            
+                @include("partial.headbar")
+            <div class="pcoded-main-container">
+            <div class="pcoded-wrapper">
+                @include("partial.sidebar")
+        
+                    <div class="pcoded-content">
+                        <div class="pcoded-inner-content">
+                            <div class="main-body">
+                                <div class="page-wrapper">
 
                     <!-- Page Heading -->
-                    <h1 class="mb-0">Info Professeurs</h1>
+                    <h1 class="mb-0">Info Professeur</h1>
                     <hr/>
                     @if(session('message1'))
                     <div id="success-message" class="alert alert-success">
@@ -40,14 +69,29 @@
                     </div>
                     @endif
                     <ul>
-                        <li>Nom_Professeur : '{{$professeur->Nom_Professeur}}'</li>
-                        <li>Prenom_Professeur : '{{$professeur->Prenom_Professeur}}'</li>
-                        <li>Grade : '{{$professeur->Grade}}'</li>
+                        <li>Matricule : {{$professeur->numEmploye}}</li>
+                        <li>Nom : {{$professeur->nomProfesseur}}</li>
+                        <li>Prenom : {{$professeur->prenomProfesseur}}</li>
+                        <li>Courriel : {{$professeur->emailProfesseur}}</li>
+                        <li>Matieres Enseignées : </li>
+                             
+                        @foreach ( $professeur->matieres as $matiere)
+
+                         - {{$matiere->intitule}} <br>
+
+                        @endforeach
+                          
+                        
+
+                        <li>Date de naissance : {{$professeur->date_naissance_prof}}</li>
+                        
+
+                        
+                      
+
                     </ul>
                 </div>
-            <!-- End of Main Content -->
-
-                @include('partial.footer')
+           
             </div>
         </div>
         

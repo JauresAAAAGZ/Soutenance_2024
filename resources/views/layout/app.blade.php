@@ -29,6 +29,7 @@
       <!-- Style.css -->
       <link rel="stylesheet" type="text/css" href={{asset('assets/css/style.css')}}>
       <link rel="stylesheet" type="text/css" href={{asset('assets/css/jquery.mCustomScrollbar.css')}}>
+      <link rel="stylesheet" type="text/css" href={{'assets/css/jquery.dataTables.css'}}>  
     </head>
 
     <body>
@@ -104,8 +105,19 @@
   <script src={{asset('assets/js/pcoded.min.js')}}></script>
   <script src={{asset('assets/js/demo-12.js')}}></script>
   <script src={{asset('assets/js/jquery.mCustomScrollbar.concat.min.js')}}></script>
-  <script>
-  </script>
+    <script src={{'assests/js/jquery-3.6.0.min.js'}}></script>
+   <script type="text/javascript" charset="utf8" src={{'assets/js/jquery.dataTables.js'}}></script>
+
+   <script>
+
+    $(document).ready(function() {
+            $('#dataTable').DataTable({
+                "language": {
+                    "url": "assets/js/French.json"
+                }
+            });
+        });
+   </script>
 </body>
 
 </html>

@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('emailEtudiant')->unique();
             $table->date('date_naissance_etu');
             $table->unsignedBigInteger('filiere_id')->nullable();
-            $table->foreign('filiere_id')->references('idFiliere')->on('filieres')->onDelete('cascade');
-            $table->string('niveau_etude');
+            $table->foreign('filiere_id')->references('id')->on('filieres')->onDelete('cascade');
+            $table->unsignedBigInteger('niveau_id')->nullable();
+            $table->foreign('niveau_id')->references('id')->on('niveaux')->onDelete('cascade');
             $table->timestamp('email_verified_at')->nullable();            
             $table->rememberToken();
             $table->timestamps();

@@ -6,7 +6,7 @@ use App\Models\Etudiant;
 use App\Models\Filiere;
 use App\Http\Requests\StoreEtudiantRequest;
 use App\Http\Requests\UpdateEtudiantRequest;
-
+use App\Models\Niveau;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -27,6 +27,7 @@ class EtudiantController extends Controller
     catch(\Exception $e){
         return view('admin.etudiants.index', compact('etudiants',))->with('error', 'Operation echoue!');
      }
+     
     }
 
     
@@ -40,8 +41,9 @@ class EtudiantController extends Controller
         try{
             $etudiants=Etudiant::all();
             $filieres=Filiere::all();
+            $niveaux=Niveau::all();
            
-            return view('admin.etudiants.create', compact("etudiants", "filieres"));
+            return view('admin.etudiants.create', compact("etudiants", "filieres","niveaux"));
         }
         catch(\Exception $e){
            return redirect(route('etudiants.index'))->with('error', 'Operation echoue!');
@@ -66,17 +68,20 @@ class EtudiantController extends Controller
             $etudiants->nomEtudiant = $request->nomEtudiant;
             $etudiants->prenomEtudiant = $request->prenomEtudiant;
             $etudiants->emailEtudiant = $request->emailEtudiant;
-            $etudiants->niveau_etude = $request->niveau_etude;
+           
             $etudiants->date_naissance_etu = $request->date_naissance_etu;
 
             $etudiants->filiere_id=$request->filiere_id;
+            $etudiants->niveau_id=$request->niveau_id;
+
+            
             
             $etudiants->save();
     
             return redirect()->route('etudiants.index')->with('message', 'L\'Etudiant a été creé avec succès');
         }
         catch(\Exception $e){
-            return redirect()->route('etudiants.index')->with('error', 'L\'Etudiant n\'a pas été creé');
+            return redirect()->route('etudiants.index')->with('error', 'L\'Etudiant n\'a pas été creé'.$e);
         }
     }
 
@@ -101,8 +106,9 @@ class EtudiantController extends Controller
     {
         try{
             $filieres = Filiere::all();
+            $niveaux=Niveau::all();
            
-            return view('admin.etudiants.edit', compact('etudiant', 'filieres'));
+            return view('admin.etudiants.edit', compact('etudiant', 'filieres','niveaux'));
         }
         catch(\Exception $e){
            return redirect(route('etudiants.index'))->with('error', 'Operation echoue!');
@@ -132,6 +138,7 @@ class EtudiantController extends Controller
             $etudiants->date_naissance_etu = $request->date_naissance_etu;
            
             $etudiants->filiere_id = $request->filiere_id;
+            $etudiants->niveau_id=$request->niveau_id;
            
             $etudiants->save();
     

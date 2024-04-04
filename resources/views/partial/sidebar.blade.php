@@ -262,14 +262,14 @@
                         </a>
                     </li>
                     <li class=" ">
-                        <a href="breadcrumb.html">
+                        <a href={{route('professeurs.index')}}>
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Professeurs</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
                     <li class=" ">
-                        <a href="button.html">
+                        <a href={{route('admins.index')}}>
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Admin</span>
                             <span class="pcoded-mcaret"></span>
@@ -290,7 +290,7 @@
             @if(  Auth::user()->role_id == 3  )
 
             <li> 
-                    <a href={{route('dashadmin')}}>   
+                    <a href={{route('filieres.index')}}>   
 
                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
                         <span class="pcoded-mtext" data-i18n="nav.dash.main">Gestion des Filieres</span>
@@ -299,7 +299,7 @@
             </li>
 
             <li> 
-                <a href={{route('dashadmin')}}>   
+                <a href={{route('niveaux.index')}}>   
 
                     <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
                     <span class="pcoded-mtext" data-i18n="nav.dash.main">Gestion des Niveaux</span>
@@ -308,7 +308,7 @@
             </li>
 
             <li> 
-                <a href={{route('dashadmin')}}>   
+                <a href={{route('matieres.index')}}>   
 
                     <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
                     <span class="pcoded-mtext" data-i18n="nav.dash.main">Gestion des Matières</span>
