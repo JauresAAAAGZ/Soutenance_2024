@@ -62,7 +62,7 @@
                                 <div class="page-body">
 
                 <!-- Begin Page Content -->
-                <h1 class="mb-0">Editer filiere</h1>
+                <h1 class="mb-0">Modifier une filiere</h1>
                 <hr />
                 <form action="{{ route('filieres.update', $filiere) }}" method="post" id="editfil">
                     @csrf

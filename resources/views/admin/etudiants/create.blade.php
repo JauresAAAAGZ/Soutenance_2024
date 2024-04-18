@@ -61,7 +61,7 @@
 
                                 <div class="page-body">
            
-           <h1 class="mb-0">Créer Etudiant</h1>
+           <h1 class="mb-0">Enregistrer un Etudiant</h1>
            <hr />
 
           <form action="{{route('etudiants.store')}}" method="post" id="addetu">

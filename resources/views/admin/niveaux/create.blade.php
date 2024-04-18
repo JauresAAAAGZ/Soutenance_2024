@@ -61,7 +61,7 @@
 
                                 <div class="page-body">
            
-           <h1 class="mb-0">Créer niveau</h1>
+           <h1 class="mb-0">Enregistrer un niveau</h1>
            <hr />
 
           <form action="{{route('niveaux.store')}}" method="post" id="addniv">

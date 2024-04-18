@@ -62,7 +62,7 @@
                                 <div class="page-body">
 
                 <!-- Begin Page Content -->
-                <h1 class="mb-0">Editer niveau</h1>
+                <h1 class="mb-0">Modifier un niveau</h1>
                 <hr />
                 <form action="{{ route('niveaux.update', $niveau) }}" method="post" id="editniv">
                     @csrf

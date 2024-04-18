@@ -61,7 +61,7 @@
 
                                 <div class="page-body">
            
-           <h1 class="mb-0">Créer un Admin</h1>
+           <h1 class="mb-0">Enregistrer un Administrateur</h1>
            <hr />
 
           <form action="{{route('admins.store')}}" method="post" id="addadmin">

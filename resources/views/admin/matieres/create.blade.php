@@ -61,7 +61,7 @@
 
                                 <div class="page-body">
            
-           <h1 class="mb-0">Créer matiere</h1>
+           <h1 class="mb-0">Enregistrer une matiere</h1>
            <hr />
 
           <form action="{{route('matieres.store')}}" method="post" id="addmat">

@@ -62,7 +62,7 @@
                                 <div class="page-body">
 
                 <!-- Begin Page Content -->
-                <h1 class="mb-0">Editer Etudiant</h1>
+                <h1 class="mb-0">Modifier un  Etudiant</h1>
                 <hr />
                 <form action="{{ route('etudiants.update', $etudiant) }}" method="post" id="editetu">
                     @csrf

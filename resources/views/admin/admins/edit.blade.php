@@ -62,7 +62,7 @@
                                 <div class="page-body">
 
                 <!-- Begin Page Content -->
-                <h1 class="mb-0">Editer admin</h1>
+                <h1 class="mb-0">Modifier un administrateur</h1>
                 <hr />
                 <form action="{{ route('admins.update', $admin) }}" method="post" id="editadmin">
                     @csrf

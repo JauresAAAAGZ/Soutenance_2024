@@ -62,7 +62,7 @@
                                 <div class="page-body">
 
                 <!-- Begin Page Content -->
-                <h1 class="mb-0">Editer matiere</h1>
+                <h1 class="mb-0">Modifier une matiere</h1>
                 <hr />
                 <form action="{{ route('matieres.update', $matiere) }}" method="post" id="editmat">
                     @csrf
