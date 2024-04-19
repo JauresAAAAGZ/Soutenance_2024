@@ -114,7 +114,10 @@
                              
                 
             </div>
-            <button id="profadd" type="submit" class="btn btn-warning">Créer le professeur</button>
+           <div class="d-flex justify-content-between">
+                <button type="reset" class="btn btn-secondary">Annuler</button>
+                <button id="profedit" class="btn btn-warning" type="submit">Modifier</button>
+            </div>
            
         </form>
         </div>

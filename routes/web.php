@@ -9,6 +9,7 @@ use App\Http\Controllers\FiliereController;
 use App\Http\Controllers\NiveauController;
 use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\Admin;
 use App\Models\Filiere;
 use App\Models\Matiere;
@@ -84,6 +85,21 @@ Route::resource('filieres', FiliereController::class);
 Route::resource('admins', AdminController::class);
 Route::resource('matieres', MatiereController::class);
 Route::resource('niveaux', NiveauController::class);
+
+Route::resource('users', UserController::class);
+
+
+// Route pour récupérer les informations de l'administrateur avec une requete AJAX
+Route::get('/get-admin-info/{id}', [AdminController::class,'getAdminInfo'])->name('get.admin.info');
+
+// Route pour récupérer les informations du professeur avec une requete AJAX
+Route::get('/get-professeur-info/{id}', [ProfesseurController::class,'getProfesseurInfo'])->name('get.professeur.info');
+
+// Route pour récupérer les informations de l'etudiant avec une requete AJAX
+Route::get('/get-etudiant-info/{id}', [EtudiantController::class,'getInfo'])->name('get.etudiant.info');
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

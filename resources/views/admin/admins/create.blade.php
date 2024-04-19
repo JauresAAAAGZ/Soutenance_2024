@@ -84,8 +84,11 @@
             </div>
             
           
-            <button id="adminadd" type="submit" class="btn btn-warning">Créer Admin</button>
-           
+            
+            <div class="d-flex justify-content-between">
+                <button type="reset" class="btn btn-secondary">Annuler</button>
+                <button id="adminadd" type="submit" class="btn btn-warning">Créer Admin</button>
+            </div>
         </form>
         </div>
         <!-- /.card-body -->

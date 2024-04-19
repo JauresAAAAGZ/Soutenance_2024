@@ -62,85 +62,48 @@
                                 <div class="page-body">
 
                 <!-- Begin Page Content -->
-                <h1 class="mb-0">Modifier un  Etudiant</h1>
+                <h1 class="mb-0">Modifier le mot de passe du  compte utilisateur</h1>
                 <hr />
-                <form action="{{ route('etudiants.update', $etudiant) }}" method="post" id="editetu">
+                <form action="{{ route('users.update', $user) }}" method="post" id="edituser">
                     @csrf
                     @method('PUT')
                     <div class="row">
+                                               
                         <div class="col mb-3">
-                            <label for="Matricule" class="form-label">Matricule</label>
-                            <input type="text" class="form-control" id="Matricule" name="matricule" required value="{{ $etudiant->matricule }}">
-                           
-                        </div>
-        
-                        <div class="col mb-3">
-                            <label for="Nom" class="form-label">Nom</label>
-                            <input type="text" class="form-control" id="Nom" name="nomEtudiant" required value="{{ $etudiant->nomEtudiant }}">
+                            <label for="name" class="form-label">Nom</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}" readonly required>
                           
                         </div>
                         <div class="col mb-3">
-                            <label for="Prenom" class="form-label">Prenom</label>
-                            <input type="text" class="form-control" id="Prenom" name="prenomEtudiant" required value="{{ $etudiant->prenomEtudiant }}">
-                            
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="emailEtudiant" required value="{{ $etudiant->emailEtudiant }}">
+                            <input type="email" class="form-control" id="Prenom" name="email" value="{{ $user->email }}" readonly required>
+                            
+                        </div>    
+                    </div>
+                   
+                    <div class="row">
+        
+                        <div class="col mb-3">
+                            <label for="password" class="form-label">Nouveau mot de passe</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
                             
                         </div>
-                        
+                      
                         
                         <div class="col mb-3">
-                            <label for="Date_Naissance" class="form-label">Date de naissance</label>
-                            <input type="date" class="form-control" id="Date_Naissance" name="date_naissance_etu" required value="{{ $etudiant->date_naissance_etu }}">
-                           
+                            <label for="newpassword" class="form-label">Confirmer le mot de passe</label>
+                            <input type="password" class="form-control" id="newpassword" name="newpassword" required>
+                            
                         </div>
-        
-                       
-                    </div>
-                    <div class="mb-3">
-                        <label for="filiere" class="form-label">Filiere</label>
-                        <select name="filiere_id" id="filiere" class="form-control">
-                            
-                            @foreach ($filieres as $filiere)
-                            <option value="{{$filiere->id}}"
-                            @if ($filiere->id == $etudiant->filiere_id)
-                            selected
-                            @endif
-                            
-                            >{{$filiere->Intitule_Filiere}}</option>
-                            @endforeach
-                            
-                           
-                        </select>
-
-                        <label for="niveau" class="form-label">Niveau</label>
-                        <select name="niveau_id" id="niveau" class="form-control">
-                            
-                            @foreach ($niveaux as $niveau)
-                            <option value="{{$niveau->id}}"
-                            @if ($niveau->id == $etudiant->niveau_id)
-                            selected
-                            @endif
-                            
-                            >{{$niveau->diplome_niveau}}</option>
-                            @endforeach
-                            
-                           
-                        </select>
-
-
+                        
                     </div>
                     
                       
                     </div>
-                    <div class="row">
-                        <div class="d-grid">
-                            <button id="etuedit" class="btn btn-warning" type="submit">Modifier</button>
-                        </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="reset" class="btn btn-secondary">Annuler</button>
+                        <button id="useredit" class="btn btn-warning" type="submit">Modifier le compte</button>
+                       
                     </div>
                    
                 </form>
@@ -149,25 +112,27 @@
          
             </div>
         </div>
+       
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var formulaire = document.getElementById('editetu');
-                var boutonAjouter = document.getElementById('etuedit');
-            
-                formulaire.addEventListener('submit', function (e) {
-                    e.preventDefault(); // Empêche la soumission normale du formulaire
-            
-                    // Désactivez le bouton
+        document.addEventListener('DOMContentLoaded', function () {
+            var formulaire = document.getElementById('edituser');
+            var boutonAjouter = document.getElementById('useredit');
+            var passwordInput = document.getElementById('password');
+            var newPasswordInput = document.getElementById('newpassword');
+        
+            formulaire.addEventListener('submit', function (e) {
+                if (passwordInput.value !== newPasswordInput.value) {
+                    // Si les mots de passe ne correspondent pas, empêcher la soumission du formulaire
+                    alert("Les mots de passe ne correspondent pas !");
+                    e.preventDefault();
+                } else {
+                    // Si les mots de passe correspondent, soumettre le formulaire
                     boutonAjouter.disabled = true;
-            
-                    // Soumettez le formulaire manuellement
-                    this.submit();
-                });
+                }
             });
-            
-            
-        </script>
-    
+        });
+    </script>
+     
 @endsection
 
     

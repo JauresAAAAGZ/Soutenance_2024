@@ -160,4 +160,20 @@ class ProfesseurController extends Controller
        return redirect(route('professeurs.index'))->with('error', 'Operation echoue!');
     }
     }
+
+    public function getProfesseurInfo($id)
+    {
+        $professeur = Professeur::find($id);
+
+        if ($professeur) {
+            return response()->json([
+                'nomProfesseur' => $professeur->nomProfesseur,
+                'emailProfesseur' => $professeur->emailProfesseur,
+                'prenomProfesseur'=> $professeur->prenomProfesseur,
+                // Ajoutez d'autres informations du professeur si nécessaire
+            ]);
+        } else {
+            return response()->json(['error' => 'Professeur non trouvé'], 404);
+        }
+    }
 }

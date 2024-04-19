@@ -67,7 +67,7 @@
                                                 <div class="card widget-card-1">
                                                     <div class="card-block-small">
                                                         <a href={{route('users.index')}}><i class="icofont icofont-pie-chart bg-c-yellow card1-icon"></i></a>
-                                                        <span class="text-c-yellow f-w-600">Utilisateurs</span>
+                                                        <span class="text-c-yellow f-w-600">Comptes</span>
                                                         <h4>+99</h4>
                                                         <div>
                                                             <span class="f-left m-t-10 text-muted">

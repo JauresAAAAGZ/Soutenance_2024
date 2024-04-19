@@ -91,8 +91,11 @@
                
             </div>
           
-            <button id="matadd" type="submit" class="btn btn-warning">Créer Matiere</button>
            
+            <div class="d-flex justify-content-between">
+                <button type="reset" class="btn btn-secondary">Annuler</button>
+                <button id="matadd" type="submit" class="btn btn-warning">Créer Matiere</button>
+            </div>
         </form>
         </div>
         <!-- /.card-body -->

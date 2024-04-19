@@ -104,10 +104,17 @@
                                                 </thead>
                                               
                                                 <tbody>
-                                                    @foreach($admins as $admin)
+                                                    
+                                                    @php
+                                                        $cpt=0;
+                                                    @endphp
+                                                     @foreach($admins as $admin)
                                                         <tr>
                                                             <td>
-                                                            {{ $admin->id }}
+                                                                @php
+                                                                    $cpt=$cpt+1;
+                                                                    echo $cpt;
+                                                                @endphp
                                                             </td>
                                                             
                                                             <td>

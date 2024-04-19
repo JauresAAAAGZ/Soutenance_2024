@@ -139,4 +139,21 @@ class AdminController extends Controller
        return redirect(route('admins.index'))->with('error', 'Operation echoue!');
     }
     }
+
+    public function getAdminInfo($id)
+    {
+        $admin = Admin::find($id);
+
+        if ($admin) {
+            return response()->json([
+                'nomAdmin' => $admin->nomAdmin,
+                'emailAdmin' => $admin->emailAdmin,
+                
+                // Ajoutez d'autres informations de l'administrateur si nécessaire
+            ]);
+        } else {
+            return response()->json(['error' => 'Administrateur non trouvé'], 404);
+        }
+    }
 }
+

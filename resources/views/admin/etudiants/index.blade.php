@@ -94,6 +94,7 @@
                                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                                 <thead>
                                                     <tr>
+                                                        <th>N°</th>
                                                         <th>Matricule</th>
                                                         <th>Nom</th>
                                                         <th>Prenom</th>
@@ -107,8 +108,18 @@
                                                 </thead>
                                               
                                                 <tbody>
+                                                    @php
+                                                        $cpt=0;
+                                                    @endphp                                               
+                                                       
                                                     @foreach($etudiants as $etudiant)
                                                         <tr>
+                                                            <td>
+                                                                @php
+                                                                $cpt=$cpt+1;
+                                                                echo $cpt;
+                                                            @endphp
+                                                            </td>
                                                             <td>
                                                             {{ $etudiant->matricule }}
                                                             </td>

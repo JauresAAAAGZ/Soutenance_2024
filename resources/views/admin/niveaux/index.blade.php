@@ -104,10 +104,16 @@
                                                 </thead>
                                               
                                                 <tbody>
+                                                    @php
+                                                    $cpt=0;
+                                                   @endphp
                                                     @foreach($niveaux as $niveau)
                                                         <tr>
                                                             <td>
-                                                            {{ $niveau->id }}
+                                                                @php
+                                                                    $cpt=$cpt+1;
+                                                                    echo $cpt;
+                                                                @endphp
                                                             </td>
                                                             
                                                             <td>

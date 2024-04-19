@@ -104,10 +104,16 @@
                                                 </thead>
                                               
                                                 <tbody>
+                                                    @php
+                                                    $cpt=0;
+                                                   @endphp
                                                     @foreach($matieres as $matiere)
                                                         <tr>
                                                             <td>
-                                                            {{ $matiere->id }}
+                                                                @php
+                                                                    $cpt=$cpt+1;
+                                                                    echo $cpt;
+                                                                @endphp
                                                             </td>
                                                             
                                                             <td>

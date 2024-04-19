@@ -89,13 +89,20 @@
                           <a href="#">
                               <i class="ti-email"></i> Mes Messages
                           </a>
+                         
                       </li>
-                    
-                      <li>
-                          <a href={{route('welcome')}}>
-                              <i class="ti-layout-sidebar-left"></i> Logout
-                          </a>
-                      </li>
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            
+                            <x-dropdown-link :href="route('logout')"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                <i class="ti-layout-sidebar-left"></i>{{ __('Deconnexion') }}
+                            </x-dropdown-link>
+                            </form>
+                    </li>
+                     
                   </ul>
               </li>
           </ul>

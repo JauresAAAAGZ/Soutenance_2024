@@ -61,7 +61,7 @@
                                 <div class="page-wrapper">
 
                     <!-- Page Heading -->
-                    <h1 class="mb-0">Info Etudiant</h1>
+                    <h1 class="mb-0">Informations sur l'utilisateur</h1>
                     <hr/>
                     @if(session('message1'))
                     <div id="success-message" class="alert alert-success">
@@ -69,19 +69,15 @@
                     </div>
                     @endif
                     <ul>
-                        <li>Matricule : {{$etudiant->matricule}}</li>
-                        <li>Nom : {{$etudiant->nomEtudiant}}</li>
-                        <li>Prenom : {{$etudiant->prenomEtudiant}}</li>
-                        <li>Niveau d'étude : @if ($etudiant->niveau)
-                            {{$etudiant->niveau->diplome_niveau }}
+                        <li>Nom : {{$user->name}}</li>
+                        <li>Email : {{$user->email}}</li>
+                        <li>Mot de passe: {{$user->password}}</li>
+                        <li>Role : @if ($user->role)
+                            {{$user->role->nomRole }}
                             @endif</li>
-                        <li>Filiere :  @if ($etudiant->filiere)
-                            {{$etudiant->filiere->intitule }}
-                            @endif
-                          
-                        </li>
+                       
 
-                        <li>Date de naissance : {{$etudiant->date_naissance_etu}}</li>
+                        
                         
 
                         

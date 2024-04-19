@@ -84,8 +84,8 @@
                                         @endif
                                         <div class="card">
                                             <div class="card-header">
-                                                <h5>Liste des Etudiants</h5>
-                                                <a href="{{ route('etudiants.create') }}" class="btn btn-info">Ajouter</a>
+                                                <h5>Liste des Compte Utilisateurs</h5>
+                                                <a href="{{ route('users.create') }}" class="btn btn-info">Ajouter</a>
 
                                                 <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
                                             </div>
@@ -94,62 +94,56 @@
                                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                                 <thead>
                                                     <tr>
-                                                        <th>Matricule</th>
+                                                        <th>N°</th>
                                                         <th>Nom</th>
-                                                        <th>Prenom</th>
                                                         <th>Courriel</th>
-                                                        <th>Niveau Etude</th>
-                                                        <th>Date_Naissance</th>
-                                                        
-                                                        <th>Filiere</th>
+                                                        <th>Mot de passe</th>
+                                                        <th>Role</th>
                                                         <th>Opérations</th>
                                                     </tr>
                                                 </thead>
-                                              
+                                              @php
+                                                  $cpt=0;
+                                              @endphp
                                                 <tbody>
-                                                    @foreach($etudiants as $etudiant)
+                                                    @foreach($users as $user)
                                                         <tr>
                                                             <td>
-                                                            {{ $etudiant->matricule }}
+                                                                @php
+                                                                    $cpt=$cpt+1;
+                                                                    echo $cpt;
+                                                                 @endphp
                                                             </td>
                                                             
                                                             <td>
-                                                                {{ $etudiant->nomEtudiant }}
+                                                            {{ $user->name }}
+                                                            </td>
+                                                            
+                                                            <td>
+                                                                {{ $user->email }}
                                                             </td>
                                                             <td>
-                                                                {{ $etudiant->prenomEtudiant }}
+                                                                {{ $user->password }}
                                                             </td>
+                                                          
                                                             <td>
-                                                                {{ $etudiant->emailEtudiant }}
-                                                            </td>
-                                                            <td>
-                                                                @if ($etudiant->niveau)
+                                                                @if ($user->role)
 
-                                                                {{$etudiant->niveau->diplome_niveau}}
+                                                                {{$user->role->nomRole}}
                                                                
                                                                 @endif
                                                             </td>
 
-                                                            <td>
-                                                                {{ $etudiant->date_naissance_etu }}
-                                                            </td>
+                                                                                                         
                                                            
                                                             <td>
-                                                                @if ($etudiant->filiere)
-                                                                {{$etudiant->filiere->nomFiliere }}
-                                                                @endif
-                                                            </td>
-
-                                               
-                                                           
-                                                            <td>
-                                                                <a href="{{route('etudiants.show', $etudiant)}}" class="btn btn-info">Voir</a>
+                                                                <a href="{{route('users.show', $user)}}" class="btn btn-info">Voir</a>
                                                                
-                                                                <a href={{route('etudiants.edit', $etudiant)}} class="btn btn-primary">Modifier</a>
-                                                                <form action="{{ route('etudiants.destroy', $etudiant) }}" method="POST" style="display: inline;" id="supprimer-etudiant-{{ $etudiant->id }}">
+                                                                <a href={{route('users.edit', $user)}} class="btn btn-primary">Modifier</a>
+                                                                <form action="{{ route('users.destroy', $user) }}" method="POST" style="display: inline;" id="supprimer-user-{{ $user->id }}">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="button" onclick="confirmerSuppression({{ $etudiant->id }})" class="btn btn-danger">Supprimer</button>
+                                                                    <button type="button" onclick="confirmerSuppression({{ $user->id }})" class="btn btn-danger">Supprimer</button>
                                                                 </form>
                                                             </td>
                                     
@@ -181,11 +175,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                Êtes-vous sûr de vouloir supprimer cet étudiant ?
+                Êtes-vous sûr de vouloir supprimer cet utilisateur ?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                <button type="button" class="btn btn-danger" onclick="supprimerEtudiant()">Supprimer</button>
+                <button type="button" class="btn btn-danger" onclick="supprimeruser()">Supprimer</button>
             </div>
         </div>
     </div>
@@ -207,30 +201,30 @@
     });
 </script>
 <script>
-function confirmerSuppression(etudiantId) {
+function confirmerSuppression(userId) {
 // Verification que l'ID de l'étudiant est correct
-var etudiantId = parseInt(etudiantId);
+var userId = parseInt(userId);
 
-if (isNaN(etudiantId)) {
+if (isNaN(userId)) {
 return;
 }
 
 // Mis à jour de l'attribut data-id de la boîte de dialogue de confirmation avec l'ID de l'étudiant
-$('#confirmationModal').attr('data-id', etudiantId);
+$('#confirmationModal').attr('data-id', userId);
 
 // Affichage de la boîte de dialogue de confirmation
 $('#confirmationModal').modal('show');
 }
 
-function supprimerEtudiant() {
+function supprimeruser() {
 // Récupération l'ID de l'étudiant à partir de l'attribut data-id de la boîte de dialogue
-var etudiantId = $('#confirmationModal').attr('data-id');
+var userId = $('#confirmationModal').attr('data-id');
 
 // Fermez la boîte de dialogue de confirmation
 $('#confirmationModal').modal('hide');
 
 // Obtenez le formulaire de suppression correspondant à l'ID de l'étudiant et soumettez-le
-var form = document.querySelector('form#supprimer-etudiant-' + etudiantId);
+var form = document.querySelector('form#supprimer-user-' + userId);
 if (form) {
 form.submit();
 }

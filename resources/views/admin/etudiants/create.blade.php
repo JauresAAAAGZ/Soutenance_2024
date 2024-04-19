@@ -123,8 +123,11 @@
                              
                 
             </div>
-            <button id="etuadd" type="submit" class="btn btn-warning">Créer l'étudiant</button>
-           
+            
+            <div class="d-flex justify-content-between">
+                <button type="reset" class="btn btn-secondary">Annuler</button>
+                <button id="etuadd" type="submit" class="btn btn-warning">Créer l'étudiant</button>
+            </div>
         </form>
         </div>
         <!-- /.card-body -->

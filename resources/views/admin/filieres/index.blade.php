@@ -104,10 +104,17 @@
                                                 </thead>
                                               
                                                 <tbody>
-                                                    @foreach($filieres as $filiere)
+
+                                                    @php
+                                                        $cpt=0;
+                                                    @endphp
+                                                     @foreach($filieres as $filiere)
                                                         <tr>
                                                             <td>
-                                                            {{ $filiere->id }}
+                                                                @php
+                                                                    $cpt=$cpt+1;
+                                                                    echo $cpt;
+                                                                @endphp
                                                             </td>
                                                             
                                                             <td>

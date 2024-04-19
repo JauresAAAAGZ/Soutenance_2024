@@ -83,10 +83,9 @@
                                         
                       
                     </div>
-                    <div class="row">
-                        <div class="d-grid">
-                            <button id="nivedit" class="btn btn-warning" type="submit">Modifier</button>
-                        </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="reset" class="btn btn-secondary">Annuler</button>
+                        <button id="nivedit" class="btn btn-warning" type="submit">Modifier</button>
                     </div>
                    
                 </form>

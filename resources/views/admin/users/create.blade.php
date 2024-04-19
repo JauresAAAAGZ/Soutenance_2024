@@ -64,34 +64,18 @@
            <h1 class="mb-0">Enregistrer un Compte utilisateur</h1>
            <hr />
 
-          <form action="{{route('etudiants.store')}}" method="post" id="adduser">
+          <form action="{{route('users.store')}}" method="post" id="adduser">
             @csrf
             <div class="row">
-                
-                <div class="col mb-3">
-                    <label for="name" class="form-label">Nom</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
-                  
-                </div>
-                <div class="col mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="Prenom" name="email" required>
-                    
-                </div>
-            </div>
-           
-            <div class="row">
-
                 <div class="col mb-3">
                     <label for="role" class="form-label">Role</label>
-                    <select name="role_id" id="role" class="form-control">
+                    <select name="role_id" id="role" class="form-control" required>
                         <option disabled selected value> Choisir le role de l'utilisateur</option>
                         @foreach ($roles as $role)
                         <option value="{{$role->id}}" >{{$role->nomRole}}</option>
                         @endforeach
                     </select>
                 </div>
-
                 <div class="col mb-3">
                     <label for="etudiant" class="form-label">Etudiant</label>
                     <select name="etudiant_id" id="etudiant" class="form-control">
@@ -121,11 +105,37 @@
                         @endforeach
                     </select>
                 </div>
-                             
+                
                 
             </div>
-            <button id="useradd" type="submit" class="btn btn-warning">Créer le compte</button>
            
+            <div class="row">
+
+              
+                <div class="col mb-3">
+                    <label for="name" class="form-label">Nom et Prenom</label>
+                    <input type="text" class="form-control" id="name" name="name" required readonly>
+                  
+                </div>
+                <div class="col mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required readonly>
+                    
+                </div>    
+                
+                <div class="col mb-3">
+                    <label for="password" class="form-label">Mot de passe</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                    
+                </div>
+                
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="reset" class="btn btn-secondary">Annuler</button>
+                <button id="useradd" type="submit" class="btn btn-warning">Créer le compte</button>
+               
+            </div>
+
         </form>
         </div>
         <!-- /.card-body -->
@@ -154,7 +164,128 @@
     });
     
     
-</script>
+    </script>
+
+    <script>
+       document.addEventListener('DOMContentLoaded', function () {
+        var roleSelect = document.getElementById('role');
+        var etudiantSelect = document.getElementById('etudiant');
+        var professeurSelect = document.getElementById('professeur');
+        var adminSelect = document.getElementById('admin');
+
+        // Disable all student, professor, and admin selections initially
+        etudiantSelect.disabled = true;
+        professeurSelect.disabled = true;
+        adminSelect.disabled = true;
+
+        roleSelect.addEventListener('change', function() {
+            var selectedRole = this.value;
+
+            etudiantSelect.disabled = (selectedRole !== "1"); // Enable only for Student role (ID: 1)
+            professeurSelect.disabled = (selectedRole !== "2"); // Enable only for Professor role (ID: 2)
+            adminSelect.disabled = (selectedRole !== "3"); // Enable only for Admin role (ID: 3)
+        });
+        });
+      
+          formulaire.addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent normal form submission
+      
+            // Disable button (optional)
+            boutonAjouter.disabled = true;
+      
+            // Submit the form manually
+            this.submit();
+          });
+        
+    </script>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+        var etudiantSelect = document.getElementById('etudiant');
+        var professeurSelect = document.getElementById('professeur');
+        var adminSelect = document.getElementById('admin');
+
+        var nameInput = document.getElementById('name');
+        var emailInput = document.getElementById('email');
+
+            etudiantSelect.addEventListener('change', function() {
+                var selectedEtudiantId = this.value;
+
+                if (selectedEtudiantId !== "") {
+                    // Effectuer une requête AJAX pour récupérer les informations de l'étudiant
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET', '/get-etudiant-info/' + selectedEtudiantId, true);
+                    xhr.onload = function () {
+                        if (xhr.status === 200) {
+                            var etudiantInfo = JSON.parse(xhr.responseText);
+                            nameInput.value = etudiantInfo.nomEtudiant +" "+ etudiantInfo.prenomEtudiant;
+                            emailInput.value = etudiantInfo.emailEtudiant;
+                        } else {
+                            console.log('Erreur lors de la récupération des informations de l\'étudiant');
+                        }
+                    };
+                    xhr.send();
+                } else {
+                    nameInput.value = "";
+                    emailInput.value = "";
+                }
+            });
+
+            // Écouteur d'événement pour la sélection d'administrateur
+            adminSelect.addEventListener('change', function() {
+            var selectedAdminId = this.value;
+
+            if (selectedAdminId !== "") {
+                // Effectuer une requête AJAX pour récupérer les informations de l'administrateur
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', '/get-admin-info/' + selectedAdminId, true);
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        var adminInfo = JSON.parse(xhr.responseText);
+                        nameInput.value = adminInfo.nomAdmin; // Remplir le champ nom avec le nom de l'administrateur sélectionné
+                        emailInput.value = adminInfo.emailAdmin; // Remplir le champ email avec l'email de l'administrateur sélectionné
+                    } else {
+                        console.log('Erreur lors de la récupération des informations de l\'administrateur');
+                    }
+                };
+                xhr.send();
+            } else {
+                nameInput.value = "";
+                emailInput.value = "";
+            }
+        });
+
+        // Écouteur d'événement pour la sélection du professeur
+            professeurSelect.addEventListener('change', function() {
+            var selectedProfesseurId = this.value;
+
+            if (selectedProfesseurId !== "") {
+                // Effectuer une requête AJAX pour récupérer les informations du professeur
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', '/get-professeur-info/' + selectedProfesseurId, true);
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        var professeurInfo = JSON.parse(xhr.responseText);
+                        nameInput.value = professeurInfo.nomProfesseur +" "+ professeurInfo.prenomProfesseur; // Remplir le champ nom avec le nom du professeur sélectionné
+                        emailInput.value = professeurInfo.emailProfesseur; // Remplir le champ email avec l'email du professeur sélectionné
+                    } else {
+                        console.log('Erreur lors de la récupération des informations du professeur');
+                    }
+                };
+                xhr.send();
+            } else {
+                nameInput.value = "";
+                emailInput.value = "";
+            }
+        });
+
+    });
+
+    </script>
+
+     
+      
 
 @endsection
 

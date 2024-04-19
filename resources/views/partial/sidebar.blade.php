@@ -8,7 +8,7 @@
                 <div class="user-details">
                     <div>{{ Auth::user()->name }}</div>
 
-                    <span id="more-details">Role<i class="ti-angle-down"></i></span>
+                    <span id="more-details">{{ Auth::user()->role->nomRole }}<i class="ti-angle-down"></i></span>
                 </div>
             </div>
 
@@ -27,7 +27,7 @@
                                             this.closest('form').submit();">
                             <i class="ti-layout-sidebar-left"></i>{{ __('Deconnexion') }}
                         </x-dropdown-link>
-                    </form>
+                        </form>
                     
                     </li>
                 </ul>
@@ -248,9 +248,9 @@
                 </a>
                 <ul class="pcoded-submenu">
                     <li class=" ">
-                        <a href="accordion.html">
+                        <a href={{route('users.index')}}>
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Utilisateurs</span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Comptes utilisateurs</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>

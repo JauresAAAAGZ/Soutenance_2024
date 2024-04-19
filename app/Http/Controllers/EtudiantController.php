@@ -165,5 +165,24 @@ class EtudiantController extends Controller
     }
     
     }
+
+
+    public function getInfo($id)
+    {
+        $etudiant = Etudiant::find($id);
+
+        if ($etudiant) {
+            // Si l'étudiant est trouvé, renvoyer ses informations sous forme de JSON
+            return response()->json([
+                'nomEtudiant' => $etudiant->nomEtudiant,
+                'emailEtudiant' => $etudiant->emailEtudiant,
+                'prenomEtudiant' => $etudiant->prenomEtudiant,
+                // Ajoutez d'autres informations d'étudiant si nécessaire
+            ]);
+        } else {
+            // Si l'étudiant n'est pas trouvé, renvoyer une réponse avec un code d'erreur
+            return response()->json(['error' => 'Étudiant non trouvé'], 404);
+        }
+    }
    
 }

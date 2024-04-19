@@ -137,12 +137,11 @@
                     
                       
                     </div>
-                    <div class="row">
-                        <div class="d-grid">
-                            <button id="etuedit" class="btn btn-warning" type="submit">Modifier</button>
-                        </div>
-                    </div>
                    
+                    <div class="d-flex justify-content-between">
+                        <button type="reset" class="btn btn-secondary">Annuler</button>
+                        <button id="etuedit" class="btn btn-warning" type="submit">Modifier</button>
+                    </div>
                 </form>
             <!-- End of Main Content -->
 
