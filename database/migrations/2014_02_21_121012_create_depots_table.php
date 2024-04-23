@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('depots', function (Blueprint $table) {
             $table->id();
             $table->string('nomDepot');
-            $table->date('dateCreation');
-            $table->date('delai');
-            $table->date('dateFermeture');
+            $table->dateTime('dateCreation');
+            $table->dateTime('dateFermeture');
+            $table->string('description');
             $table->unsignedBigInteger('professeur_id')->nullable();
             $table->foreign('professeur_id')->references('id')->on('professeurs')->onDelete('cascade');
             $table->timestamps();

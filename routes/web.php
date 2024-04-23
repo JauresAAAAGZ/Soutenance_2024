@@ -86,6 +86,8 @@ Route::resource('admins', AdminController::class);
 Route::resource('matieres', MatiereController::class);
 Route::resource('niveaux', NiveauController::class);
 
+Route::resource('depots', DepotController::class);
+
 Route::resource('users', UserController::class);
 
 

@@ -75,7 +75,15 @@
               <li class="user-profile header-notification">
                   <a href="#!">
                       <img src={{asset('assets/images/avatar-4.jpg')}} class="img-radius" alt="User-Profile-Image">
-                      <span>{{ Auth::user()->name}}</span>
+                      
+                      <span>
+                            <?php                           
+                            $name = Auth::user()->name;
+                            $words = explode(' ', $name); // Split the string by whitespace
+                            $truncatedName = implode(' ', array_slice($words, 0, 2)); // Take the first two elements and rejoin them
+                            echo $truncatedName;
+                            ?>
+                        </span>
                       <i class="ti-angle-down"></i>
                   </a>
                   <ul class="show-notification profile-notification">
