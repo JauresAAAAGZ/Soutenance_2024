@@ -44,7 +44,7 @@
 
             <div class=""> 
                 <div class="main-menu-header">
-                   <a href={{route('depots.create')}}><button>Nouveau Répertoire</button></a> 
+                   <a href={{route('depots.create')}}><button  class="btn btn-info">Nouveau Répertoire</button></a> 
                 </div>
             </div>
            
@@ -179,21 +179,21 @@
                 </a>
                 <ul class="pcoded-submenu">
                     <li class=" ">
-                        <a href="accordion.html">
+                        <a href={{route('depots.create')}}>
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Créer un dossier</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
                     <li class=" ">
-                        <a href="breadcrumb.html">
+                        <a href={{route('depots.index')}}>
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Liste des Dossiers</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
                     <li class=" ">
-                        <a href="button.html">
+                        <a href="">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Dossiers Supprimés</span>
                             <span class="pcoded-mcaret"></span>

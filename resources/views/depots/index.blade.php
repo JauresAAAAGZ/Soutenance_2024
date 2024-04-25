@@ -1,161 +1,69 @@
 @extends("layout.app")
 
+@section("content")
 
-  <body>
+<!-- Pre-loader start -->
+<div class="theme-loader">
+    <!-- Loader content -->
+</div>
+<!-- Pre-loader end -->
 
+<div id="pcoded" class="pcoded">
+    <div class="pcoded-overlay-box"></div>
+    <div class="pcoded-container navbar-wrapper">
+        @include("partial.headbar")
+        <div class="pcoded-main-container">
+            <div class="pcoded-wrapper">
+                @include("partial.sidebar")
+                <div class="pcoded-content">
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                <div class="page-body">
 
-    @section("content")
+                                    <!-- Your card content -->
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>Liste des répertoires</h4>
+                                        </div>
 
-    <!-- Pre-loader start -->
-    <div class="theme-loader">
-        <div class="ball-scale">
-            <div class='contain'>
-                <div class="ring">
-                    <div class="frame"></div>
-                </div>
-                <div class="ring">
-                    <div class="frame"></div>
-                </div>
-                <div class="ring">
+                                        @foreach ($depots as $depot )
+                                        <div class="col-md-4 mt-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{ $depot->nomDepot }}</h5>
+                                                    <small>{{ $depot->description }}</small>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <a href="#" class="btn btn-danger mb-3">Fermer</a>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            Options
+                                                        </button>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            <li><a class="dropdown-item" href="#">Option 1</a></li>
+                                                            <li><a class="dropdown-item" href="#">Option 2</a></li>
+                                                            <li><a class="dropdown-item" href="#">Option 3</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
 
-                    <div class="frame"></div>
-                </div>
-                <div class="ring">
-                    <div class="frame"></div>
-                </div>
-                <div class="ring">
-                    <div class="frame"></div>
-                </div>
-                <div class="ring">
-                    <div class="frame"></div>
-                </div>
-                <div class="ring">
-                    <div class="frame"></div>
-                </div>
-                <div class="ring">
-                    <div class="frame"></div>
-                </div>
-                <div class="ring">
-                    <div class="frame"></div>
-                </div>
-                <div class="ring">
-                    <div class="frame"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
-    <!-- Pre-loader end -->
-    <div id="pcoded" class="pcoded">
-        <div class="pcoded-overlay-box"></div>
-        <div class="pcoded-container navbar-wrapper">
+</div>
 
-            
-                @include("partial.headbar")
-            <div class="pcoded-main-container">
-            <div class="pcoded-wrapper">
-                @include("partial.sidebar")
-        
-                    <div class="pcoded-content">
-                        <div class="pcoded-inner-content">
-                            <div class="main-body">
-                                <div class="page-wrapper">
-
-                                    <div class="page-body">
-
-                                        @if(session('message'))
-                                        <div id="success-message" class="alert alert-success">
-                                            {{session('message')}}
-                                        </div>
-                                        @endif
-                                        @if(session('message1'))
-                                        <div id="success-message" class="alert alert-success">
-                                            {{session('message1')}}
-                                        </div>
-                                        @endif
-                                        @if(session('danger'))
-                                        <div id="success-message" class="alert alert-danger">
-                                            {{session('danger')}}
-                                        </div>
-                                        @endif
-                                        @if(session('error'))
-                                        <div id="success-message" class="alert alert-danger">
-                                            {{session('error')}}
-                                        </div>
-                                        @endif
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h5>Liste des répertoires</h5>
-                                                <a href="{{ route('depots.create') }}" class="btn btn-info">Ajouter</a>
-
-                                                <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
-                                            </div>
-
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Matiere N°</th>
-                                                        <th>Intitule</th>
-                                                        <th>Code Matiere</th>
-                                                        <th>Duree</th>
-                                                       
-                                                        <th>Opérations</th>
-                                                    </tr>
-                                                </thead>
-                                              
-                                                <tbody>
-                                                    @php
-                                                    $cpt=0;
-                                                   @endphp
-                                                    @foreach($matieres as $matiere)
-                                                        <tr>
-                                                            <td>
-                                                                @php
-                                                                    $cpt=$cpt+1;
-                                                                    echo $cpt;
-                                                                @endphp
-                                                            </td>
-                                                            
-                                                            <td>
-                                                                {{ $matiere->intitule }}
-                                                            </td>
-                                                            <td>
-                                                                {{ $matiere->codeMatiere }}
-                                                            </td>
-                                                            <td>
-                                                                {{ $matiere->duree }}
-                                                            </td>
-                                                          
-
-                                               
-                                                           
-                                                            <td>
-                                                                <a href={{route('matieres.show', $matiere)}} class="btn btn-info">Voir</a>
-                                                               
-                                                                <a href={{route('matieres.edit', $matiere)}} class="btn btn-primary">Modifier</a>
-                                                                <form action={{route('matieres.destroy', $matiere)}} method="POST" style="display: inline;" id="supprimer-matiere-{{ $matiere->id }}">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="button" onclick="confirmerSuppression({{ $matiere->id }})" class="btn btn-danger">Supprimer</button>
-                                                                </form>
-                                                            </td>
-                                    
-                                                        </tr>
-
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                            
-                                        </div>
-                                
-                                           
-                                    </div>
-                                            
-                                           
-                                                               
-
-        
-    @endsection
+@endsection
 </body>
 
 <!-- Modal de confirmation de suppression -->

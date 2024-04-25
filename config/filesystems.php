@@ -36,6 +36,12 @@ return [
             'throw' => false,
         ],
 
+        'fichiers' => [
+            'driver' => 'local',
+            'root' => storage_path('app/fichiers'),
+            'throw' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

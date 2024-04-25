@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Depot;
 use App\Http\Requests\StoreDepotRequest;
 use App\Http\Requests\UpdateDepotRequest;
+use App\Models\Matiere;
+
+use App\Models\Filiere;
+use App\Models\Niveau;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -33,8 +37,11 @@ class DepotController extends Controller
     public function create()
     {
         $depots=Depot::all();
+        $filieres=Filiere::all();
+        $niveaux=Niveau::all();
+        $matieres=Matiere::all();
 
-        return view('depots.create', compact("depots"));
+        return view('depots.create', compact("depots","filieres","niveaux","matieres"));
     }
 
     /**
@@ -55,10 +62,18 @@ class DepotController extends Controller
            
             $professorId = Auth::user()->professeur_id;
             $depots->professeur_id = $professorId;
-           
+
+            $depots->matiere_id = $request->matiere_id;
             
-          
             $depots->save();
+
+            $depots->niveaux()->sync($request->niveaux);
+            $depots->filieres()->sync($request->filieres);
+
+            $depots
+            ->addMediaFromRequest('fichier')
+            ->preservingOriginal()
+            ->toMediaCollection('fichiers','fichiers');
            
     
             return redirect()->route('depots.index')->with('message', 'Le depot a été creé avec succès');

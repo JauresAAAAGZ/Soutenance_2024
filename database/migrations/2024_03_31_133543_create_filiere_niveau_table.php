@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('filiere_niveaus');
+        Schema::dropIfExists('filiere_niveau');
     }
 };

@@ -21,5 +21,10 @@ class Filiere extends Model
     {
         return $this->belongsToMany(Niveau::class);
     }
+
+    public function depots()
+    {
+        return $this->belongsToMany(Depot::class);
+    }
     
 }

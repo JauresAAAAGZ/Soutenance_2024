@@ -20,4 +20,9 @@ class Niveau extends Model
     {
         return $this->hasMany(Etudiant::class);
     }
+
+    public function depots()
+    {
+        return $this->belongsToMany(Depot::class);
+    }
 }

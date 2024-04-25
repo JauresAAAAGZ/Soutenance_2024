@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('description');
             $table->unsignedBigInteger('professeur_id')->nullable();
             $table->foreign('professeur_id')->references('id')->on('professeurs')->onDelete('cascade');
+            $table->unsignedBigInteger('matiere_id')->nullable();
+            $table->foreign('matiere_id')->references('id')->on('matieres')->onDelete('cascade');
             $table->timestamps();
         });
     }
