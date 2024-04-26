@@ -20,7 +20,6 @@
       <link rel="icon" href= {{asset('assets/images/lolink.ico')}} type="image/x-icon">
       <!-- Google font-->
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
-     
       <!-- Required Fremwork -->
       <link rel="stylesheet" type="text/css" href={{asset('assets/css/bootstrap/css/bootstrap.min.css')}}>
       <!-- themify-icons line icon -->
@@ -30,10 +29,7 @@
       <!-- Style.css -->
       <link rel="stylesheet" type="text/css" href={{asset('assets/css/style.css')}}>
       <link rel="stylesheet" type="text/css" href={{asset('assets/css/jquery.mCustomScrollbar.css')}}>
-      <link rel="stylesheet" type="text/css" href={{'assets/css/jquery.dataTables.css'}}>
-      
-      
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+      <link rel="stylesheet" type="text/css" href={{'assets/css/jquery.dataTables.css'}}>  
       
     </head>
 
@@ -87,10 +83,14 @@
   <![endif]-->
   <!-- Warning Section Ends -->
   <!-- Required Jquery -->
+ 
   <script type="text/javascript" src={{asset('assets/js/jquery/jquery.min.js')}}></script>
   <script type="text/javascript" src={{asset('assets/js/jquery-ui/jquery-ui.min.js')}}></script>
   <script type="text/javascript" src={{asset('assets/js/popper.js/popper.min.js')}}></script>
+  
   <script type="text/javascript" src={{asset('assets/js/bootstrap/js/bootstrap.min.js')}}></script>
+  
+  
   <!-- jquery slimscroll js -->
   <script type="text/javascript" src={{asset('assets/js/jquery-slimscroll/jquery.slimscroll.js')}}></script>
   <!-- modernizr js -->
@@ -123,6 +123,7 @@
             });
         });
    </script>
+   
 </body>
 
 </html>

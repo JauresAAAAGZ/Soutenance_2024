@@ -111,7 +111,7 @@
                             selected
                             @endif
                             
-                            >{{$filiere->Intitule_Filiere}}</option>
+                            >{{$filiere->nomFiliere}}</option>
                             @endforeach
                             
                            

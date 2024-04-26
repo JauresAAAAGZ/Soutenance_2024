@@ -35,6 +35,7 @@
                          <!-- Session Status -->
                          <x-auth-session-status class="mb-4" :status="session('status')" />
 
+                        
                         <form class="md-float-material" method="POST" action="{{ route('login') }}">
                             @csrf
 

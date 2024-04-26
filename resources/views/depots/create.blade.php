@@ -132,9 +132,8 @@
             </div>
 
             <div class="col mb-3">
-                <label for="fichier" class="form-label">Fichier</label>
-                <input type="file" class="form-control" id="fichier" name="fichier">
-                
+                <label for="fichier" class="form-label">Fichiers</label>
+                <input type="file" class="form-control" id="fichier" name="fichiers[]" accept=".zip, .rar, .pdf" multiple>
             </div>
           </div>
            

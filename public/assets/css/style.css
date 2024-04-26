@@ -43,7 +43,9 @@ ul {
 
 a {
   font-size: 14px;
-  color: #303548; }
+  color: #303548; 
+  text-decoration: none;
+}
   a:focus, a:hover {
     text-decoration: none;
     color: #4680ff; }
@@ -14343,3 +14345,22 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
   .pcoded[layout-type="dark"] .pcoded-main-container {
     background-color: #444c67; }  
 /*# sourceMappingURL=style.css.map */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: red;
+  padding: 10px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+}
+
+.dropdown:hover .dropdown-content {
+  display:block;
+}

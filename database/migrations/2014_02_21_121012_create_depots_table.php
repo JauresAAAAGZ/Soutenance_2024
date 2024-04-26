@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string('nomDepot');
             $table->dateTime('dateCreation');
             $table->dateTime('dateFermeture');
+            $table->time('delai');
             $table->string('description');
+            $table->string('etat')->default('ouvert');
             $table->unsignedBigInteger('professeur_id')->nullable();
             $table->foreign('professeur_id')->references('id')->on('professeurs')->onDelete('cascade');
             $table->unsignedBigInteger('matiere_id')->nullable();

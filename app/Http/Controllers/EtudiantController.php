@@ -184,5 +184,17 @@ class EtudiantController extends Controller
             return response()->json(['error' => 'Étudiant non trouvé'], 404);
         }
     }
+
+    /*public function getDossier(){
+        try{
+            $depots = Depot::all();
+           
+            return view('admin.etudiants.depots', compact('depots',))->with('message', 'Operation reussi');
+                   
+        }
+        catch(\Exception $e){
+            return view('admin.etudiants.depots', compact('depots',))->with('error', 'Operation echoue!');
+         }
+    }*/
    
 }

@@ -2,6 +2,19 @@
 
 @section("content")
 
+<?php
+    // Récupérer l'utilisateur connecté
+    $user = Auth::user();
+    if(Auth::user()->role_id==2){ $professeur = $user->professeur;}
+    // Récupérer l'objet Professeur associé à l'utilisateur connecté
+    if(Auth::user()->role_id==1){ 
+        $etudiant = $user->etudiant;
+        $niveauEtudiant = $etudiant->niveau->id;
+        $filiereEtudiant = $etudiant->filiere->id;
+    
+    }
+    ?>
+
 <!-- Pre-loader start -->
 <div class="theme-loader">
     <!-- Loader content -->
@@ -22,35 +35,77 @@
                                 <div class="page-body">
 
                                     <!-- Your card content -->
-                                    <div class="card">
+                                    <div class="container-fluid">
                                         <div class="card-header">
                                             <h4>Liste des répertoires</h4>
                                         </div>
 
-                                        @foreach ($depots as $depot )
-                                        <div class="col-md-4 mt-3">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{{ $depot->nomDepot }}</h5>
-                                                    <small>{{ $depot->description }}</small>
-                                                </div>
-                                                <div class="card-footer">
-                                                    <a href="#" class="btn btn-danger mb-3">Fermer</a>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            Options
-                                                        </button>
-                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <li><a class="dropdown-item" href="#">Option 1</a></li>
-                                                            <li><a class="dropdown-item" href="#">Option 2</a></li>
-                                                            <li><a class="dropdown-item" href="#">Option 3</a></li>
-                                                        </ul>
+                                        <!-- Professeur -->
+                                        @if (Auth::user()->role_id==2)
+
+                                        <div class="row">
+                                            @foreach ($depots as $depot )
+                                            <div class="col-md-4 mt-3 ms-3">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">{{ $depot->nomDepot }}</h5>
+                                                        <small>{{ $depot->description }}</small>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <div class="d-flex justify-content-between">
+                                                        <a href="#" class="btn btn-danger mb-3">Fermer</a>
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                Options
+                                                            </button>
+                                                            <ul class="dropdown-content" >
+                                                                <li><a class="dropdown-item" href={{route('depots.show', $depot)}}>Consulter</a></li>
+                                                                <li><a class="dropdown-item" href={{route('depots.edit', $depot)}}>Modifier</a></li>
+                                                                <li>
+                                                                    <form action="{{ route('depots.destroy', $depot) }}" method="POST" style="display: inline;" id="supprimer-depot-{{ $depot->id }}">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="button" onclick="confirmerSuppression({{ $depot->id }})" class="btn btn-danger">Supprimer</button>
+                                                                    </form></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            @endforeach
                                         </div>
-                                        @endforeach
+                                        @endif
 
+                                        <!-- Etudiant -->
+                                        @if (Auth::user()->role_id==1)
+                                           
+                                                <div class="row">
+                                                    @foreach ($depots as $depot )
+
+                                                    @php
+                                                        $niveauxDepot = $depot->niveaux->pluck('id')->toArray();
+                                                        $filieresDepot = $depot->filieres->pluck('id')->toArray();
+                                                    @endphp
+                                                
+                                                    @if (in_array($niveauEtudiant, $niveauxDepot) && in_array($filiereEtudiant, $filieresDepot))
+                                                        <div class="col-md-4 mt-3 ms-3">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <h5 class="card-title">{{ $depot->nomDepot }}</h5>
+                                                                    <small>{{ $depot->description }}</small>
+                                                                </div>
+                                                                <div class="card-footer">
+                                                                    <a href={{route('depots.show', $depot)}} class="btn btn-primary mb-3">Consulter</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                </div>
+                                            @endif
+                                            @endforeach
+                                        @endif
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -77,11 +132,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                Êtes-vous sûr de vouloir supprimer cette matiere ?
+                Êtes-vous sûr de vouloir supprimer ce depot ?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                <button type="button" class="btn btn-danger" onclick="supprimermatiere()">Supprimer</button>
+                <button type="button" class="btn btn-danger" onclick="supprimerdepot()">Supprimer</button>
             </div>
         </div>
     </div>
@@ -101,35 +156,40 @@
             }, timeout);
         }
     });
-</script>
-<script>
-function confirmerSuppression(matiereId) {
-// Verification que l'ID de l'étudiant est correct
-var matiereId = parseInt(matiereId);
 
-if (isNaN(matiereId)) {
-return;
-}
+    $(document).ready(function(){
+        // Close modal when close button or Cancel button is clicked
+        $('#confirmationModal .close, #confirmationModal .btn-secondary').click(function(){
+            $('#confirmationModal').modal('hide');
+        });
+    });
 
-// Mis à jour de l'attribut data-id de la boîte de dialogue de confirmation avec l'ID de l'étudiant
-$('#confirmationModal').attr('data-id', matiereId);
+    function confirmerSuppression(depotId) {
+        // Verification que l'ID de l'étudiant est correct
+        var depotId = parseInt(depotId);
 
-// Affichage de la boîte de dialogue de confirmation
-$('#confirmationModal').modal('show');
-}
+        if (isNaN(depotId)) {
+            return;
+        }
 
-function supprimermatiere() {
-// Récupération l'ID de l'étudiant à partir de l'attribut data-id de la boîte de dialogue
-var matiereId = $('#confirmationModal').attr('data-id');
+        // Mis à jour de l'attribut data-id de la boîte de dialogue de confirmation avec l'ID de l'étudiant
+        $('#confirmationModal').attr('data-id', depotId);
 
-// Fermez la boîte de dialogue de confirmation
-$('#confirmationModal').modal('hide');
+        // Affichage de la boîte de dialogue de confirmation
+        $('#confirmationModal').modal('show');
+    }
 
-// Obtenez le formulaire de suppression correspondant à l'ID de l'étudiant et soumettez-le
-var form = document.querySelector('form#supprimer-matiere-' + matiereId);
-if (form) {
-form.submit();
-}
-}
+    function supprimerdepot() {
+        // Récupération l'ID de l'étudiant à partir de l'attribut data-id de la boîte de dialogue
+        var depotId = $('#confirmationModal').attr('data-id');
 
+        // Fermez la boîte de dialogue de confirmation
+        $('#confirmationModal').modal('hide');
+
+        // Obtenez le formulaire de suppression correspondant à l'ID de l'étudiant et soumettez-le
+        var form = document.querySelector('form#supprimer-depot-' + depotId);
+        if (form) {
+            form.submit();
+        }
+    }
 </script>

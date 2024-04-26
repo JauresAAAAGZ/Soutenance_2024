@@ -60,38 +60,59 @@
                             <div class="main-body">
                                 <div class="page-wrapper">
 
-                    <!-- Page Heading -->
-                    <h1 class="mb-0">Info matiere</h1>
-                    <hr/>
-                    @if(session('message1'))
-                    <div id="success-message" class="alert alert-success">
-                        {{session('message1')}}
-                    </div>
-                    @endif
-                    <ul>
-                        <li>N° Matiere : {{$matiere->id}}</li>
-                        <li>Intitule : {{$matiere->intitule}}</li>
-                        <li>Code : {{$matiere->codeMatiere}}</li>
-                        <li>Duree : {{$matiere->duree}}</li>
-
-                       
-
-                      
-
-                    </ul>
-                </div>
-           
-            </div>
+                   <!-- Page Heading -->
+        <h1 class="mb-0">Depot</h1>
+        <hr/>
+        @if(session('message1'))
+        <div id="success-message" class="alert alert-success">
+            {{ session('message1') }}
         </div>
-        
+        @endif
+        @if(session('error'))
+        <div id="success-message" class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
+        <ul>
+            @foreach($depot->getMedia() as $media)
+            <li>Fichier :
+                @if (Auth::user()->role_id==1)
+                        @if ($media->custom_properties['user_email'] == Auth::user()->email)
+                        <a href="{{ route('depot.download', ['id' => $media->id]) }}">
+                        @else
+                        <a href="">
+                        @endif
+
+                        {{ $media->file_name }}</a></li>
+
+                @elseif (Auth::user()->role_id==2)
+                <a href="{{ route('depot.download', ['id' => $media->id]) }}">
+                    {{ $media->file_name }}</a></li>
+                @endif
+            
+            @endforeach
+
+            @if ($depot->getMedia()->isEmpty())
+                <li>Aucun fichier associé</li>
+            @endif
+        </ul>
+
+        @if (Auth::user()->role_id == 1)
+        <form action="{{ route('depots.add-files', $depot) }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="fichiers[]" accept=".zip, .rar, .pdf" multiple>
+            <button type="submit" class="btn btn-primary">Ajouter des Fichiers</button>
+        </form>
+        @endif
+
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 var successMessage = document.getElementById('success-message');
-        
+
                 if (successMessage) {
                     // Set the timeout in milliseconds (e.g., 5000ms = 5 seconds)
                     var timeout = 3000;
-        
+
                     // Automatically dismiss the success message after the timeout
                     setTimeout(function () {
                         successMessage.style.display = 'none'; // Hide the message
@@ -99,7 +120,6 @@
                 }
             });
         </script>
-
 
 @endsection
 

@@ -76,7 +76,7 @@
                             {{$etudiant->niveau->diplome_niveau }}
                             @endif</li>
                         <li>Filiere :  @if ($etudiant->filiere)
-                            {{$etudiant->filiere->intitule }}
+                            {{$etudiant->filiere->nomFiliere }}
                             @endif
                           
                         </li>
