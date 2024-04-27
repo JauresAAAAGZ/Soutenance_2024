@@ -221,4 +221,18 @@ class DepotController extends Controller
         }
     }
 
+    public function closeDepot(Request $request, $depotId)
+    {
+        try{
+        $depot = Depot::findOrFail($depotId);
+        $depot->etat = 'fermé';
+        $depot->save();
+        return redirect()->back()->with('message1', 'Le depot a été fermé avec succès.');
+    
+        }catch(\Exception $e){
+            return redirect()->back()->with('error', 'Le depot n\'a pas été fermé avec succès.'.$e);
+        }
+       
+
+}
 }

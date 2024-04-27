@@ -33,6 +33,45 @@ body {
   color: #353c4e;
   font-family: "Open Sans", sans-serif; }
 
+
+  .auth-box {
+    text-align: center; /* Aligner le contenu au centre */
+    font-family: "Merriweather", sans-serif; 
+}
+
+/* Style du bouton Statut */
+.statut-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ff69b4; /* Couleur de fond similaire à celle de l'icône ui-home */
+  color: #ffffff; /* Couleur du texte */
+  border-radius: 20px; /* Coins arrondis */
+  text-decoration: none; /* Suppression du soulignement */
+  transition: background-color 0.3s ease; /* Animation de transition */
+}
+
+/* Style du bouton au survol */
+.statut-button:hover {
+  background-color: #ff1493; /* Changement de couleur de fond au survol */
+}
+
+
+.auth-box img {
+    max-width: 100%; /* Redimensionner l'image pour s'adapter à la largeur de la div */
+    height: auto; /* Maintenir le ratio hauteur-largeur */
+    display: block; /* Empêcher le décalage de ligne */
+    margin: 0 auto; /* Centrer l'image horizontalement */
+}
+
+
+.bg-c-blue {
+    background-color: #4c84ff; /* Couleur de fond de la barre de progression en bleu */
+}
+
+.bg-danger {
+    background-color: #ff4c4c; /* Couleur de fond de la barre de progression en rouge */
+}
+
 ul {
   padding-left: 0;
   list-style-type: none;
@@ -11084,7 +11123,7 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
   min-height: 100vh; }
 
 .auth-box {
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.7);
   border-radius: 8px;
   margin: 20px 0 0 0;
   padding: 20px;
@@ -14364,3 +14403,5 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
 .dropdown:hover .dropdown-content {
   display:block;
 }
+
+

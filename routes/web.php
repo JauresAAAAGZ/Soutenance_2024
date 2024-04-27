@@ -100,12 +100,14 @@ Route::get('/get-professeur-info/{id}', [ProfesseurController::class,'getProfess
 // Route pour récupérer les informations de l'etudiant avec une requete AJAX
 Route::get('/get-etudiant-info/{id}', [EtudiantController::class,'getInfo'])->name('get.etudiant.info');
 
+//telecharger un fichier
 Route::get('/download/{id}', [DepotController::class,'downloadFile'])->name('depot.download');
 
-
+//ajouter un fichier a un depot après creation
 Route::post('depots/{depot}/add-files', [DepotController::class,'addFiles'])->name('depots.add-files');
 
-
+//fermer un depot
+Route::post('/depots/{depot}/close', [DepotController::class,'closeDepot'])->name('depots.close');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

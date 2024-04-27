@@ -98,11 +98,13 @@
         </ul>
 
         @if (Auth::user()->role_id == 1)
-        <form action="{{ route('depots.add-files', $depot) }}" method="post" enctype="multipart/form-data">
-            @csrf
-            <input type="file" name="fichiers[]" accept=".zip, .rar, .pdf" multiple>
-            <button type="submit" class="btn btn-primary">Ajouter des Fichiers</button>
-        </form>
+            @if ($depot->etat !== 'fermé')
+                <form action="{{ route('depots.add-files', $depot) }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="fichiers[]" accept=".zip, .rar, .pdf" multiple>
+                    <button type="submit" class="btn btn-primary">Ajouter des Fichiers</button>
+                </form>
+            @endif
         @endif
 
         <script>

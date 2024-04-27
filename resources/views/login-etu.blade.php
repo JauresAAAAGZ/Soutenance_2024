@@ -27,25 +27,22 @@
             <div class="row">
                 <div class="col-sm-12">
 
-                   
-                    
-
                     <!-- Authentication card start -->
-                    <div class="login-card card-block auth-body mr-auto ml-auto">
+                    <div class="login-card card-block auth-body mr-auto ml-auto" style="background-color: transparent;">
                          <!-- Session Status -->
                          <x-auth-session-status class="mb-4" :status="session('status')" />
 
-                        
                         <form class="md-float-material" method="POST" action="{{ route('login') }}">
                             @csrf
-
-                            <div class="text-center">
-                                <img src={{asset('assets/images/logos12.png')}} alt="logo.png">
-                            </div>
+                
+                            
                             <div class="auth-box">
+                                <div class="text-center">
+                                    <img src={{asset('assets/images/logos12.png')}} alt="logo.png">
+                                </div>
                                 <div class="row m-b-20">
                                     <div class="col-md-12">
-                                        <h3 class="text-left txt-primary">Connexion</h3>
+                                        <h3 class="text-left" style="color:black">Connexion</h3>
                                     </div>
                                 </div>
                                 
@@ -62,28 +59,19 @@
 
                                 <!-- Addresse mail -->
                                 <div class="input-group">
-                                    <x-input-label for="email" :value="__('Email: ')" style="color: black"/><br/>
-                                    <x-text-input id="email"  class="form-control" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                                    <x-text-input id="email" class="form-control" type="email" name="email" :value="old('email')" required autofocus placeholder="Email" style="font-family: 'Arial', sans-serif;" />
                                     <span class="md-line"></span>
                                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                 </div>
 
                                  <!-- mot de passe-->
                                 <div class="input-group">                                    
-
-                                    <x-input-label for="password" :value="__('Mot de passe: ')" style="color: black"/><br/>
-
-                                            <x-text-input id="password" class="form-control"
-                                                            type="password"
-                                                            name="password"
-                                                            required autocomplete="current-password" />
-                                            <span class="md-line"></span>
-
-                                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                    <x-text-input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" placeholder="Mot de passe" style="font-family: 'Arial', sans-serif;" />
+                                    <span class="md-line"></span>
+                                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                 </div>
 
                                 <div class="row m-t-25 text-left">
-                                   
                                     <div class="col-sm-5 col-xs-12 forgot-phone text-right">
                                         @if (Route::has('password.request'))
                                                 <div class="text-center">
@@ -96,7 +84,7 @@
                                 </div>
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
-                                        <x-primary-button class="btn btn-primary btn-user btn-block">
+                                        <x-primary-button class="btn btn-secondary btn-user btn-block">
                                             {{ __('Se connecter') }}
                                         </x-primary-button>
                                     </div>

@@ -29,7 +29,12 @@
       <!-- Style.css -->
       <link rel="stylesheet" type="text/css" href={{asset('assets/css/style.css')}}>
       <link rel="stylesheet" type="text/css" href={{asset('assets/css/jquery.mCustomScrollbar.css')}}>
-      <link rel="stylesheet" type="text/css" href={{'assets/css/jquery.dataTables.css'}}>  
+      <link rel="stylesheet" type="text/css" href={{'assets/css/jquery.dataTables.css'}}> 
+     
+
+
+
+
       
     </head>
 
@@ -123,6 +128,8 @@
             });
         });
    </script>
+   <!-- Bootstrap JS (add it before the closing </body> tag) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> 
    
 </body>
 

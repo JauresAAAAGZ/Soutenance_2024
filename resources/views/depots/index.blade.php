@@ -2,6 +2,11 @@
 
 @section("content")
 
+<!-- Pre-loader start -->
+<div class="theme-loader">
+    <!-- Loader content -->
+</div>
+<!-- Pre-loader end -->
 <?php
     // Récupérer l'utilisateur connecté
     $user = Auth::user();
@@ -15,11 +20,6 @@
     }
     ?>
 
-<!-- Pre-loader start -->
-<div class="theme-loader">
-    <!-- Loader content -->
-</div>
-<!-- Pre-loader end -->
 
 <div id="pcoded" class="pcoded">
     <div class="pcoded-overlay-box"></div>
@@ -35,78 +35,140 @@
                                 <div class="page-body">
 
                                     <!-- Your card content -->
-                                    <div class="container-fluid">
-                                        <div class="card-header">
-                                            <h4>Liste des répertoires</h4>
-                                        </div>
+                                    <div class="container-fluid">  
+    <div class="card-header">
+        <h4 id="liste" style="text-align: center">Liste des répertoires</h4>
+    </div>
+    <div class="row">
+        @php
+            $colors = ['#ff7eb9', '#85e085', '#ffcc80', '#80dfff', '#80deea'];
+            $colorIndex = 0;
+        @endphp
 
-                                        <!-- Professeur -->
-                                        @if (Auth::user()->role_id==2)
 
-                                        <div class="row">
-                                            @foreach ($depots as $depot )
-                                            <div class="col-md-4 mt-3 ms-3">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">{{ $depot->nomDepot }}</h5>
-                                                        <small>{{ $depot->description }}</small>
-                                                    </div>
-                                                    <div class="card-footer">
-                                                        <div class="d-flex justify-content-between">
-                                                        <a href="#" class="btn btn-danger mb-3">Fermer</a>
-                                                        <div class="dropdown">
-                                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                Options
-                                                            </button>
-                                                            <ul class="dropdown-content" >
-                                                                <li><a class="dropdown-item" href={{route('depots.show', $depot)}}>Consulter</a></li>
-                                                                <li><a class="dropdown-item" href={{route('depots.edit', $depot)}}>Modifier</a></li>
-                                                                <li>
-                                                                    <form action="{{ route('depots.destroy', $depot) }}" method="POST" style="display: inline;" id="supprimer-depot-{{ $depot->id }}">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="button" onclick="confirmerSuppression({{ $depot->id }})" class="btn btn-danger">Supprimer</button>
-                                                                    </form></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @endforeach
-                                        </div>
-                                        @endif
+        @foreach ($depots as $depot )
+        
+        <!-- Professeur -->
+        @if (Auth::user()->role_id==2)
+            <div class="col-md-4 mt-3">
+                <div class="card">
+                    <div class="position-relative">
+                        <div class="random-bg-color position-absolute" style="background-color: {{ $colors[$colorIndex % count($colors)] }}">
+                            <div class="card-header d-flex justify-content-between align-items-start">
+                                <h5 class="card-title" style="font-size: 18px">{{ $depot->nomDepot }}</h5>
+                                <div class="dropdown">
+                                    <button class="btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                        </svg>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                        <li><form method="POST" action="{{ route('depots.close', ['depot' => $depot->id]) }}">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item">Fermer</button></form></li>
+                                            <li><a class="dropdown-item" href={{route('depots.show', $depot)}}>Consulter</a></li>
+                                            <li><a class="dropdown-item" href={{route('depots.edit', $depot)}}>Modifier</a></li>
+                                            <li>
+                                                <form action="{{ route('depots.destroy', $depot) }}" method="POST" style="display: inline;" id="supprimer-depot-{{ $depot->id }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="dropdown-item" onclick="confirmerSuppression({{ $depot->id }})" class="btn btn-danger">Supprimer</button>
+                                                </form></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p>{{ $depot->description }}</p> 
+                    </div>
+                    <div class="card-footer">
+                        <p id="countdown_{{ $depot->id }}" style="font-size: 20px"></p>
+                    </div>
+                </div>
+            </div>
+            @endif
+            <!-- Etudiant -->
+            @if (Auth::user()->role_id==1)
+            
 
-                                        <!-- Etudiant -->
-                                        @if (Auth::user()->role_id==1)
-                                           
-                                                <div class="row">
-                                                    @foreach ($depots as $depot )
-
-                                                    @php
-                                                        $niveauxDepot = $depot->niveaux->pluck('id')->toArray();
-                                                        $filieresDepot = $depot->filieres->pluck('id')->toArray();
-                                                    @endphp
+                @php
+                    $niveauxDepot = $depot->niveaux->pluck('id')->toArray();
+                    $filieresDepot = $depot->filieres->pluck('id')->toArray();
+                @endphp
+            
+                @if (in_array($niveauEtudiant, $niveauxDepot) && in_array($filiereEtudiant, $filieresDepot))
+                <div class="col-md-4 mt-3">
+                    <div class="card">
+                        <div class="position-relative">
+                            <div class="random-bg-color position-absolute" style="background-color: {{ $colors[$colorIndex % count($colors)] }}">
+                                <div class="card-header d-flex justify-content-between align-items-start">
+                                    <h5 class="card-title" style="font-size: 18px">{{ $depot->nomDepot }}</h5>
+                                    <div >
+                                       <a class="btn btn-secondary" href={{route('depots.show', $depot)}}>Consulter</a></li> 
                                                 
-                                                    @if (in_array($niveauEtudiant, $niveauxDepot) && in_array($filiereEtudiant, $filieresDepot))
-                                                        <div class="col-md-4 mt-3 ms-3">
-                                                            <div class="card">
-                                                                <div class="card-body">
-                                                                    <h5 class="card-title">{{ $depot->nomDepot }}</h5>
-                                                                    <small>{{ $depot->description }}</small>
-                                                                </div>
-                                                                <div class="card-footer">
-                                                                    <a href={{route('depots.show', $depot)}} class="btn btn-primary mb-3">Consulter</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                </div>
-                                            @endif
-                                            @endforeach
-                                        @endif
                                         
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p>{{ $depot->description }}</p> 
+                        </div>
+                        <div class="card-footer">
+                            <p id="countdown_{{ $depot->id }}" style="font-size: 20px"></p>
+                        </div>
+                    </div>
+                </div>
+        @endif
+        
+     @endif
+
+            @php $colorIndex++; @endphp
+        @endforeach
+    </div>
+</div>
+<script>
+    // Function to update countdown for each depot
+    function updateCountdown(depotId, closingDate) {
+        // Set the date we're counting down to
+        var countDownDate = new Date(closingDate).getTime();
+
+        // Update the countdown every 1 second
+        var x = setInterval(function() {
+
+            // Get the current date and time
+            var now = new Date().getTime();
+            
+            // Calculate the distance between now and the count down date
+            var distance = countDownDate - now;
+            
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            // Display the result in the element with id="countdown_{{ $depot->id }}"
+            document.getElementById("countdown_" + depotId).innerHTML = days + "d " + hours + "h "
+            + minutes + "m " + seconds + "s ";
+            
+            // If the count down is finished, display expired message
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown_" + depotId).innerHTML = "Expired";
+            }
+        }, 1000);
+    }
+
+    // Call updateCountdown function for each depot
+    @foreach ($depots as $depot )
+        updateCountdown({{ $depot->id }}, "{{ $depot->dateFermeture }}");
+    @endforeach
+</script>
+
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -119,7 +181,30 @@
 </div>
 
 @endsection
+
 </body>
+
+<!-- Modal de confirmation de suppression -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationModalLabel">Confirmation de suppression</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Êtes-vous sûr de vouloir supprimer ce depot ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger" onclick="supprimerdepot()">Supprimer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- Modal de confirmation de suppression -->
 <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
@@ -180,16 +265,17 @@
     }
 
     function supprimerdepot() {
-        // Récupération l'ID de l'étudiant à partir de l'attribut data-id de la boîte de dialogue
-        var depotId = $('#confirmationModal').attr('data-id');
+    // Récupérer l'ID du dépôt à partir de l'attribut data-id de la boîte de dialogue
+    var depotId = $('#confirmationModal').attr('data-id');
 
-        // Fermez la boîte de dialogue de confirmation
-        $('#confirmationModal').modal('hide');
+    // Fermer la boîte de dialogue de confirmation
+    $('#confirmationModal').modal('hide');
 
-        // Obtenez le formulaire de suppression correspondant à l'ID de l'étudiant et soumettez-le
-        var form = document.querySelector('form#supprimer-depot-' + depotId);
-        if (form) {
-            form.submit();
-        }
+    // Obtenir le formulaire de suppression correspondant à l'ID du dépôt et le soumettre
+    var form = document.querySelector('form#supprimer-depot-' + depotId);
+    if (form) {
+        form.submit();
     }
+}
+
 </script>
