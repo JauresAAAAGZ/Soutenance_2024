@@ -16,6 +16,7 @@
       <meta name="description" content="CodedThemes">
       <meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
       <meta name="author" content="CodedThemes">
+      <meta name="csrf-token" content="{{ csrf_token() }}" />
       <!-- Favicon icon -->
       <link rel="icon" href= {{asset('assets/images/lolink.ico')}} type="image/x-icon">
       <!-- Google font-->

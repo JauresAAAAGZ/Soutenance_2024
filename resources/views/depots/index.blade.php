@@ -157,6 +157,8 @@
             if (distance < 0) {
                 clearInterval(x);
                 document.getElementById("countdown_" + depotId).innerHTML = "Expired";
+                
+                updateDepotEtat(depotId);
             }
         }, 1000);
     }
@@ -165,6 +167,29 @@
     @foreach ($depots as $depot )
         updateCountdown({{ $depot->id }}, "{{ $depot->dateFermeture }}");
     @endforeach
+
+    // Function to update the état of the dépôt to "fermé"
+    function updateDepotEtat(depotId) {
+
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        // Send an Ajax request to update the état of the dépôt
+        $.ajax({
+            url: '/update-depot-etat/' + depotId,
+            type: 'POST',
+            headers: {
+            'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
+        },
+
+            success: function(response) {
+                // Handle success response if needed
+                console.log(response);
+            },
+            error: function(xhr) {
+                // Handle error response if needed
+                console.error(xhr.responseText);
+            }
+        });
+    }
 </script>
 
                                     </div>

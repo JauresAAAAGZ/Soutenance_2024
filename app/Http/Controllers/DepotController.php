@@ -235,4 +235,23 @@ class DepotController extends Controller
        
 
 }
+
+public function updateDepotEtat($depotId) {
+    // Find the dépôt by ID
+    $depot = Depot::find($depotId);
+    if ($depot) {
+        // Check if the état is not already "fermé"
+        if ($depot->etat !== 'fermé') {
+            // Update the état to "fermé"
+            $depot->etat = 'fermé';
+            $depot->save();
+            return response()->json(['message' => 'État du dépôt mis à jour avec succès.']);
+        } else {
+            return response()->json(['message' => 'État du dépôt est déjà fermé.']);
+        }
+    } else {
+        return response()->json(['error' => 'Dépôt non trouvé.'], 404);
+    }
+}
+
 }

@@ -109,6 +109,10 @@ Route::post('depots/{depot}/add-files', [DepotController::class,'addFiles'])->na
 //fermer un depot
 Route::post('/depots/{depot}/close', [DepotController::class,'closeDepot'])->name('depots.close');
 
+//update the etat field of a depot
+Route::post('/update-depot-etat/{depotId}', [DepotController::class,'updateDepotEtat'])->name('updateDepotEtat');
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
