@@ -210,7 +210,7 @@ p {
   padding: 1.25rem; }
 
 .card {
-  border-radius: 5px;
+  border-radius: 15px;
   box-shadow: 0 1px 11px 0 rgba(0, 0, 0, 0.12);
   border: none;
   margin-bottom: 30px; }
@@ -14405,3 +14405,117 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
 }
 
 
+.main-menu-header button{
+  border: none;
+  background: #1976d2;
+  color: #fff;
+  margin: 30px 0;
+  font-size: 18px;
+  padding: 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.main-menu-header button:hover{
+  background: #0d47a1;
+}
+
+.main-menu-header button:hover{
+  background: #0d47a1;
+}
+
+.main-menu-header button{
+  margin: 0;
+}
+
+
+.btn-unstyled {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  
+}
+
+
+.sign-out{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #364670;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sign-out:hover{
+    color: #1976d2;
+}
+
+.sign-out h3{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.sign-out i{
+    font-size: 22px;
+}
+
+.sign-out h3{
+        display: none;
+    }
+
+.sign-out i{
+        font-size: 26px;
+    }
+
+.sign-out h3{
+        display: block;
+    }
+
+.sign-out i{
+        font-size: 22px;
+    }
+
+    .drop-zone {
+      border: 2px dashed #ccc;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+  }
+  
+  .drop-zone p {
+      margin: 0;
+  }
+  
+  .drop-zone {
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+}
+
+.drop-zone p {
+    margin-bottom: 10px;
+}
+
+.drop-zone input[type="file"] {
+    display: none; /* Hide the file input button */
+}
+
+/* Style the transparent background */
+.drop-zone label {
+    background: transparent;
+    cursor: pointer;
+}
+
+/*animation de survol*/
+.card-depot {
+  transition: transform 0.3s ease;
+}
+
+.card-depot:hover {
+  transform: scale(1.08);
+}
+  
+   

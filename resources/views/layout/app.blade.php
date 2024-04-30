@@ -31,7 +31,7 @@
       <link rel="stylesheet" type="text/css" href={{asset('assets/css/style.css')}}>
       <link rel="stylesheet" type="text/css" href={{asset('assets/css/jquery.mCustomScrollbar.css')}}>
       <link rel="stylesheet" type="text/css" href={{'assets/css/jquery.dataTables.css'}}> 
-     
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
 
 
 
@@ -116,7 +116,7 @@
   <script src={{asset('assets/js/pcoded.min.js')}}></script>
   <script src={{asset('assets/js/demo-12.js')}}></script>
   <script src={{asset('assets/js/jquery.mCustomScrollbar.concat.min.js')}}></script>
-    <script src={{'assests/js/jquery-3.6.0.min.js'}}></script>
+    
    <script type="text/javascript" charset="utf8" src={{'assets/js/jquery.dataTables.js'}}></script>
 
    <script>
@@ -131,7 +131,7 @@
    </script>
    <!-- Bootstrap JS (add it before the closing </body> tag) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> 
-   
+<script src={{'assets/js/script2.js'}}></script>
 </body>
 
 </html>

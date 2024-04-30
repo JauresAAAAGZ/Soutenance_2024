@@ -76,7 +76,7 @@
                 
                 <div class="col mb-3">
                     <label for="nomDepot" class="form-label">Nom du répertoire</label>
-                    <input type="text" class="form-control" id="nomDepot" name="nomDepot" required>
+                    <input type="text" class="form-control" id="nomDepot" name="nomDepot" placeholder="ex: Devoir de maison" required>
                   
                 </div>
 
@@ -132,7 +132,7 @@
             </div>
 
             <div class="col mb-3">
-                <label for="fichier" class="form-label">Fichiers</label>
+                <label for="fichier" class="form-label">Fichiers(Veuillez compresser l'intégralité des fichiers)</label>
                 <input type="file" class="form-control" id="fichier" name="fichiers[]" accept=".zip, .rar, .pdf" multiple>
             </div>
           </div>

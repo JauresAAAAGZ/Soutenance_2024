@@ -88,6 +88,8 @@ Route::resource('niveaux', NiveauController::class);
 
 Route::resource('depots', DepotController::class);
 
+
+
 Route::resource('users', UserController::class);
 
 
@@ -111,6 +113,8 @@ Route::post('/depots/{depot}/close', [DepotController::class,'closeDepot'])->nam
 
 //update the etat field of a depot
 Route::post('/update-depot-etat/{depotId}', [DepotController::class,'updateDepotEtat'])->name('updateDepotEtat');
+
+
 
 
 Route::middleware('auth')->group(function () {

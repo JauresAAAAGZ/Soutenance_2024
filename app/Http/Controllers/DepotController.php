@@ -15,6 +15,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Carbon\Carbon;
 
 
+
 class DepotController extends Controller
 {
     /**
@@ -33,6 +34,8 @@ class DepotController extends Controller
             return view('depots.index', compact('depots',))->with('error', 'Operation echoue!');
         }
     }
+
+    
 
     /**
      * Show the form for creating a new resource.
@@ -223,16 +226,21 @@ class DepotController extends Controller
 
     public function closeDepot(Request $request, $depotId)
     {
-        try{
         $depot = Depot::findOrFail($depotId);
+
+        if ($depot->etat !== 'fermé') {
+        try{
+       
         $depot->etat = 'fermé';
         $depot->save();
         return redirect()->back()->with('message1', 'Le depot a été fermé avec succès.');
     
         }catch(\Exception $e){
-            return redirect()->back()->with('error', 'Le depot n\'a pas été fermé avec succès.'.$e);
+            return redirect()->back()->with('error', 'Le depot n\'a pas été fermé.'.$e);
         }
-       
+    }else{
+        return redirect()->back()->with('error', 'Ce depot a deja expiré.');
+    }
 
 }
 
@@ -253,5 +261,7 @@ public function updateDepotEtat($depotId) {
         return response()->json(['error' => 'Dépôt non trouvé.'], 404);
     }
 }
+
+
 
 }

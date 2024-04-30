@@ -116,7 +116,7 @@
             </div>
            <div class="d-flex justify-content-between">
                 <button type="reset" class="btn btn-secondary">Annuler</button>
-                <button id="profedit" class="btn btn-warning" type="submit">Modifier</button>
+                <button id="profadd" class="btn btn-warning" type="submit">Enregistrer</button>
             </div>
            
         </form>

@@ -35,7 +35,8 @@
                                 <div class="page-body">
 
                                     <!-- Your card content -->
-                                    <div class="container-fluid">  
+    <div class="container-fluid"> 
+
     <div class="card-header">
         <h4 id="liste" style="text-align: center">Liste des répertoires</h4>
     </div>
@@ -51,39 +52,57 @@
         <!-- Professeur -->
         @if (Auth::user()->role_id==2)
             <div class="col-md-4 mt-3">
-                <div class="card">
+                <div class="  card">
                     <div class="position-relative">
-                        <div class="random-bg-color position-absolute" style="background-color: {{ $colors[$colorIndex % count($colors)] }}">
+                        <div class="random-bg-color position-absolute" style="background-color: {{ $colors[$colorIndex % count($colors)] }}; border-radius: 5px 5px 0 0">
                             <div class="card-header d-flex justify-content-between align-items-start">
                                 <h5 class="card-title" style="font-size: 18px">{{ $depot->nomDepot }}</h5>
                                 <div class="dropdown">
-                                    <button class="btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                        </svg>
+                                    <button class="btn btn-unstyled" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                       
+                                        <i class="ri-more-fill"></i>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                        <li><form method="POST" action="{{ route('depots.close', ['depot' => $depot->id]) }}">
-                                            @csrf
-                                            <button type="submit" class="dropdown-item">Fermer</button></form></li>
-                                            <li><a class="dropdown-item" href={{route('depots.show', $depot)}}>Consulter</a></li>
-                                            <li><a class="dropdown-item" href={{route('depots.edit', $depot)}}>Modifier</a></li>
-                                            <li>
-                                                <form action="{{ route('depots.destroy', $depot) }}" method="POST" style="display: inline;" id="supprimer-depot-{{ $depot->id }}">
+                                        <li>
+                                            <form method="POST" action="{{ route('depots.close', ['depot' => $depot->id]) }}">
+                                                @csrf
+                                                <button style="color:red;" type="submit" class="dropdown-item">Fermer l'accès</button>
+                                            </form>
+                                        </li>
+                                        <li><a class="dropdown-item" href="{{ route('depots.show', $depot) }}">Consulter</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('depots.edit', $depot) }}">Modifier</a></li>
+                                        <li>
+                                            <form action="{{ route('depots.destroy', $depot) }}" method="POST" style="display: inline;" id="supprimer-depot-{{ $depot->id }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="button" class="dropdown-item" onclick="confirmerSuppression({{ $depot->id }})" class="btn btn-danger">Supprimer</button>
-                                                </form></li>
+                                                <button style="color:red;" type="button" class="dropdown-item" onclick="confirmerSuppression({{ $depot->id }})">
+                                                    Supprimer
+                                                </button>
+                                            </form>
+                                        </li>
+                                       
                                     </ul>
                                 </div>
+                                
+                                
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
                         <p>{{ $depot->description }}</p> 
                     </div>
-                    <div class="card-footer">
-                        <p id="countdown_{{ $depot->id }}" style="font-size: 20px"></p>
+                    <div class="card-footer" style="border-radius: 0 0 5px 5px">
+                        <hr>
+                        @if ($depot->etat != 'fermé')
+                       
+                        <p>
+                            <i class="ri-timer-line" style="font-size: 20px;">:</i>  <!-- Icon markup -->
+                            <span id="countdown_{{ $depot->id }}" style="font-size: 20px;"></span> <!-- Countdown timer -->
+                        </p>
+                        @else
+                            <i class="ri-timer-line" style="font-size: 25px;">: Expired</i>
+                        @endif
+                       
                     </div>
                 </div>
             </div>
@@ -99,15 +118,13 @@
             
                 @if (in_array($niveauEtudiant, $niveauxDepot) && in_array($filiereEtudiant, $filieresDepot))
                 <div class="col-md-4 mt-3">
-                    <div class="card">
+                    <div class=" card">
                         <div class="position-relative">
-                            <div class="random-bg-color position-absolute" style="background-color: {{ $colors[$colorIndex % count($colors)] }}">
+                            <div class="random-bg-color position-absolute" style="background-color: {{ $colors[$colorIndex % count($colors)] }}; border-radius: 5px 5px 0 0">
                                 <div class="card-header d-flex justify-content-between align-items-start">
                                     <h5 class="card-title" style="font-size: 18px">{{ $depot->nomDepot }}</h5>
                                     <div >
                                        <a class="btn btn-secondary" href={{route('depots.show', $depot)}}>Consulter</a></li> 
-                                                
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -115,8 +132,18 @@
                         <div class="card-body">
                             <p>{{ $depot->description }}</p> 
                         </div>
-                        <div class="card-footer">
-                            <p id="countdown_{{ $depot->id }}" style="font-size: 20px"></p>
+                        <div class="card-footer" style="border-radius: 0 0 5px 5px">
+                            <hr>
+                        @if ($depot->etat != 'fermé')
+                            
+                            <p>
+                                <i class="ri-timer-line"></i> : <!-- Icon markup -->
+                                <span id="countdown_{{ $depot->id }}" style="font-size: 20px;"></span> <!-- Countdown timer -->
+                            </p>
+                        @else
+                            <i class="ri-timer-line" style="font-size: 20px">: Expired</i>
+                        @endif
+                            
                         </div>
                     </div>
                 </div>

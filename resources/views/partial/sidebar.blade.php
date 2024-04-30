@@ -44,19 +44,15 @@
 
             <div class=""> 
                 <div class="main-menu-header">
-                   <a href={{route('depots.create')}}><button  class="btn btn-info">Nouveau Répertoire</button></a> 
+                   <a href={{route('depots.create')}}><button>Nouveau Dossier <i class="ri-add-line"></i></button></a> 
                 </div>
             </div>
            
         @endif
-        <div class="pcoded-search">
-            <span class="searchbar-toggle">  </span>
-            <div class="pcoded-search-box ">
-                <input type="text" placeholder="Search">
-                <span class="search-icon"><i class="ti-search" aria-hidden="true"></i></span>
-            </div>
-        </div>
-        <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">Layout</div>
+
+       
+       
+        <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">Menus</div>
         <ul class="pcoded-item pcoded-left-item">
             <li class="active">
 
@@ -75,7 +71,7 @@
                     <a href={{route('dashadmin')}}>
                 @endif
 
-                    <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                    <span class="pcoded-micon"><i class="ri-home-7-line"></i><b>D</b></span>
                     <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
@@ -86,84 +82,15 @@
                 <!--Start Sidebar Etudiant -->
                 @if(  Auth::user()->role_id == 1  )
 
-                <a href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                    <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">pourEtu</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
+                <li class="active">
+                    <a href={{route('depots.index')}}>
+                        <span class="pcoded-micon"><i class="ri-folder-3-line"></i><b>D</b></span>
+                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Dossiers</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
                 <ul class="pcoded-submenu">
-                    <li class=" ">
-                        <a href={{route('depots.index')}}>
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Dossiers</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="breadcrumb.html">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Breadcrumbs</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="button.html">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Button</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="tabs.html">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Tabs</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="color.html">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Color</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="label-badge.html">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Label Badge</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="tooltip.html">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Tooltip</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="typography.html">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Typography</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="notification.html">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Notification</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="icon-themify.html">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Icon</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-
-
+                   
                 @endif
                 <!--End Sidebar Etudiant -->
 
@@ -171,14 +98,14 @@
                 @if(  Auth::user()->role_id == 2  )
 
                 <a href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                    <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Gestion des Dossiers</span>
+                    <span class="pcoded-micon"><i class="ri-folder-3-line"></i></span>
+                    <span class="pcoded-mtext" style="font-weight: bold;" data-i18n="nav.basic-components.main">Gestion des Dossiers</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
                 <ul class="pcoded-submenu">
                     <li class=" ">
                         <a href={{route('depots.create')}}>
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-micon"><i class="ri-arrow-drop-right-fill"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Créer un dossier</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
@@ -286,50 +213,35 @@
              <!--End Sidebar Admin-->
         </ul>
 
-        <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Forms &amp; Tables</div>
-        <ul class="pcoded-item pcoded-left-item">
-            <li>
-                <a href="form-elements-component.html">
-                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Form Components</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
-            <li>
-                <a href="bs-basic-table.html">
-                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Basic Table</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
+       
             
-        </ul>
-
-        <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Chart &amp; Maps</div>
-        <ul class="pcoded-item pcoded-left-item">
            
-           
-            <li class="pcoded-hasmenu">
-                <a href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                    <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Pages</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-                <ul class="pcoded-submenu">
-                    <li class=" ">
-                        <a href={{route('welcome')}}>
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Login</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    
-                   
-                </ul>
-            </li>
-            
-        </ul>
-
         
+        <li class="active">
+            <a href="">
+                <span class="pcoded-micon"><i class="ri-delete-bin-5-line"></i><b>D</b></span>
+                <span class="pcoded-mtext" data-i18n="nav.dash.main">Corbeille</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+
+        <li class="active">
+            <a href="">
+                <span class="pcoded-micon"><i class="ri-logout-box-r-line"></i><b>D</b></span>
+                <span class="pcoded-mtext" data-i18n="nav.dash.main"><form method="POST" action="{{ route('logout') }}">
+                              @csrf
+                              
+                              <li :href="route('logout')"
+                                      onclick="event.preventDefault();
+                                                  this.closest('form').submit();">
+                                  {{ __('Deconnexion') }}
+                                </li>
+                              </form></span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+        
+
+                    
 </nav>
 <!-- End of Sidebar -->
