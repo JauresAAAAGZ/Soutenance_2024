@@ -33,6 +33,7 @@
                         <div class="main-body">
                             <div class="page-wrapper">
                                 <div class="page-body">
+                                   
 
                                     <!-- Your card content -->
     <div class="container-fluid"> 
@@ -40,6 +41,16 @@
     <div class="card-header">
         <h4 id="liste" style="text-align: center">Liste des répertoires</h4>
     </div>
+    @if(session('message'))
+    <div id="success-message" class="alert alert-success">
+        {{ session('message') }}
+    </div>
+    @endif
+    @if(session('error'))
+    <div id="success-message" class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
     <div class="row">
         @php
             $colors = ['#ff7eb9', '#85e085', '#ffcc80', '#80dfff', '#80deea'];
@@ -63,12 +74,7 @@
                                         <i class="ri-more-fill"></i>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                        <li>
-                                            <form method="POST" action="{{ route('depots.close', ['depot' => $depot->id]) }}">
-                                                @csrf
-                                                <button style="color:red;" type="submit" class="dropdown-item">Fermer l'accès</button>
-                                            </form>
-                                        </li>
+                                        
                                         <li><a class="dropdown-item" href="{{ route('depots.show', $depot) }}">Consulter</a></li>
                                         <li><a class="dropdown-item" href="{{ route('depots.edit', $depot) }}">Modifier</a></li>
                                         <li>
@@ -118,21 +124,27 @@
             
                 @if (in_array($niveauEtudiant, $niveauxDepot) && in_array($filiereEtudiant, $filieresDepot))
                 <div class="col-md-4 mt-3">
-                    <div class=" card">
+                    <div class="card-depot card">
                         <div class="position-relative">
                             <div class="random-bg-color position-absolute" style="background-color: {{ $colors[$colorIndex % count($colors)] }}; border-radius: 5px 5px 0 0">
                                 <div class="card-header d-flex justify-content-between align-items-start">
                                     <h5 class="card-title" style="font-size: 18px">{{ $depot->nomDepot }}</h5>
-                                    <div >
-                                       <a class="btn btn-secondary" href={{route('depots.show', $depot)}}>Consulter</a></li> 
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
                             <p>{{ $depot->description }}</p> 
                         </div>
+                        
                         <div class="card-footer" style="border-radius: 0 0 5px 5px">
+                            <div clas="d-flex justify-content-between">
+
+                                <a href={{route('depots.show', $depot)}}> <button class="btn btn-secondary" >Consulter</button> </a>
+                                <a href={{ route('depots.downloadProfessorFiles', $depot->id) }}> <button class="btn btn-primary ">Resources</button> </a>
+
+                            </div>
+                            
                             <hr>
                         @if ($depot->etat != 'fermé')
                             

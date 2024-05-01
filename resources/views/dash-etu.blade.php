@@ -16,6 +16,9 @@
     })->whereHas('filieres', function ($query) use ($filiereNom) {
         $query->where('filieres.nomFiliere', $filiereNom);
     })->get();
+
+  
+
 ?>
 
 <!-- Pre-loader start -->
@@ -36,7 +39,7 @@
                         <div class="main-body">
                             <div class="page-wrapper">
                                 <div class="page-body">
-                                    <div class="row">
+                                    
                                         <!-- card1 start -->
                                         <div class="col-md-8 col-xl-6">
                                             <div class="card widget-card-1">
@@ -83,7 +86,7 @@
                                         </div>
                                         <!-- card1 end -->                                         
                                         <!-- Data widget start -->
-                                        <div class="col-md-12 col-xl-6">
+                                        <div class="col-md-12">
                                             <div class="card project-task">
                                                 <div class="card-header">
                                                     <div class="card-header-left ">
@@ -104,21 +107,33 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th>Dépôts</th>
+                                                                    <th>Resources</th>
                                                                     <th>Temps restant</th>
+                                                                    
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 @foreach($depotsDisponibles as $depot)
                                                                 <tr>
                                                                     <td>
+                                                                        @if ($depot->etat != 'fermé')  
+                                                                       
                                                                         <a href={{ route('depots.show', $depot) }}>
+                                                                        @endif
                                                                             <div class="task-contain">
                                                                                 <h6 class="bg-c-blue d-inline-block text-center">{{ substr($depot->nomDepot, 0, 1) }}</h6>
                                                                                 <p class="d-inline-block m-l-20">{{ $depot->nomDepot }}</p>
                                                                             </div>
                                                                         </a>
                                                                     </td>
-                                                                    <td id="remaining-time-{{ $depot->id }}"></td>
+                                                                    <td><a href={{ route('depots.downloadProfessorFiles', $depot->id) }} class="btn btn-primary">Télécharger resources</a></td>
+                                                                    <td>
+                                                                        
+                                                                        <span id="remainingtime_{{$depot->id}}"></span>
+                                                                        
+                                                                        
+                                                                    </td>
+                                                                    
                                                                 </tr>
                                                                 @endforeach
                                                             </tbody>
@@ -128,7 +143,7 @@
                                             </div>
                                         </div>
                                         <!-- Data widget End -->
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -142,32 +157,59 @@
 <script>
     // Fonction pour mettre à jour le temps restant pour chaque dépôt
     function updateRemainingTime() {
-        <?php foreach($depotsDisponibles as $depot): ?>
-            var creationDate = new Date('<?php echo $depot->dateCreation; ?>');
-            var closureDate = new Date('<?php echo $depot->dateFermeture; ?>');
-            var remainingTime = closureDate - new Date();
-            
-            if (remainingTime <= 0) {
-                document.getElementById('remaining-time-<?php echo $depot->id; ?>').textContent = 'Expiré';
-            } else {
-                var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
-                remainingTime -= days * (1000 * 60 * 60 * 24);
-                var hours = Math.floor(remainingTime / (1000 * 60 * 60));
-                remainingTime -= hours * (1000 * 60 * 60);
-                var minutes = Math.floor(remainingTime / (1000 * 60));
-                remainingTime -= minutes * (1000 * 60);
-                var seconds = Math.floor(remainingTime / 1000);
-    
-                document.getElementById('remaining-time-<?php echo $depot->id; ?>').textContent = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
-            }
-        <?php endforeach; ?>
-    }
+    @foreach($depotsDisponibles as $depot)
+        var creationDate = new Date('{{ $depot->dateCreation }}');
+        var closureDate = new Date('{{ $depot->dateFermeture }}');
+        var remainingTime = closureDate - new Date();
 
-    // Mettre à jour le temps restant toutes les secondes
-    setInterval(updateRemainingTime, 1000);
-    
-    // Appeler la fonction une fois pour afficher le temps restant initial
-    updateRemainingTime();
+        if (remainingTime <= 0) {
+            document.getElementById('remainingtime_{{$depot->id}}').textContent = 'Expired';
+            updateDepotEtat({{ $depot->id }});
+        } else {
+            var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+            remainingTime -= days * (1000 * 60 * 60 * 24);
+            var hours = Math.floor(remainingTime / (1000 * 60 * 60));
+            remainingTime -= hours * (1000 * 60 * 60);
+            var minutes = Math.floor(remainingTime / (1000 * 60));
+            remainingTime -= minutes * (1000 * 60);
+            var seconds = Math.floor(remainingTime / 1000);
+
+            document.getElementById('remainingtime_{{$depot->id}}').textContent = days + "j " + hours + "h " + minutes + "m " + seconds + "s";
+        }
+    @endforeach
+}
+
+// Update remaining time every second
+setInterval(updateRemainingTime, 1000);
+
+// Initial update of remaining time
+updateRemainingTime();
 </script>
+
+    <script>
+       // Function to update the état of the dépôt to "fermé"
+       function updateDepotEtat(depotId) {
+        
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        // Send an Ajax request to update the état of the dépôt
+        $.ajax({
+            url: '/update-depot-etat/' + depotId,
+            type: 'POST',
+            headers: {
+            'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
+        },
+
+            success: function(response) {
+                // Handle success response if needed
+                console.log(response);
+            },
+            error: function(xhr) {
+                // Handle error response if needed
+                console.error(xhr.responseText);
+            }
+        });
+    } 
+        
+    </script>
 
 @endsection

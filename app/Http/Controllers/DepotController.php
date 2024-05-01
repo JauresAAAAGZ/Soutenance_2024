@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Carbon\Carbon;
-
+use App\Models\Professeur;
 
 
 class DepotController extends Controller
@@ -86,13 +86,14 @@ class DepotController extends Controller
             $depots->niveaux()->sync($request->niveaux);
             $depots->filieres()->sync($request->filieres);
 
-            foreach ($request->file('fichiers') as $file) {
-                $depots->addMedia($file) ->preservingOriginal()
-                
-                ->withCustomProperties([
-                    'user_email' => Auth::user()->email,
-                   
-                ])->toMediaCollection();
+            
+            if ($request->hasFile('fichiers')) {
+                foreach ($request->file('fichiers') as $file) {
+                    $depots->addMedia($file)->preservingOriginal()
+                        ->withCustomProperties([
+                            'user_email' => Auth::user()->email,
+                        ])->toMediaCollection();
+                }
             }
 
            
@@ -201,48 +202,37 @@ class DepotController extends Controller
 
     public function addFiles(Request $request, Depot $depot)
     {
-        try{
-           
-
+        try {
             foreach ($request->file('fichiers') as $file) {
-                $depot->addMedia($file) ->preservingOriginal()
-                
-                ->withCustomProperties([
-                    'user_email' => Auth::user()->email,
-                    // You can add more user-related information here if needed
-                ])->toMediaCollection();
-
-                
+                // Get the connected user's name
+                $userName = Auth::user()->name; // Change 'name' to the appropriate field name
+    
+                // Truncate the user's name to only the first two words
+                $userNameParts = explode(' ', $userName);
+                $truncatedUserName = implode(' ', array_slice($userNameParts, 0, 2));
+    
+                // Get the original file name
+                $originalFileName = $file->getClientOriginalName();
+    
+                // Construct the new file name
+                $newFileName = $truncatedUserName . '_' . $originalFileName;
+    
+                // Add the media with the new file name
+                $depot->addMedia($file)->preservingOriginal()
+                    ->withCustomProperties([
+                        'user_email' => Auth::user()->email,
+                        // You can add more user-related information here if needed
+                    ])->usingFileName($newFileName)->toMediaCollection();
             }
-
-           
     
-            return  redirect()->back()->with('message1', 'Le fichier a été ajouté avec succès');
-        }
-        catch(\Exception $e){
-            return redirect()->back()->with('error', 'Le fichier n\'a pas été ajouté'.$e);
+            return redirect()->back()->with('message1', 'Le fichier a été ajouté avec succès');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Le fichier n\'a pas été ajouté' . $e->getMessage());
         }
     }
-
-    public function closeDepot(Request $request, $depotId)
-    {
-        $depot = Depot::findOrFail($depotId);
-
-        if ($depot->etat !== 'fermé') {
-        try{
-       
-        $depot->etat = 'fermé';
-        $depot->save();
-        return redirect()->back()->with('message1', 'Le depot a été fermé avec succès.');
     
-        }catch(\Exception $e){
-            return redirect()->back()->with('error', 'Le depot n\'a pas été fermé.'.$e);
-        }
-    }else{
-        return redirect()->back()->with('error', 'Ce depot a deja expiré.');
-    }
 
-}
+  
 
 public function updateDepotEtat($depotId) {
     // Find the dépôt by ID
@@ -262,6 +252,53 @@ public function updateDepotEtat($depotId) {
     }
 }
 
+/*supprimer un media*/
+public function deleteFile($id)
+{
+    try {
+        $media = Media::findOrFail($id);
+        
+        // Check if the user is authorized to delete the file
+        if (Auth::user()->email != $media->custom_properties['user_email']) {
+            return redirect()->back()->with('error', 'You are not authorized to delete this file');
+        }
+
+        // Delete the file
+        $media->delete();
+
+        return redirect()->back()->with('message', 'File deleted successfully');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'An error occurred while deleting the file');
+    }
+}
+
+public function downloadProfessorFiles($depotId)
+{
+    // Retrieve the depot by ID
+    $depot = Depot::findOrFail($depotId);
+    
+    // Retrieve the professor's email addresses
+    $professorEmails = Professeur::pluck('emailProfesseur')->toArray();
+    
+    // Get the first media associated with the depot and matching professor's emails
+    $media = $depot->media()->where(function ($query) use ($professorEmails) {
+        foreach ($professorEmails as $email) {
+            $query->orWhereJsonContains('custom_properties->user_email', $email);
+        }
+    })->first();
+
+    if (!$media) {
+        
+        return redirect()->back()->with('error', 'An error occurred while deleting the file');
+    }
+
+    // Get the path to the media file
+    $filePath = $media->getPath();
+
+    // Return the file for download
+    return response()->download($filePath, $media->file_name);
+}
 
 
 }
+

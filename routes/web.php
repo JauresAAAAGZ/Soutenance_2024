@@ -108,12 +108,16 @@ Route::get('/download/{id}', [DepotController::class,'downloadFile'])->name('dep
 //ajouter un fichier a un depot après creation
 Route::post('depots/{depot}/add-files', [DepotController::class,'addFiles'])->name('depots.add-files');
 
-//fermer un depot
-Route::post('/depots/{depot}/close', [DepotController::class,'closeDepot'])->name('depots.close');
+
 
 //update the etat field of a depot
 Route::post('/update-depot-etat/{depotId}', [DepotController::class,'updateDepotEtat'])->name('updateDepotEtat');
 
+//supprimer un media
+Route::delete('/depot/{id}/delete-file', [DepotController::class,'deleteFile'])->name('depot.delete-file');
+
+//telecharger resources specifique
+Route::get('/depots/{depot}/download-professor-files', [DepotController::class, 'downloadProfessorFiles'])->name('depots.downloadProfessorFiles');
 
 
 

@@ -14477,23 +14477,21 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
         font-size: 22px;
     }
 
-    .drop-zone {
-      border: 2px dashed #ccc;
-      padding: 20px;
-      text-align: center;
-      cursor: pointer;
-  }
+   
   
   .drop-zone p {
       margin: 0;
   }
   
   .drop-zone {
-    border: 2px dashed #ccc;
-    border-radius: 5px;
-    padding: 20px;
-    text-align: center;
-}
+    width: auto; /* Définir la largeur souhaitée */
+    height: 400px; /* Définir la hauteur souhaitée */
+    border: 2px dashed #ccc; /* Ajouter une bordure pointillée */
+    background-color: #f9f9f9; /* Ajouter une couleur de fond */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
 .drop-zone p {
     margin-bottom: 10px;
@@ -14515,7 +14513,47 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
 }
 
 .card-depot:hover {
-  transform: scale(1.08);
+  transform: scale(1.03);
 }
-  
+
+
+
+.remaining-time-box {
+  display: inline-block;
+  padding: 5px 10px;
+  color: black;
+}
+
+.ri-delete-bin-2-line {
+  font-size: 30px; /* Adjust the size as needed */
+  transition: color 0.3s ease; /* Add smooth color transition */
+  color:#505458;
+}
+
+.ri-delete-bin-2-line:hover {
+  color: red; /* Change color on hover */
+}
    
+.ri-folder-download-line{
+  font-size: 30px; /* Adjust the size as needed */
+  padding: 5px 8px; /* Adjust padding as needed */
+  transition: color 0.3s ease; /* Add smooth color transition */
+
+}
+
+.ri-folder-download-line:hover{
+  color: green;
+}
+
+.delete-button:hover {
+  text-decoration: none;
+}
+
+.custom-card {
+  width: 250px;
+  transition: transform 0.3s ease; /* Remplacez 200px par la largeur de votre choix */
+}
+
+.custom-card:hover{
+  transform: scale(1.03);
+}

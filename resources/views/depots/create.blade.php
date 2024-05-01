@@ -91,9 +91,9 @@
 
             <div class="row">
                 <div class="col mb-3">
-                    <label for="matiere" class="form-label">Matières Concernées</label>
-                    <select name="matiere_id" id="matiere" class="form-control">
-                        <option disabled selected value>Choisir le(s) matière(s)</option>
+                    <label for="matiere" class="form-label">Matière Concernée</label>
+                    <select name="matiere_id" id="matiere" class="form-control" required>
+                        <option disabled selected value>Choisir la matière</option>
                         @foreach ($matieres as $matiere)
                             @if ($professeur->matieres->contains($matiere))
                                 <option value="{{ $matiere->id }}">{{ $matiere->intitule }}</option>
@@ -104,7 +104,7 @@
 
                 <div class="col mb-3">
                     <label for="niveau" class="form-label">Niveaux Concernés</label>
-                    <select name="niveaux[]" id="niveau" class="form-control" multiple>
+                    <select name="niveaux[]" id="niveau" class="form-control" required multiple>
                         <option disabled selected value> Choisir le(s) Niveau(x)</option>
                         @foreach ($niveaux as $niveau)
                         <option value="{{$niveau->id}}" >{{$niveau->diplome_niveau}}</option>
@@ -114,7 +114,7 @@
 
                 <div class="col mb-3">
                     <label for="filiere" class="form-label">Filieres Concernées</label>
-                    <select name="filieres[]" id="filiere" class="form-control" multiple>
+                    <select name="filieres[]" id="filiere" class="form-control" required multiple>
                         <option disabled selected value> Choisir le(s) Filiere(s)</option>
                         @foreach ($filieres as $filiere)
                         <option value="{{$filiere->id}}" >{{$filiere->nomFiliere}}</option>
@@ -132,8 +132,8 @@
             </div>
 
             <div class="col mb-3">
-                <label for="fichier" class="form-label">Fichiers(Veuillez compresser l'intégralité des fichiers)</label>
-                <input type="file" class="form-control" id="fichier" name="fichiers[]" accept=".zip, .rar, .pdf" multiple>
+                <label for="fichier" class="form-label">Fichier (Veuillez compresser l'intégralité des fichiers)</label>
+                <input type="file" class="form-control" id="fichier" name="fichiers[]" accept=".zip, .rar, .pdf">
             </div>
           </div>
            

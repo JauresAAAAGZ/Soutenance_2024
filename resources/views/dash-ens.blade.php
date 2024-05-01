@@ -111,45 +111,26 @@
             
             <!-- Professeur -->
             @if (Auth::user()->role_id==2)
+               
                 <div class="col-md-4 mt-3">
+                    <a href={{route('depots.show',$depot)}} style="color:black">
                     <div class="card-depot card">
                         <div class="position-relative">
                             <div class="random-bg-color position-absolute" style="background-color: {{ $colors[$colorIndex % count($colors)] }}; border-radius: 5px 5px 0 0">
                                 <div class="card-header d-flex justify-content-between align-items-start">
                                     <h5 class="card-title" style="font-size: 18px">{{ $depot->nomDepot }}</h5>
-                                    <div class="dropdown">
-                                        <button class="btn btn-unstyled" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="ri-more-fill"></i>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                            <li>
-                                                <form method="POST" action="{{ route('depots.close', ['depot' => $depot->id]) }}">
-                                                    @csrf
-                                                    <button style="color:red;" type="submit" class="dropdown-item">Fermer l'accès</button>
-                                                </form>
-                                            </li>
-                                            <li><a class="dropdown-item" href="{{ route('depots.show', $depot) }}">Consulter</a></li>
-                                            <li><a class="dropdown-item" href="{{ route('depots.edit', $depot) }}">Modifier</a></li>
-                                            <li>
-                                                <!-- Mettez le bouton "Supprimer" à l'intérieur du formulaire -->
-                                                <form action="{{ route('depots.destroy', $depot) }}" method="POST" style="display: inline;" id="supprimer-depot-{{ $depot->id }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button style="color:red;" type="submit" class="dropdown-item" onclick="return confirmerSuppression('{{ $depot->id }}')">Supprimer</button>
-                                                </form>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
                             <p>{{ $depot->description }}</p> 
                         </div>
-                        <div style="">
-                            Date de fermeture: {{ $depot->dateFermeture }}
-                        </div>
+                        
                         <div class="card-footer" style="border-radius: 0 0 5px 5px">
+                            <p style="">
+                                Date de fermeture: {{ $depot->dateFermeture }}
+                            </p>
                             <hr>
                             @if ($depot->etat == 'fermé')
                             <i class="ri-timer-line" style="font-size: 25px;">: Expired</i>
@@ -163,7 +144,9 @@
                            
                         </div>
                     </div>
+                </a>
                 </div>
+           
                 @endif
                 @php $colorIndex++; @endphp
                 @endforeach
