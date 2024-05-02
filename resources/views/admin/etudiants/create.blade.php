@@ -103,7 +103,7 @@
             <div class="row">
                 <div class="col mb-3">
                     <label for="filiere" class="form-label">Filiere</label>
-                    <select name="filiere_id" id="filiere" class="form-control">
+                    <select name="filiere_id" id="filiere" class="form-control" required>
                         <option disabled selected value> Choisir une filière</option>
                         @foreach ($filieres as $filiere)
                         <option value="{{$filiere->id}}" >{{$filiere->nomFiliere}}</option>
@@ -113,7 +113,7 @@
 
                 <div class="col mb-3">
                     <label for="niveau" class="form-label">Niveau</label>
-                    <select name="niveau_id" id="niveau" class="form-control">
+                    <select name="niveau_id" id="niveau" class="form-control" required>
                         <option disabled selected value> Choisir un Niveau</option>
                         @foreach ($niveaux as $niveau)
                         <option value="{{$niveau->id}}" >{{$niveau->diplome_niveau}}</option>
@@ -125,8 +125,8 @@
             </div>
             
             <div class="d-flex justify-content-between">
-                <button type="reset" class="btn btn-secondary">Annuler</button>
-                <button id="etuadd" type="submit" class="btn btn-warning">Créer l'étudiant</button>
+                <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
+                <button id="etuadd" type="submit" class="btn btn-warning" style="border-radius: 150px">Enregistrer l'étudiant</button>
             </div>
         </form>
         </div>

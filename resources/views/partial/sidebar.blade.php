@@ -5,7 +5,7 @@
         @if(  Auth::user()->role_id == 3  )
         <div class="">
             <div class="main-menu-header">
-                <img class="img-40 img-radius" src={{asset('assets/images/avatar-4.jpg')}} alt="User-Profile-Image">
+                <img class="img-40 img-radius" src={{asset('assets/images/unknown.jpg')}} alt="User-Profile-Image">
                 <div class="user-details">
                     <div>{{ Auth::user()->name }}</div>
 
@@ -97,33 +97,20 @@
                 <!--Start Sidebar Prof -->
                 @if(  Auth::user()->role_id == 2  )
 
-                <a href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="ri-folder-3-line"></i></span>
-                    <span class="pcoded-mtext" style="font-weight: bold;" data-i18n="nav.basic-components.main">Gestion des Dossiers</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-                <ul class="pcoded-submenu">
-                    <li class=" ">
-                        <a href={{route('depots.create')}}>
-                            <span class="pcoded-micon"><i class="ri-arrow-drop-right-fill"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Créer un dossier</span>
+                
+                <ul class="pcoded-item pcoded-left-item">
+                    <li class="active">
+                        <a href="{{ route('depots.index') }}">
+                            <span class="pcoded-micon"><i class="ri-folder-3-line"></i><b>D</b></span>
+                            <span class="pcoded-mtext" data-i18n="nav.dash.main">Dossiers</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
-                    <li class=" ">
-                        <a href={{route('depots.index')}}>
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Liste des Dossiers</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Dossiers Supprimés</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
+                    <!-- Other Main Menu Items -->
+                </ul>
+
+                <!-- Other Sidebar Items -->
+            
                    
 
                 @endif
@@ -135,7 +122,7 @@
                 @if(  Auth::user()->role_id == 3  )
 
                 <a href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+                    <span class="pcoded-micon"><i class="ri-account-pin-circle-fill"></i></span>
                     <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Gestions des Utilisateurs</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
@@ -185,7 +172,7 @@
             <li> 
                     <a href={{route('filieres.index')}}>   
 
-                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
+                        <span class="pcoded-micon"><i class="ri-contacts-fill"></i><b>D</b></span>
                         <span class="pcoded-mtext" data-i18n="nav.dash.main">Gestion des Filieres</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
@@ -194,7 +181,7 @@
             <li> 
                 <a href={{route('niveaux.index')}}>   
 
-                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
+                    <span class="pcoded-micon"><i class="ri-layout-horizontal-fill"></i><b>D</b></span>
                     <span class="pcoded-mtext" data-i18n="nav.dash.main">Gestion des Niveaux</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
@@ -203,7 +190,7 @@
             <li> 
                 <a href={{route('matieres.index')}}>   
 
-                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
+                    <span class="pcoded-micon"><i class="ri-book-marked-fill"></i><b>D</b></span>
                     <span class="pcoded-mtext" data-i18n="nav.dash.main">Gestion des Matières</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
@@ -211,12 +198,12 @@
 
             @endif
              <!--End Sidebar Admin-->
-        </ul>
+        
 
        
             
-           
         
+             @if(  Auth::user()->role_id == 2  )
         <li class="active">
             <a href="">
                 <span class="pcoded-micon"><i class="ri-delete-bin-5-line"></i><b>D</b></span>
@@ -224,24 +211,27 @@
                 <span class="pcoded-mcaret"></span>
             </a>
         </li>
-
-        <li class="active">
-            <a href="">
-                <span class="pcoded-micon"><i class="ri-logout-box-r-line"></i><b>D</b></span>
-                <span class="pcoded-mtext" data-i18n="nav.dash.main"><form method="POST" action="{{ route('logout') }}">
-                              @csrf
-                              
-                              <li :href="route('logout')"
-                                      onclick="event.preventDefault();
-                                                  this.closest('form').submit();">
-                                  {{ __('Deconnexion') }}
-                                </li>
-                              </form></span>
-                <span class="pcoded-mcaret"></span>
-            </a>
-        </li>
+        @endif
+       
         
-
+        <ul class="pcoded-item pcoded-left-item">
+            <li class="active">
+                <a href="">
+                    <span class="pcoded-micon"><i class="ri-logout-box-r-line"></i><b>D</b></span>
+                    <span class="pcoded-mtext" data-i18n="nav.dash.main">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <li :href="route('logout')"
+                                onclick="event.preventDefault();
+                                this.closest('form').submit();">
+                                {{ __('Deconnexion') }}
+                            </li>
+                        </form>
+                    </span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+        </ul>
                     
 </nav>
 <!-- End of Sidebar -->

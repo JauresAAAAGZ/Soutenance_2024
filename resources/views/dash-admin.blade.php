@@ -66,12 +66,12 @@
                                             <div class="col-md-6 col-xl-3">
                                                 <div class="card widget-card-1">
                                                     <div class="card-block-small">
-                                                        <a href={{route('dashadmin1')}}><i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i></a>
+                                                        <a href={{route('dashadmin1')}}><i class="ri-account-pin-circle-fill bg-c-blue card1-icon"></i></a>
                                                         <span class="text-c-blue f-w-600">Utilisateurs</span>
                                                         <h4>+99</h4>
                                                         <div>
                                                             <span class="f-left m-t-10 text-muted">
-                                                                <i class="text-c-blue f-16 icofont icofont-warning m-r-10"></i>Professeur, Etudian...
+                                                                <i class="text-c-blue f-16 ri-list-settings-line m-r-10"></i>Professeur, Etudian...
                                                             </span>
                                                         </div>
                                                     </div>
@@ -82,12 +82,12 @@
                                             <div class="col-md-6 col-xl-3">
                                                 <div class="card widget-card-1">
                                                     <div class="card-block-small">
-                                                        <a href={{route('filieres.index')}}><i class="icofont icofont-ui-home bg-c-pink card1-icon"></i></a>
+                                                        <a href={{route('filieres.index')}}><i class="ri-contacts-fill bg-c-pink card1-icon"></i></a>
                                                         <span class="text-c-pink f-w-600">Filieres</span>
                                                         <h4>+5</h4>
                                                         <div>
                                                             <span class="f-left m-t-10 text-muted">
-                                                                <i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>CDM, RGL, BF,DES...
+                                                                <i class="text-c-pink f-16 ri-list-settings-line m-r-10"></i>CDM, RGL, BF,DES...
                                                             </span>
                                                         </div>
                                                     </div>
@@ -98,12 +98,12 @@
                                             <div class="col-md-6 col-xl-3">
                                                 <div class="card widget-card-1">
                                                     <div class="card-block-small">
-                                                        <a href={{route('niveaux.index')}}><i class="icofont icofont-warning-alt bg-c-green card1-icon"></i></a>
+                                                        <a href={{route('niveaux.index')}}><i class="ri-layout-horizontal-fill bg-c-green card1-icon"></i></a>
                                                         <span class="text-c-green f-w-600">Niveaux</span>
                                                         <h4>5</h4>
                                                         <div>
                                                             <span class="f-left m-t-10 text-muted">
-                                                                <i class="text-c-green f-16 icofont icofont-tag m-r-10"></i>Licence(1,2,3), Mas...
+                                                                <i class="text-c-green f-16 ri-list-settings-line m-r-10"></i>Licence(1,2,3), Mas...
                                                             </span>
                                                         </div>
                                                     </div>
@@ -114,12 +114,12 @@
                                              <div class="col-md-6 col-xl-3">
                                                 <div class="card widget-card-1">
                                                     <div class="card-block-small">
-                                                        <a href={{route('matieres.index')}}><i class="icofont icofont-warning-alt bg-c-yellow card1-icon"></i></a>
+                                                        <a href={{route('matieres.index')}}><i class="ri-book-marked-fill bg-c-yellow card1-icon"></i></a>
                                                         <span class="text-c-yellow f-w-600">Matières</span>
                                                         <h4>5</h4>
                                                         <div>
                                                             <span class="f-left m-t-10 text-muted">
-                                                                <i class="text-c-yellow f-16 icofont icofont-tag m-r-10"></i>Language C, Droit de...
+                                                                <i class="text-c-yellow f-16 ri-list-settings-line m-r-10"></i>Language C, Droit de...
                                                             </span>
                                                         </div>
                                                     </div>

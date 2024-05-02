@@ -101,8 +101,8 @@
                       
                     </div>
                     <div class="d-flex justify-content-between">
-                        <button type="reset" class="btn btn-secondary">Annuler</button>
-                        <button id="useredit" class="btn btn-warning" type="submit">Modifier le compte</button>
+                        <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
+                        <button id="useredit" class="btn btn-warning" type="submit" style="border-radius: 150px">Modifier le compte</button>
                        
                     </div>
                    

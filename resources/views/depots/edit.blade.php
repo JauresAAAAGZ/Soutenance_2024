@@ -94,7 +94,7 @@ $professeur = $user->professeur;
             <div class="row">
                 <div class="col mb-3">
                     <label for="matiere" class="form-label">Matières Concernées</label>
-                    <select name="matiere_id" id="matiere" class="form-control">
+                    <select name="matiere_id" id="matiere" class="form-control" required>
                         <option disabled selected value>Choisir le(s) matière(s)</option>
                         @foreach ($matieres as $matiere)
                             @if ($professeur->matieres->contains($matiere))
@@ -108,7 +108,7 @@ $professeur = $user->professeur;
 
                 <div class="col mb-3">
                     <label for="niveau" class="form-label">Niveaux Concernés</label>
-                    <select name="niveaux[]" id="niveau" class="form-control" multiple>
+                    <select name="niveaux[]" id="niveau" class="form-control" multiple required>
                         <option disabled selected value> Choisir le(s) Niveau(x)</option>
                         @foreach ($niveaux as $niveau)
                         <option value="{{$niveau->id}}"  @if ($depot->niveaux->contains($niveau->id))
@@ -120,7 +120,7 @@ $professeur = $user->professeur;
 
                 <div class="col mb-3">
                     <label for="filiere" class="form-label">Filieres Concernées</label>
-                    <select name="filieres[]" id="filiere" class="form-control" multiple>
+                    <select name="filieres[]" id="filiere" class="form-control" multiple required>
                         <option disabled selected value> Choisir le(s) Filiere(s)</option>
                         @foreach ($filieres as $filiere)
                         <option value="{{$filiere->id}}" @if ($depot->filieres->contains($filiere->id))
@@ -144,8 +144,8 @@ $professeur = $user->professeur;
            
             <div class="d-flex justify-content-between">
                 
-                <button type="reset" class="btn btn-secondary">Annuler</button>
-                <button id="depotedit" type="submit" class="btn btn-warning">Modifier le repertoire</button>
+                <button type="reset" class="btn btn-secondary" style="border-radius: 200px">Annuler</button>
+                <button id="depotedit" type="submit" class="btn btn-warning" style="border-radius: 200px">Modifier le repertoire</button>
             </div>
                    
                 </form>

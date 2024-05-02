@@ -116,6 +116,18 @@
   <script src={{asset('assets/js/pcoded.min.js')}}></script>
   <script src={{asset('assets/js/demo-12.js')}}></script>
   <script src={{asset('assets/js/jquery.mCustomScrollbar.concat.min.js')}}></script>
+  <script>
+    var $window = $(window);
+    var nav = $('.fixed-button');
+        $window.scroll(function(){
+            if ($window.scrollTop() >= 200) {
+             nav.addClass('active');
+         }
+         else {
+             nav.removeClass('active');
+         }
+     });
+    </script>
     
    <script type="text/javascript" charset="utf8" src={{'assets/js/jquery.dataTables.js'}}></script>
 

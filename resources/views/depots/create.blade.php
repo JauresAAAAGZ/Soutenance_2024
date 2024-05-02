@@ -139,8 +139,8 @@
            
             <div class="d-flex justify-content-between">
                 
-                <button type="reset" class="btn btn-secondary">Annuler</button>
-                <button id="depotadd" type="submit" class="btn btn-warning">Créer le repertoire</button>
+                <button type="reset" class="btn btn-secondary" style="border-radius: 200px">Annuler</button>
+                <button id="depotadd" type="submit" class="btn btn-warning" style="border-radius: 200px">Créer le repertoire</button>
             </div>
         </form>
         </div>

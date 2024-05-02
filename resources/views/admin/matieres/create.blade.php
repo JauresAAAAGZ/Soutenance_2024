@@ -93,8 +93,8 @@
           
            
             <div class="d-flex justify-content-between">
-                <button type="reset" class="btn btn-secondary">Annuler</button>
-                <button id="matadd" type="submit" class="btn btn-warning">Créer Matiere</button>
+                <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
+                <button id="matadd" type="submit" class="btn btn-warning" style="border-radius: 150px">Créer la matiere</button>
             </div>
         </form>
         </div>

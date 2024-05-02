@@ -38,9 +38,30 @@
                                     <!-- Your card content -->
     <div class="container-fluid"> 
 
-    <div class="card-header">
-        <h4 id="liste" style="text-align: center">Liste des répertoires</h4>
-    </div>
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 style="text-align: center">Liste des répertoires</h4>
+                <!-- Search bar -->
+                <form action="{{ route('depots.index') }}" method="GET" class="mt-4">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Recherchez par nom ou description" value="{{ request('q') }}">
+                        <button type="submit" class="btn btn-primary"><i class="ri-seo-line" style="font-size: 20px"></i></button>
+                    </div>
+                </form>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Trier par
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{{ route('depots.index', ['sort' => 'latest']) }}">Du plus récent au plus ancien</a>
+                        <a class="dropdown-item" href="{{ route('depots.index', ['sort' => 'oldest']) }}">Du plus ancien au plus récent</a>
+                        <a class="dropdown-item" href="{{ route('depots.index', ['sort' => 'alphabetical']) }}">Ordre alphabétique</a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
     @if(session('message'))
     <div id="success-message" class="alert alert-success">
         {{ session('message') }}

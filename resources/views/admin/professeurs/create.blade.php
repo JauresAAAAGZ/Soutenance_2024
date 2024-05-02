@@ -103,7 +103,7 @@
             <div class="row">
                 <div class="col mb-3">
                     <label for="matiere" class="form-label">matiere</label>
-                    <select name="matieres[]" id="matiere" class="form-control" multiple>
+                    <select name="matieres[]" id="matiere" class="form-control" multiple required>
                         <option disabled selected value> Choisir les matieres</option>
                         @foreach ($matieres as $matiere)
                         <option value="{{$matiere->id}}" >{{$matiere->intitule}}</option>
@@ -115,8 +115,8 @@
                 
             </div>
            <div class="d-flex justify-content-between">
-                <button type="reset" class="btn btn-secondary">Annuler</button>
-                <button id="profadd" class="btn btn-warning" type="submit">Enregistrer</button>
+                <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
+                <button id="profadd" class="btn btn-warning" type="submit" style="border-radius: 150px">Enregistrer le professeur</button>
             </div>
            
         </form>

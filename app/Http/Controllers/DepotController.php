@@ -21,19 +21,48 @@ class DepotController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        try{
-            $depots = Depot::all();
-            
-           
-            return view('depots.index', compact('depots'))->with('message', 'Operation reussi');
-                   
+    public function index(Request $request)
+{
+    try {
+        // Default sorting order
+        $orderBy = 'created_at';
+        $orderDirection = 'desc';
+
+        // Check if a sorting option is selected
+        if ($request->has('sort')) {
+            switch ($request->sort) {
+                case 'oldest':
+                    $orderBy = 'created_at';
+                    $orderDirection = 'asc';
+                    break;
+                case 'alphabetical':
+                    $orderBy = 'nomDepot';
+                    $orderDirection = 'asc';
+                    break;
+                case 'latest':
+                default:
+                    $orderBy = 'created_at';
+                    $orderDirection = 'desc';
+                    break;
+            }
         }
-        catch(\Exception $e){
-            return view('depots.index', compact('depots',))->with('error', 'Operation echoue!');
-        }
+
+        // Get the search query
+        $searchQuery = $request->input('q');
+
+        // Fetch depots based on the selected sorting option and search query
+        $depots = Depot::orderBy($orderBy, $orderDirection)
+            ->where('nomDepot', 'like', '%'.$searchQuery.'%')
+            ->orWhere('description', 'like', '%'.$searchQuery.'%')
+            ->get();
+
+        return view('depots.index', compact('depots'))->with('message', 'Opération réussie');
+    } catch(\Exception $e) {
+        return view('depots.index')->with('error', 'Opération échouée!');
     }
+}
+
+    
 
     
 

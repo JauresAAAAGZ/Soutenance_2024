@@ -85,9 +85,9 @@
                                         <div class="card">
                                             <div class="card-header">
                                                 <h5>Liste des filieres</h5>
-                                                <a href="{{ route('filieres.create') }}" class="btn btn-info">Ajouter</a>
+                                                <a href="{{ route('filieres.create') }}" class="btn btn-info" style="border-radius: 150px">Ajouter <i class="ri-add-circle-line"></i></a>
 
-                                                <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
+                                                <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>            </ul></div>
                                             </div>
 
                                         <div class="table-responsive">
@@ -132,12 +132,12 @@
                                                
                                                            
                                                             <td>
-                                                                <a href={{route('filieres.show', $filiere)}} class="btn btn-info">Voir</a>
-                                                                <a href={{route('filieres.edit', $filiere)}} class="btn btn-primary">Modifier</a>
+                                                                <a href={{route('filieres.show', $filiere)}} class="btn btn-info" style="border-radius: 200px"><i class="ri-eye-line" style="font-size: 20px"></i></a>
+                                                                <a href={{route('filieres.edit', $filiere)}} class="btn btn-primary" style="border-radius: 200px"><i class="ri-edit-box-fill" style="font-size: 20px"></i></a>
                                                                 <form action={{route('filieres.destroy', $filiere)}} method="POST" style="display: inline;" id="supprimer-filiere-{{ $filiere->id }}">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="button" onclick="confirmerSuppression({{ $filiere->id }})" class="btn btn-danger">Supprimer</button>
+                                                                    <button type="button" onclick="confirmerSuppression({{ $filiere->id }})" class="btn btn-danger" style="border-radius: 200px"><i class="ri-delete-bin-7-fill" style="font-size: 20px"></i></button>
                                                                 </form>
                                                             </td>
                                     

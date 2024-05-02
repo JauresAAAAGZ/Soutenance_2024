@@ -99,8 +99,8 @@
           
            
             <div class="d-flex justify-content-between">
-                <button type="reset" class="btn btn-secondary">Annuler</button>
-                <button id="filadd" type="submit" class="btn btn-warning">Créer filiere</button>
+                <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
+                <button id="filadd" type="submit" class="btn btn-warning" style="border-radius: 150px">Créer filiere</button>
             </div>
         </form>
         </div>

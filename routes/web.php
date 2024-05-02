@@ -79,18 +79,6 @@ Route::get('/dashboard', function () {
 
 
 
-Route::resource('etudiants', EtudiantController::class);
-Route::resource('professeurs', ProfesseurController::class);
-Route::resource('filieres', FiliereController::class);
-Route::resource('admins', AdminController::class);
-Route::resource('matieres', MatiereController::class);
-Route::resource('niveaux', NiveauController::class);
-
-Route::resource('depots', DepotController::class);
-
-
-
-Route::resource('users', UserController::class);
 
 
 // Route pour récupérer les informations de l'administrateur avec une requete AJAX
@@ -122,6 +110,21 @@ Route::get('/depots/{depot}/download-professor-files', [DepotController::class, 
 
 
 Route::middleware('auth')->group(function () {
+    
+Route::resource('etudiants', EtudiantController::class);
+Route::resource('professeurs', ProfesseurController::class);
+Route::resource('filieres', FiliereController::class);
+Route::resource('admins', AdminController::class);
+Route::resource('matieres', MatiereController::class);
+Route::resource('niveaux', NiveauController::class);
+
+Route::resource('depots', DepotController::class);
+
+
+
+Route::resource('users', UserController::class);
+
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

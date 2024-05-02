@@ -131,8 +131,8 @@
                 
             </div>
             <div class="d-flex justify-content-between">
-                <button type="reset" class="btn btn-secondary">Annuler</button>
-                <button id="useradd" type="submit" class="btn btn-warning">Créer le compte</button>
+                <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
+                <button id="useradd" type="submit" class="btn btn-warning" style="border-radius: 150px">Créer le compte</button>
                
             </div>
 
