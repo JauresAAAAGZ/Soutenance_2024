@@ -58,7 +58,11 @@
 
                                 <!-- Page Heading -->
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h1 class="mb-0"><?php echo $depot->nomDepot; ?></h1>
+                                    <div>
+                                        <h1 class="mb-0"><?php echo $depot->nomDepot; ?></h1><br>
+                                        <h4><?php echo $depot->description; ?></h4>
+                                    </div>
+                                    
                                     <div class="text-right">
                                         Temps restant : <span id="remaining-time-{{ $depot->id }}" class="remaining-time-box"></span>
                                     </div>
@@ -253,6 +257,7 @@
 
         if (remainingTime <= 0) {
             document.getElementById('remaining-time-' + depotId).textContent = 'Expiré';
+            
             // Call the function to update the depot's etat
             updateDepotEtat(depotId);
         } else {
@@ -306,5 +311,12 @@
     } 
         
     </script>
-
+    
+    @if (Auth::user()->role_id == 2)
+    <div class="floating-button">
+        <a href="" class="btn btn-success btn-lg">Tout Télécharger</a>
+    </div>
+    @endif
  @endsection
+
+ </body>

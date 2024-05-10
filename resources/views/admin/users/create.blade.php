@@ -81,7 +81,7 @@
                     <select name="etudiant_id" id="etudiant" class="form-control">
                         <option disabled selected value> Choisir l'étudiant</option>
                         @foreach ($etudiants as $etudiant)
-                        <option value="{{$etudiant->id}}" >{{$etudiant->nomEtudiant}}</option>
+                        <option value="{{$etudiant->id}}" >{{$etudiant->nomEtudiant}} {{$etudiant->prenomEtudiant}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -91,7 +91,7 @@
                     <select name="professeur_id" id="professeur" class="form-control">
                         <option disabled selected value> Choisir le Professeur</option>
                         @foreach ($professeurs as $professeur)
-                        <option value="{{$professeur->id}}" >{{$professeur->nomProfesseur}}</option>
+                        <option value="{{$professeur->id}}" >{{$professeur->nomProfesseur}}{{$professeur->prenomProfesseur}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -123,12 +123,22 @@
                     
                 </div>    
                 
+            </div>
+            <div class="row">
                 <div class="col mb-3">
                     <label for="password" class="form-label">Mot de passe</label>
                     <input type="password" class="form-control" id="password" name="password" required>
                     
                 </div>
                 
+                <div class="col mb-3">
+                    <label for="newpassword" class="form-label">Confirmer le mot de passe</label>
+                    <input type="password" class="form-control" id="newpassword" name="newpassword" required>
+                    
+                </div>
+
+
+
             </div>
             <div class="d-flex justify-content-between">
                 <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
@@ -284,7 +294,27 @@
 
     </script>
 
-     
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var formulaire = document.getElementById('adduser');
+        var boutonAjouter = document.getElementById('useradd');
+        var passwordInput = document.getElementById('password');
+        var newPasswordInput = document.getElementById('newpassword');
+
+        formulaire.addEventListener('submit', function (e) {
+            if (passwordInput.value !== newPasswordInput.value) {
+                // If passwords do not match, prevent form submission
+                alert("Les mots de passe ne correspondent pas !");
+                e.preventDefault(); // Prevent form submission
+            } else {
+                // If passwords match, allow form submission
+                boutonAjouter.disabled = true; // Optionally, disable the submit button
+            }
+        });
+    });
+</script>
+
+
       
 
 @endsection

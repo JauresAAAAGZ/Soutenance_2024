@@ -14557,3 +14557,20 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
 .custom-card:hover{
   transform: scale(1.03);
 }
+
+.floating-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Button style */
+.floating-button .btn {
+  border-radius: 50px; /* Round button corners */
+}
+
+/* Button hover effect */
+.floating-button .btn:hover {
+  transform: scale(1.05); /* Scale up on hover */
+}

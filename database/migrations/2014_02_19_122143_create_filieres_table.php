@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('filieres', function (Blueprint $table) {
             $table->id();
-            $table->string('nomFiliere');
-            $table->string('codeFiliere');
+            $table->string('nomFiliere')->unique();
+            $table->string('codeFiliere')->unique();
             $table->timestamps();
         });
     }

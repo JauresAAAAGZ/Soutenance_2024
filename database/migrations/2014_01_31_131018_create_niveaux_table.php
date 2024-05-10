@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('niveaux', function (Blueprint $table) {
             $table->id();
-            $table->string('diplome_niveau');
-            $table->string('codeNiveau');
+            $table->string('diplome_niveau')->unique();
+            $table->string('codeNiveau')->unique();
             $table->timestamps();
         });
     }

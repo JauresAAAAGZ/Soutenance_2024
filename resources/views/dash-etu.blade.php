@@ -47,7 +47,7 @@
                                                     <!-- Première instance de card-block-small -->
                                                     <div class="card-block-small">
                                                         <i class="icofont icofont-ui-home bg-c-pink card1-icon"></i>
-                                                        <span class="text-viber f-w-600">WELCOME <?php                           
+                                                        <span class="text-viber f-w-600">BIENVENUE <?php                           
                                                             $name = Auth::user()->name;
                                                             $words = explode(' ', $name); // Sépare la chaîne par les espaces
                                                             $truncatedName = implode(' ', array_slice($words, 0, 2)); // Prend les deux premiers éléments et les réunit
@@ -107,7 +107,7 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th>Dépôts</th>
-                                                                    <th>Resources</th>
+                                                                    <th>Ressources</th>
                                                                     <th>Temps restant</th>
                                                                     
                                                                 </tr>
@@ -126,7 +126,7 @@
                                                                             </div>
                                                                         </a>
                                                                     </td>
-                                                                    <td><a href={{ route('depots.downloadProfessorFiles', $depot->id) }} class="btn btn-primary">Télécharger resources</a></td>
+                                                                    <td><a href={{ route('depots.downloadProfessorFiles', $depot->id) }} class="btn btn-primary">Télécharger ressources</a></td>
                                                                     <td>
                                                                         
                                                                         <span id="remainingtime_{{$depot->id}}"></span>

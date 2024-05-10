@@ -66,6 +66,8 @@ class ProfesseurController extends Controller
             
             $professeurs->prenomProfesseur = $request->prenomProfesseur;
             $professeurs->emailProfesseur = $request->emailProfesseur;
+
+            $professeurs->sexe_prof = $request->sexe_prof;
             $professeurs->date_naissance_prof = $request->date_naissance_prof;
            
             

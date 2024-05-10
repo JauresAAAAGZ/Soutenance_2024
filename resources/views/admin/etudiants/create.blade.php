@@ -102,6 +102,17 @@
             </div>
             <div class="row">
                 <div class="col mb-3">
+                    <label for="sexe_etu" class="form-label">Sexe</label>
+                    <select name="sexe_etu" id="sexe_etu" class="form-control" required>
+                        <option disabled selected value> Choisir le sexe</option>
+                        
+                        <option value="Masculin" >Masculin</option>
+                        <option value="Feminin" >Feminin</option>
+
+                        
+                    </select>
+                </div>
+                <div class="col mb-3">
                     <label for="filiere" class="form-label">Filiere</label>
                     <select name="filiere_id" id="filiere" class="form-control" required>
                         <option disabled selected value> Choisir une filière</option>

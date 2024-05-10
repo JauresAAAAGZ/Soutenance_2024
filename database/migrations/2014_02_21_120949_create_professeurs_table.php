@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('nomProfesseur');
             $table->string('prenomProfesseur');
             $table->string('emailProfesseur')->unique();
+            $table->string('sexe_prof');
+            
             $table->date('date_naissance_prof');
             $table->timestamp('email_verified_at')->nullable();
             

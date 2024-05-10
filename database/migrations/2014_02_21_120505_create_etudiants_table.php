@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('prenomEtudiant');
             $table->string('emailEtudiant')->unique();
             $table->date('date_naissance_etu');
+            $table->string('sexe_etu');
             $table->unsignedBigInteger('filiere_id')->nullable();
             $table->foreign('filiere_id')->references('id')->on('filieres')->onDelete('cascade');
             $table->unsignedBigInteger('niveau_id')->nullable();

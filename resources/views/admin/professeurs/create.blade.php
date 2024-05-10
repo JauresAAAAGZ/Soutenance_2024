@@ -90,7 +90,18 @@
                     <input type="email" class="form-control" id="email" name="emailProfesseur" required>
                     
                 </div>
-                
+
+                <div class="col mb-3">
+                    <label for="sexe_prof" class="form-label">Sexe</label>
+                    <select name="sexe_prof" id="sexe_prof" class="form-control" required>
+                        <option disabled selected value> Choisir le sexe</option>
+                        
+                        <option value="Masculin" >Masculin</option>
+                        <option value="Feminin" >Feminin</option>
+
+                        
+                    </select>
+                </div>
                
                 <div class="col mb-3">
                     <label for="Date_Naissance" class="form-label">Date de naissance</label>

@@ -102,6 +102,21 @@
                        
                     </div>
                     <div class="mb-3">
+                        
+                            <label for="sexe_etu" class="form-label">Sexe</label>
+                            <select name="sexe_etu" id="sexe_etu" class="form-control" required>
+                                <option disabled selected value> Choisir le sexe</option>
+                                
+                                <option value="Masculin" @if ( $etudiant->sexe_etu=="Masculin" )
+                                    selected
+                                @endif>Masculin</option>
+                                <option value="Feminin" @if ( $etudiant->sexe_etu=="Feminin" )
+                                    selected
+                                @endif>Feminin</option>
+        
+                                
+                            </select>
+                        
                         <label for="filiere" class="form-label">Filiere</label>
                         <select name="filiere_id" id="filiere" class="form-control" required>
                             

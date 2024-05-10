@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('matieres', function (Blueprint $table) {
             $table->id();
-            $table->string('intitule');
-            $table->string('codeMatiere');
+            $table->string('intitule')->unique();
+            $table->string('codeMatiere')->unique();
             $table->string('duree');
             $table->timestamps();
         });

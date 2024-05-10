@@ -50,7 +50,7 @@
         <div class="pcoded-container navbar-wrapper">
 
             
-                @include("partial.headbar")
+            @include('partials.headbar')
             <div class="pcoded-main-container">
             <div class="pcoded-wrapper">
                 @include("partial.sidebar")

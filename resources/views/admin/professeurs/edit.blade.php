@@ -91,8 +91,21 @@
                             <input type="email" class="form-control" id="email" name="emailProfesseur" required value="{{ $professeur->emailProfesseur }}">
                             
                         </div>
-                        
-                        
+                        <div class="col mb-3">
+                            <label for="sexe_prof" class="form-label">Sexe</label>
+                            <select name="sexe_prof" id="sexe_prof" class="form-control" required>
+                                <option disabled selected value> Choisir le sexe</option>
+                                
+                                <option value="Masculin" @if ( $professeur->sexe_prof=="Masculin" )
+                                    selected
+                                @endif>Masculin</option>
+                                <option value="Feminin" @if ( $professeur->sexe_prof=="Feminin" )
+                                    selected
+                                @endif>Feminin</option>
+        
+                                
+                            </select>
+                        </div>
                         <div class="col mb-3">
                             <label for="Date_Naissance" class="form-label">Date de naissance</label>
                             <input type="date" class="form-control" id="Date_Naissance" name="date_naissance_prof" required value="{{ $professeur->date_naissance_prof }}">

@@ -70,7 +70,7 @@ class EtudiantController extends Controller
             $etudiants->emailEtudiant = $request->emailEtudiant;
            
             $etudiants->date_naissance_etu = $request->date_naissance_etu;
-
+            $etudiants->sexe_etu = $request->sexe_etu;
             $etudiants->filiere_id=$request->filiere_id;
             $etudiants->niveau_id=$request->niveau_id;
 
@@ -136,7 +136,7 @@ class EtudiantController extends Controller
             $etudiants->emailEtudiant = $request->emailEtudiant;
 
             $etudiants->date_naissance_etu = $request->date_naissance_etu;
-           
+            $etudiants->sexe_etu = $request->sexe_etu;
             $etudiants->filiere_id = $request->filiere_id;
             $etudiants->niveau_id=$request->niveau_id;
            

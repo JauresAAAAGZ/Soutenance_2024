@@ -24,11 +24,11 @@ class DepotController extends Controller
     public function index(Request $request)
 {
     try {
-        // Default sorting order
+        // Ordre par defaut
         $orderBy = 'created_at';
         $orderDirection = 'desc';
 
-        // Check if a sorting option is selected
+        // vérifier si une option de tri est choisie
         if ($request->has('sort')) {
             switch ($request->sort) {
                 case 'oldest':
@@ -47,10 +47,10 @@ class DepotController extends Controller
             }
         }
 
-        // Get the search query
+        // récupérer la requete de recherche
         $searchQuery = $request->input('q');
 
-        // Fetch depots based on the selected sorting option and search query
+        // Récupérer les dépôts en fonction de l'option de tri sélectionnée et de la requête de recherche.
         $depots = Depot::orderBy($orderBy, $orderDirection)
             ->where('nomDepot', 'like', '%'.$searchQuery.'%')
             ->orWhere('description', 'like', '%'.$searchQuery.'%')
@@ -75,6 +75,8 @@ class DepotController extends Controller
         $filieres=Filiere::all();
         $niveaux=Niveau::all();
         $matieres=Matiere::all();
+
+        
 
         return view('depots.create', compact("depots","filieres","niveaux","matieres"));
     }
@@ -206,7 +208,7 @@ class DepotController extends Controller
            
             $depot->delete();
 
-            return redirect()->route('depots.index')->with('danger', 'La matiere a été supprimée avec succès.');
+            return redirect()->route('depots.index')->with('danger', 'Le depot a été supprimé avec succès.');
     }
     catch(\Exception $e){
        return redirect(route('depots.index'))->with('error', 'Operation echoue!');
@@ -289,27 +291,27 @@ public function deleteFile($id)
         
         // Check if the user is authorized to delete the file
         if (Auth::user()->email != $media->custom_properties['user_email']) {
-            return redirect()->back()->with('error', 'You are not authorized to delete this file');
+            return redirect()->back()->with('error', 'vous n\'êtes pas autorisé a supprimer ce fichier');
         }
 
         // Delete the file
         $media->delete();
 
-        return redirect()->back()->with('message', 'File deleted successfully');
+        return redirect()->back()->with('message', 'Fichier Supprimé');
     } catch (\Exception $e) {
-        return redirect()->back()->with('error', 'An error occurred while deleting the file');
+        return redirect()->back()->with('error', 'Erreur lors de la suppression du fichier');
     }
 }
 
 public function downloadProfessorFiles($depotId)
 {
-    // Retrieve the depot by ID
+    // Recupérer l'ID du depot
     $depot = Depot::findOrFail($depotId);
     
-    // Retrieve the professor's email addresses
+    // Récupérer l'email du prof
     $professorEmails = Professeur::pluck('emailProfesseur')->toArray();
     
-    // Get the first media associated with the depot and matching professor's emails
+    // Obtenir le premier média associé au dépôt et correspondant aux adresses e-mail des professeurs.
     $media = $depot->media()->where(function ($query) use ($professorEmails) {
         foreach ($professorEmails as $email) {
             $query->orWhereJsonContains('custom_properties->user_email', $email);
@@ -321,10 +323,10 @@ public function downloadProfessorFiles($depotId)
         return redirect()->back()->with('error', 'An error occurred while deleting the file');
     }
 
-    // Get the path to the media file
+    // le chemin du media
     $filePath = $media->getPath();
 
-    // Return the file for download
+    // retourner le fichier pour téléchargement
     return response()->download($filePath, $media->file_name);
 }
 
