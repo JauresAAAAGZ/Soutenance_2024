@@ -85,7 +85,7 @@ class UserController extends Controller
             return redirect()->route('users.index')->with('message', 'L\'utilisateur a été creé avec succès');
         }
         catch(\Exception $e){
-            return redirect()->route('users.index')->with('error', 'L\'utilisateur n\'a pas été créé'.$e);
+            return redirect()->route('users.index')->with('error', 'L\'utilisateur n\'a pas été créé');
         }
     }
 
@@ -143,7 +143,7 @@ class UserController extends Controller
             return redirect()->route('users.show', $users)->with('message1', 'L\'utilisateur a été modifié avec succes');
         }
         catch(\Exception $e){
-           return redirect(route('users.index'))->with('error', 'Operation echoue!'.$e);
+           return redirect(route('users.index'))->with('error', 'Operation echoue!');
         }
     }
 

@@ -78,7 +78,7 @@ class ProfesseurController extends Controller
             return redirect()->route('professeurs.index')->with('message', 'Le professeur a été creé avec succès');
         }
         catch(\Exception $e){
-            return redirect()->route('professeurs.index')->with('error', 'Le professeur n\'a pas été creé'.$e);
+            return redirect()->route('professeurs.index')->with('error', 'Le professeur n\'a pas été creé');
         }
     }
 
@@ -108,7 +108,7 @@ class ProfesseurController extends Controller
             return view('admin.professeurs.edit', compact('professeur','matieres'));
         }
         catch(\Exception $e){
-           return redirect(route('professeurs.index'))->with('error', 'Operation echoue!'.$e);
+           return redirect(route('professeurs.index'))->with('error', 'Operation echoue!');
         }
     }
 

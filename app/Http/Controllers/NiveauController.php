@@ -123,7 +123,7 @@ class NiveauController extends Controller
             return redirect()->route('niveaux.index', $niveaux)->with('message1', 'Le niveau a été modifié avec succes');
         }
         catch(\Exception $e){
-           return redirect(route('niveaux.index'))->with('error', 'Operation echoue!'.$e);
+           return redirect(route('niveaux.index'))->with('error', 'Operation echoue!');
         }
     }
 

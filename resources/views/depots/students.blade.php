@@ -17,7 +17,9 @@
                                     <div class="col-md-12">
                                         <div class="card project-task">
                                             <div class="card-header">
-                                                <h5>Liste des étudiants</h5>
+                                                <h5>Liste des notes des etudiants pour le repertoire @php
+                                                    echo $depot->nomDepot;
+                                                @endphp</h5>
                                             </div>
                                             <form action="{{ route('depots.submitNotes', ['depot' => $depot->id]) }}" method="POST">
                                                 @csrf

@@ -141,7 +141,7 @@ class DepotController extends Controller
             return redirect()->route('depots.index')->with('message', 'Le depot a été creé avec succès');
         }
         catch(\Exception $e){
-            return redirect()->route('depots.index')->with('error', 'Le depot n\'a pas été creé'.$e);
+            return redirect()->route('depots.index')->with('error', 'Le depot n\'a pas été creé');
         }
     }
     /*private function getStudentEmails($filieres, $niveaux) {
@@ -212,7 +212,7 @@ class DepotController extends Controller
             return redirect()->route('depots.index')->with('message', 'Le depot a été modifié avec succès');
         }
         catch(\Exception $e){
-            return redirect()->route('depots.index')->with('error', 'Le depot n\'a pas modifié creé'.$e);
+            return redirect()->route('depots.index')->with('error', 'Le depot n\'a pas modifié creé');
         }
     }
     
@@ -306,15 +306,20 @@ public function deleteFile($id)
 {
     try {
         $media = Media::findOrFail($id);
-        
-        // Check if the user is authorized to delete the file
-        if (Auth::user()->email != $media->custom_properties['user_email']) {
-            return redirect()->back()->with('error', 'vous n\'êtes pas autorisé a supprimer ce fichier');
+
+        $fileName = $media->file_name;
+
+        $startsWithNotes = strpos($fileName, 'notes') === 0;
+
+        if(!$startsWithNotes){
+            // Check if the user is authorized to delete the file
+            if (Auth::user()->email != $media->custom_properties['user_email']) {
+                return redirect()->back()->with('error', 'vous n\'êtes pas autorisé a supprimer ce fichier');
+            }
+        }else{
+            // Delete the file
+            $media->delete();
         }
-
-        // Delete the file
-        $media->delete();
-
         return redirect()->back()->with('message', 'Fichier Supprimé');
     } catch (\Exception $e) {
         return redirect()->back()->with('error', 'Erreur lors de la suppression du fichier');
@@ -375,7 +380,7 @@ public function submitNotes(Request $request, Depot $depot)
     // Votre logique de validation et d'enregistrement des notes ici...
 
     // Générer le contenu du PDF
-    $pdfContent = "<table border=\"2\" ><tr><th>Nom</th><th>Prénoms</th><th>Filière</th><th>Niveau</th><th>Note</th></tr>";
+    $pdfContent = "<table border=\"1\" ><tr><th>Nom</th><th>Prénoms</th><th>Filière</th><th>Niveau</th><th>Note</th></tr>";
     foreach ($etudiantIds as $index => $etudiantId) {
         $etudiant = Etudiant::find($etudiantId);
         if ($etudiant) {
@@ -405,7 +410,7 @@ public function submitNotes(Request $request, Depot $depot)
     $depot->addMedia(storage_path('app/pdf/' . $pdfFileName))->toMediaCollection();
 
     // Redirection avec un message de succès
-    return redirect()->route('depots.index')->with('message', 'Votre fichier de notes est enregistré avec succès');
+    return redirect()->route('depots.show', $depot)->with('message', 'Votre fichier de notes est enregistré avec succès');
 }
 
 

@@ -68,7 +68,7 @@ class FiliereController extends Controller
             return redirect()->route('filieres.index')->with('message', 'La filiere a été creé avec succès');
         }
         catch(\Exception $e){
-            return redirect()->route('filieres.index')->with('error', 'La filiere n\'a pas été creé'.$e);
+            return redirect()->route('filieres.index')->with('error', 'La filiere n\'a pas été creé');
         }
     }
 

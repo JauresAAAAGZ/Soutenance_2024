@@ -120,7 +120,7 @@ class AdminController extends Controller
             return redirect()->route('admins.index', $admins)->with('message1', 'L\' admin a été modifier avec succes');
         }
         catch(\Exception $e){
-           return redirect(route('admins.index'))->with('error', 'Operation echoue!'.$e);
+           return redirect(route('admins.index'))->with('error', 'Operation echoue!');
         }
     }
 

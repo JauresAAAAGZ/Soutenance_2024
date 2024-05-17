@@ -81,7 +81,7 @@ class EtudiantController extends Controller
             return redirect()->route('etudiants.index')->with('message', 'L\'Etudiant a été creé avec succès');
         }
         catch(\Exception $e){
-            return redirect()->route('etudiants.index')->with('error', 'L\'Etudiant n\'a pas été creé'.$e);
+            return redirect()->route('etudiants.index')->with('error', 'L\'Etudiant n\'a pas été creé');
         }
     }
 
@@ -145,7 +145,7 @@ class EtudiantController extends Controller
             return redirect()->route('etudiants.show', $etudiants)->with('message1', 'L\'étudiant a été modifier avec succes');
         }
         catch(\Exception $e){
-           return redirect(route('etudiants.index'))->with('error', 'Operation echoue!'.$e);
+           return redirect(route('etudiants.index'))->with('error', 'Operation echoue!');
         }
     }
 
