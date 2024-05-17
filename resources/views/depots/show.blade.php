@@ -85,52 +85,56 @@
 
 <div class="row">
     @foreach($depot->getMedia() as $media)
-    @if (Auth::user()->role_id == 1)
-     @if ($media->custom_properties['user_email'] == Auth::user()->email)
-     <div class="col-md-4 mb-4">
-    <div class="card custom-card">
-        <div class="card-body text-center"> <!-- Ajoutez la classe text-center pour centrer le contenu -->
-            <!-- Ajouter l'image ici -->
-            <img src="{{ asset('assets/images/zip.png') }}" style="max-width: 100%; height: 90px;" class="mx-auto d-block"> <!-- Ajoutez les classes mx-auto et d-block pour centrer l'image -->
-            <h6 class="card-title mt-3">{{ $media->file_name }}</h6> <!-- Ajoutez la classe mt-3 pour décaler le nom du fichier d'une ligne -->
-        </div>
-        <div class="card-footer d-flex justify-content-between" style="border-radius: 0 0 50px 50px">
-            
-        <a href="{{ route('depot.download', ['id' => $media->id]) }}">
-            <i class="ri-folder-download-line"></i>
-        </a>
-
-        @if ($depot->etat !== 'fermé')
-            <form action="{{ route('depot.delete-file', ['id' => $media->id]) }}" method="post">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn-link delete-button border-0">
-                    <i class="ri-delete-bin-2-line"></i>
-                </button>
-            </form>
-        @endif
-    </div>
-    </div>
-</div>
-
-                        @endif
-                    @elseif (Auth::user()->role_id == 2)
-                    <div class="col-md-4 mb-4">
-    <div class="card custom-card">
-        <div class="card-body text-center"> <!-- Ajoutez la classe text-center pour centrer le contenu -->
-            <!-- Ajouter l'image ici -->
-            <img src="{{ asset('assets/images/zip.png') }}" style="max-width: 100%; height: 90px;" class="mx-auto d-block"> <!-- Ajoutez les classes mx-auto et d-block pour centrer l'image -->
-            <h6 class="card-title mt-3">{{ $media->file_name }}</h6> <!-- Ajoutez la classe mt-3 pour décaler le nom du fichier d'une ligne -->
-        </div>
-        <div class="card-footer d-flex justify-content-between" style="border-radius: 0 0 50px 50px">
-        <a href="{{ route('depot.download', ['id' => $media->id]) }}">
-            <i class="ri-folder-download-line"></i>
-        </a>
+        @if (Auth::user()->role_id == 1)
+            @if (isset($media->custom_properties['user_email']) && $media->custom_properties['user_email'] == Auth::user()->email)
+                @php
+                    $fileName = $media->file_name;
+                    $startsWithNotes = strpos($fileName, 'notes') === 0; // Check if the file name starts with 'notes'
+                @endphp
+                <div class="col-md-4 mb-4">
+                    <div class="card custom-card">
+                        <div class="card-body text-center">
+                            <!-- Ajouter l'image ici -->
+                            <img src="{{ asset('assets/images/zip.png') }}" style="max-width: 100%; height: 90px;" class="mx-auto d-block">
+                            <h6 class="card-title mt-3">{{ $fileName }}</h6>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between" style="border-radius: 0 0 50px 50px">
+                            <a href="{{ route('depot.download', ['id' => $media->id]) }}">
+                                <i class="ri-folder-download-line"></i>
+                            </a>
+                            @if ($depot->etat !== 'fermé')
+                                <form action="{{ route('depot.delete-file', ['id' => $media->id]) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn-link delete-button border-0">
+                                        <i class="ri-delete-bin-2-line"></i>
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            @endif
+        @elseif (Auth::user()->role_id == 2)
+            @php
+                $fileName = $media->file_name;
+                $startsWithNotes = strpos($fileName, 'notes') === 0; // Check if the file name starts with 'notes'
+            @endphp
+            <div class="col-md-4 mb-4">
+                <div class="card custom-card">
+                    <div class="card-body text-center">
+                        <!-- Ajouter l'image ici -->
+                        <img src="{{ asset('assets/images/zip.png') }}" style="max-width: 100%; height: 90px;" class="mx-auto d-block">
+                        <h6 class="card-title mt-3">{{ $fileName }}</h6>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between" style="border-radius: 0 0 50px 50px">
+                        <a href="{{ route('depot.download', ['id' => $media->id]) }}">
+                            <i class="ri-folder-download-line"></i>
+                        </a>
                     </div>
                 </div>
             </div>
         @endif
-              
     @endforeach
 </div>
 
@@ -271,7 +275,7 @@
             var seconds = Math.floor(remainingTime / 1000);
 
             // Update the displayed remaining time
-            document.getElementById('remaining-time-' + depotId).textContent = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+            document.getElementById('remaining-time-' + depotId).textContent = days + "j " + hours + "h " + minutes + "m " + seconds + "s";
         }
     }
 

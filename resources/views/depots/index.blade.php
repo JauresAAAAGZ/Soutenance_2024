@@ -72,6 +72,11 @@
         {{ session('error') }}
     </div>
     @endif
+    @if(session('danger'))
+    <div id="success-message" class="alert alert-danger">
+        {{ session('danger') }}
+    </div>
+    @endif
     <div class="row">
         @php
             $colors = ['#ff7eb9', '#85e085', '#ffcc80', '#80dfff', '#80deea'];
@@ -98,6 +103,7 @@
                                         
                                         <li><a class="dropdown-item" href="{{ route('depots.show', $depot) }}">Consulter</a></li>
                                         <li><a class="dropdown-item" href="{{ route('depots.edit', $depot) }}">Modifier</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('depots.students', $depot) }}">Notes</a></li>
                                         <li>
                                             <form action="{{ route('depots.destroy', $depot) }}" method="POST" style="display: inline;" id="supprimer-depot-{{ $depot->id }}">
                                                 @csrf
@@ -209,14 +215,14 @@
             var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
             
-            // Display the result in the element with id="countdown_{{ $depot->id }}"
-            document.getElementById("countdown_" + depotId).innerHTML = days + "d " + hours + "h "
+            // Display the result in the element with depoid"
+            document.getElementById("countdown_" + depotId).innerHTML = days + "j " + hours + "h "
             + minutes + "m " + seconds + "s ";
             
             // If the count down is finished, display expired message
             if (distance < 0) {
                 clearInterval(x);
-                document.getElementById("countdown_" + depotId).innerHTML = "Expired";
+                document.getElementById("countdown_" + depotId).innerHTML = "Expiré";
                 
                 updateDepotEtat(depotId);
             }
@@ -318,7 +324,7 @@
 
         if (successMessage) {
             // Set the timeout in milliseconds (e.g., 5000ms = 5 seconds)
-            var timeout = 3000;
+            var timeout = 300000;
 
             // Automatically dismiss the success message after the timeout
             setTimeout(function () {

@@ -184,14 +184,14 @@
                     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
                     
-                    // Display the result in the element with id="countdown_{{ $depot->id }}"
+                    
                     document.getElementById("countdown_" + depotId).innerHTML = days + "d " + hours + "h "
                     + minutes + "m " + seconds + "s ";
                     
                     // If the count down is finished, display expired message
                     if (distance < 0) {
                         clearInterval(x);
-                        document.getElementById("countdown_" + depotId).innerHTML = "Expired";
+                        document.getElementById("countdown_" + depotId).innerHTML = "Expiré";
                         
                         updateDepotEtat(depotId);
                     }

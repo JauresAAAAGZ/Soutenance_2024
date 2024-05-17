@@ -108,6 +108,16 @@
                     </li>
                     <!-- Other Main Menu Items -->
                 </ul>
+                <ul class="pcoded-item pcoded-left-item">
+                    <li class="active">
+                        <a href="">
+                            <span class="pcoded-micon"><i class="ri-folder-3-line"></i><b>D</b></span>
+                            <span class="pcoded-mtext" data-i18n="nav.dash.main">Notes</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <!-- Other Main Menu Items -->
+                </ul>
 
                 <!-- Other Sidebar Items -->
             

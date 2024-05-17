@@ -107,6 +107,11 @@ Route::delete('/depot/{id}/delete-file', [DepotController::class,'deleteFile'])-
 //telecharger resources specifique
 Route::get('/depots/{depot}/download-professor-files', [DepotController::class, 'downloadProfessorFiles'])->name('depots.downloadProfessorFiles');
 
+//notes
+Route::get('/depots/{depot}/students',[DepotController::class, 'showDepotStudents'])->name('depots.students');
+
+//pdfNotes
+Route::post('/depots/{depot}/submit-notes', [DepotController::class, 'submitNotes'])->name('depots.submitNotes');
 
 
 Route::middleware('auth')->group(function () {

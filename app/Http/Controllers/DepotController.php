@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Carbon\Carbon;
 use App\Models\Professeur;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\DepotCreated;
+use App\Models\Etudiant;
+use Dompdf\Dompdf;
 
 
 class DepotController extends Controller
@@ -127,6 +131,11 @@ class DepotController extends Controller
                 }
             }
 
+           /* // Retrieve student emails based on filiere and niveau
+            $studentEmails = $this->getStudentEmails($request->filieres, $request->niveaux);
+
+            // Send email to students
+            Mail::to($studentEmails)->send(new DepotCreated($depots));*/
            
     
             return redirect()->route('depots.index')->with('message', 'Le depot a été creé avec succès');
@@ -135,6 +144,15 @@ class DepotController extends Controller
             return redirect()->route('depots.index')->with('error', 'Le depot n\'a pas été creé'.$e);
         }
     }
+    /*private function getStudentEmails($filieres, $niveaux) {
+        // Retrieve student emails based on filieres and niveaux
+        $students = Etudiant::whereIn('filiere_id', $filieres)
+                            ->whereIn('niveau_id', $niveaux)
+                            ->pluck('emailEtudiant')
+                            ->toArray();
+        
+        return $students;
+    }*/
 
     /**
      * Display the specified resource.
@@ -331,5 +349,69 @@ public function downloadProfessorFiles($depotId)
 }
 
 
+
+public function showDepotStudents(Depot $depot)
+{
+    $filieres = $depot->filieres->pluck('id'); // Get the filiere IDs associated with this depot
+    $niveaux = $depot->niveaux->pluck('id'); // Get the niveau IDs associated with this depot
+
+    // Retrieve students based on filiere and niveau IDs
+    $students = Etudiant::whereIn('filiere_id', $filieres)
+                        ->whereIn('niveau_id', $niveaux)
+                        ->get();
+
+    return view('depots.students', compact('depot', 'students'));
 }
+
+
+
+
+public function submitNotes(Request $request, Depot $depot)
+{
+    // Récupérer les données soumises depuis le formulaire
+    $etudiantIds = $request->input('etudiant_ids');
+    $notes = $request->input('notes');
+
+    // Votre logique de validation et d'enregistrement des notes ici...
+
+    // Générer le contenu du PDF
+    $pdfContent = "<table border=\"2\" ><tr><th>Nom</th><th>Prénoms</th><th>Filière</th><th>Niveau</th><th>Note</th></tr>";
+    foreach ($etudiantIds as $index => $etudiantId) {
+        $etudiant = Etudiant::find($etudiantId);
+        if ($etudiant) {
+            $pdfContent .= '<tr>';
+            $pdfContent .= '<td>' . $etudiant->nomEtudiant . '</td>';
+            $pdfContent .= '<td>' . $etudiant->prenomEtudiant . '</td>';
+            $pdfContent .= '<td>' . $etudiant->filiere->nomFiliere . '</td>';
+            $pdfContent .= '<td>' . $etudiant->niveau->diplome_niveau . '</td>';
+            $pdfContent .= '<td>' . $notes[$index] . '</td>';
+            $pdfContent .= '</tr>';
+        }
+    }
+    $pdfContent .= "</table>";
+
+    // Générer le PDF
+    $dompdf = new Dompdf();
+    $dompdf->loadHtml($pdfContent);
+    $dompdf->setPaper('A4', 'portrait');
+    $dompdf->render();
+    $pdfOutput = $dompdf->output();
+
+    // Sauvegarder le PDF dans le stockage Laravel
+    $pdfFileName = 'notes_etudiants_' . time() . '.pdf';
+    Storage::put('pdf/' . $pdfFileName, $pdfOutput);
+
+    // Lier le PDF au dépôt
+    $depot->addMedia(storage_path('app/pdf/' . $pdfFileName))->toMediaCollection();
+
+    // Redirection avec un message de succès
+    return redirect()->route('depots.index')->with('message', 'Votre fichier de notes est enregistré avec succès');
+}
+
+
+
+}
+
+
+
 
