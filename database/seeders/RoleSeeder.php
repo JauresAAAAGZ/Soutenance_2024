@@ -23,6 +23,9 @@ class RoleSeeder extends Seeder
             [
                 'nomRole' => 'admin',
             ],
+            [
+                'nomRole' => 'serviceexamen',
+            ],
         ];
 
         // Insère les rôles dans la table

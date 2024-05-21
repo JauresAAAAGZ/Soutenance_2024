@@ -72,6 +72,9 @@ class AuthenticatedSessionController extends Controller
                 case 3:
                     return redirect()->route('dashadmin');
                     break;
+                case 4: 
+                    return redirect()->route('dashExamen');
+                    break;
                 default:
                     Auth::logout();
                     redirect()->route('welcome')->with('error','no rule assigned');

@@ -29,7 +29,7 @@ class EtudiantFactory extends Factory
             'prenomEtudiant' => fake()->name(),
             'emailEtudiant' => fake()->unique()->safeEmail(),
             'date_naissance_etu' => $this->faker->dateTimeBetween('-30 years', '-18 years')->format('Y-m-d'),
-            
+            'sexe_etu'=>'Masculin',
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
         ];

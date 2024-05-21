@@ -40,7 +40,7 @@
                                     <div class="text-right">
                                         Temps restant : <span id="remaining-time-{{ $depot->id }}" class="remaining-time-box"></span>
                                         @php
-                                        if (Auth::user()->role_id == 2) {
+                                        if (Auth::user()->role_id == 2 && $depot->etat=='fermé') {
                                             echo '<br>';
                                             echo '<a href="' . route('depots.students', $depot) . '" class="btn btn-warning">Notes</a>';
                                         }
@@ -69,7 +69,9 @@
                                     $professorEmails = App\Models\Professeur::pluck('emailProfesseur')->toArray();
                                 @endphp
 
+                            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                             <h3 style="text-align: center">Fichiers Soumis</h3><br>
+                            @endif
                            
                                 <div class="row">
                                     
@@ -127,7 +129,7 @@
                                     @endforeach
                                 </div>
 
-                                @if (Auth::user()->role_id == 2)
+                                @if (Auth::user()->role_id == 2 || Auth::user()->role_id == 4)
                                 <h3 style="text-align: center">Fichiers des notes</h3><br>
                                     <div class="row">
                                         
@@ -147,13 +149,15 @@
                                                             <a href="{{ route('depot.download', ['id' => $media->id]) }}">
                                                                 <i class="ri-folder-download-line"></i>
                                                             </a>
-                                                            <form action="{{ route('depot.delete-file', ['id' => $media->id]) }}" method="post">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="btn-link delete-button border-0">
-                                                                    <i class="ri-delete-bin-2-line"></i>
-                                                                </button>
-                                                            </form>
+                                                            @if (Auth::user()->role_id == 2)
+                                                                <form action="{{ route('depot.delete-file', ['id' => $media->id]) }}" method="post">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn-link delete-button border-0">
+                                                                        <i class="ri-delete-bin-2-line"></i>
+                                                                    </button>
+                                                                </form>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>

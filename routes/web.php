@@ -52,6 +52,10 @@ Route::get('/dashboard-admin-utilisateurs', function () {
     return view('dash-admin-utilisateurs');
 })->name('dashadmin1')->middleware('admin');
 
+Route::get('/dashboard-service-examen', function () {
+    return view('dashExamen');
+})->name('dashExamen')->middleware('serviceexamen');
+
 /*Route::get('/login-etudiant', function () {
     return view('login-etu');
 })->name('loginetu');*/

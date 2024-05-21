@@ -10,7 +10,11 @@
 <?php
     // Récupérer l'utilisateur connecté
     $user = Auth::user();
-    if(Auth::user()->role_id==2){ $professeur = $user->professeur;}
+    if(Auth::user()->role_id==2){ $professeur = $user->professeur;
+    
+        $depotsDisponibles = App\Models\Depot::where('professeur_id', $professeur->id)->get();
+    }
+    
     // Récupérer l'objet Professeur associé à l'utilisateur connecté
     if(Auth::user()->role_id==1){ 
         $etudiant = $user->etudiant;
@@ -83,8 +87,8 @@
             $colorIndex = 0;
         @endphp
 
-
-        @foreach ($depots as $depot )
+        @if (isset($depotsDisponibles))
+        @foreach ($depotsDisponibles as $depot )
         
         <!-- Professeur -->
         @if (Auth::user()->role_id==2)
@@ -94,6 +98,7 @@
                         <div class="random-bg-color position-absolute" style="background-color: {{ $colors[$colorIndex % count($colors)] }}; border-radius: 5px 5px 0 0">
                             <div class="card-header d-flex justify-content-between align-items-start">
                                 <h5 class="card-title" style="font-size: 18px">{{ $depot->nomDepot }}</h5>
+
                                 <div class="dropdown">
                                     <button class="btn btn-unstyled" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                        
@@ -103,7 +108,11 @@
                                         
                                         <li><a class="dropdown-item" href="{{ route('depots.show', $depot) }}">Consulter</a></li>
                                         <li><a class="dropdown-item" href="{{ route('depots.edit', $depot) }}">Modifier</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('depots.students', $depot) }}">Notes</a></li>
+
+                                        @if ($depot->etat == 'fermé')
+                                            <li><a class="dropdown-item" href="{{ route('depots.students', $depot) }}">Notes</a></li>
+                                        @endif
+                                       
                                         <li>
                                             <form action="{{ route('depots.destroy', $depot) }}" method="POST" style="display: inline;" id="supprimer-depot-{{ $depot->id }}">
                                                 @csrf
@@ -133,13 +142,16 @@
                             <span id="countdown_{{ $depot->id }}" style="font-size: 20px;"></span> <!-- Countdown timer -->
                         </p>
                         @else
-                            <i class="ri-timer-line" style="font-size: 25px;">: Expired</i>
+                            <i class="ri-timer-line" style="font-size: 25px;">: Expiré</i>
                         @endif
                        
                     </div>
                 </div>
             </div>
             @endif
+        @endforeach
+    @endif
+        @foreach ($depots as $depot )
             <!-- Etudiant -->
             @if (Auth::user()->role_id==1)
             
@@ -188,10 +200,54 @@
                 </div>
         @endif
         
-     @endif
+        @endif
+        @endforeach
+
+        @foreach ($depots as $depot )
+
+                    <!--serviceExamen-->
+                
+        @if (Auth::user()->role_id==4)
+        <div class="col-md-4 mt-3">
+            <a href="{{ route('depots.show', $depot) }}" style="color: black">
+            <div class="card-depot card">
+                <div class="position-relative">
+                    <div class="random-bg-color position-absolute" style="background-color: {{ $colors[$colorIndex % count($colors)] }}; border-radius: 5px 5px 0 0">
+                        <div class="card-header d-flex justify-content-between align-items-start">
+                            <h5 class="card-title" style="font-size: 18px">{{ $depot->nomDepot }}</h5>
+
+                            
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>{{ $depot->description }}</p> 
+                </div>
+                <div class="card-footer" style="border-radius: 0 0 5px 5px">
+                    <hr>
+                    @if ($depot->etat != 'fermé')
+                   
+                    <p>
+                        <i class="ri-timer-line" style="font-size: 20px;">:</i>  <!-- Icon markup -->
+                        <span id="countdown_{{ $depot->id }}" style="font-size: 20px;"></span> <!-- Countdown timer -->
+                    </p>
+                    @else
+                        <i class="ri-timer-line" style="font-size: 25px;">: Expiré</i>
+                    @endif
+                   
+                </div>
+            </div>
+         </a>
+        </div>
+        @endif
+                <!--serviceExamenEnd-->
+
+        @endforeach
 
             @php $colorIndex++; @endphp
-        @endforeach
+        
     </div>
 </div>
 <script>
@@ -324,7 +380,7 @@
 
         if (successMessage) {
             // Set the timeout in milliseconds (e.g., 5000ms = 5 seconds)
-            var timeout = 300000;
+            var timeout = 3000;
 
             // Automatically dismiss the success message after the timeout
             setTimeout(function () {

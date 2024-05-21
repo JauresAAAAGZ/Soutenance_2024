@@ -70,6 +70,10 @@
 
                     <a href={{route('dashadmin')}}>
                 @endif
+                @if(  Auth::user()->role_id == 4  )
+
+                <a href={{route('dashExamen')}}>
+            @endif
 
                     <span class="pcoded-micon"><i class="ri-home-7-line"></i><b>D</b></span>
                     <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
@@ -80,7 +84,7 @@
             <li class="pcoded-hasmenu">
 
                 <!--Start Sidebar Etudiant -->
-                @if(  Auth::user()->role_id == 1  )
+                @if(  Auth::user()->role_id == 1  || Auth::user()->role_id == 4)
 
                 <li class="active">
                     <a href={{route('depots.index')}}>

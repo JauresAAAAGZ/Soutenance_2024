@@ -42,6 +42,10 @@ class Etudiant
             return redirect()->route('dashadmin');
 
         }
-     
+        if($user->role_id==4){
+
+            return redirect()->route('dashExamen');
+
+        }
     }
 }

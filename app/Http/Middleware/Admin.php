@@ -41,6 +41,12 @@ class Admin
             return redirect()->route('dashens');
 
         }
+
+        if($user->role_id==4){
+
+            return redirect()->route('dashExamen');
+
+        }
      
     
     }

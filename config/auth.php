@@ -52,6 +52,10 @@ return [
             'driver' => 'session',
             'provider' => 'etudiants',
         ],
+        'serviceexamen' => [
+            'driver' => 'session',
+            'provider' => 'serviceexamen',
+        ],
     ],
 
     /*
@@ -87,6 +91,10 @@ return [
         'professeurs' => [
             'driver' => 'eloquent',
             'model' => App\Models\Professeur::class,
+        ],
+        'serviceexamens' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\ServiceExamen::class,
         ],
 
         // 'users' => [

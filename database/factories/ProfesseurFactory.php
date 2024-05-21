@@ -24,6 +24,7 @@ class ProfesseurFactory extends Factory
             'nomProfesseur' => fake()->name(),
             'prenomProfesseur' => fake()->name(),
             'emailProfesseur'=>fake()->unique()->safeEmail(),
+            'sexe_prof'=>'Masculin',
             'date_naissance_prof' => $this->faker->dateTimeBetween('-30 years', '-18 years')->format('Y-m-d'),
            
         ];
