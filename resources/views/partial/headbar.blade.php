@@ -9,7 +9,7 @@
             <a class="mobile-search morphsearch-search" href="#">
                 <i class="ti-search"></i>
             </a>
-            <a href={{route('dashetu')}}>
+            <a href="#">
                 <img class="img-fluid" src={{asset('assets/images/la.png')}} alt="Theme-Logo" />
             </a>
             <a class="mobile-options">
