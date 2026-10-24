@@ -12,7 +12,6 @@ use App\Models\Niveau;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Carbon\Carbon;
 use App\Models\Professeur;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\DepotCreated;
@@ -99,16 +98,6 @@ class DepotController extends Controller
 
             $depots->dateFermeture = $request->dateFermeture;
 
-            // Calculer la différence entre l'heure de création et l'heure de fermeture
-            $dateCreation = Carbon::parse($depots->dateCreation);
-            $dateFermeture = Carbon::parse($depots->dateFermeture);
-            $diffHours = $dateCreation->diffInHours($dateFermeture); // Différence en heures
-
-            // Convertir la différence en un format de temps approprié
-            $hours = $diffHours % 24;
-            $days = ($diffHours - $hours) / 24;
-            $depots->delai = sprintf('%02d:%02d:00', $days, $hours); // Format : jours:heures:minutes:secondes
-            
             $depots->description = $request->description;
            
             $professorId = Auth::user()->professeur_id;
@@ -138,10 +127,10 @@ class DepotController extends Controller
             Mail::to($studentEmails)->send(new DepotCreated($depots));*/
            
     
-            return redirect()->route('depots.index')->with('message', 'Le depot a été creé avec succès');
+            return redirect()->route('depots.index')->with('message', 'Le dépôt a été créé.');
         }
         catch(\Exception $e){
-            return redirect()->route('depots.index')->with('error', 'Le depot n\'a pas été creé');
+            return redirect()->route('depots.index')->with('error', "Le dépôt n'a pas pu être créé.");
         }
     }
     /*private function getStudentEmails($filieres, $niveaux) {
@@ -164,7 +153,7 @@ class DepotController extends Controller
             return view('depots.show', compact('depot'));
         }
         catch(\Exception $e){
-           return redirect(route('depots.index'))->with('error', 'Operation echoue!');
+           return redirect(route('depots.index'))->with('error', 'Une erreur est survenue, veuillez réessayer.');
         }
     }
 
@@ -209,10 +198,10 @@ class DepotController extends Controller
 
            
     
-            return redirect()->route('depots.index')->with('message', 'Le depot a été modifié avec succès');
+            return redirect()->route('depots.index')->with('message', 'Le dépôt a été modifié.');
         }
         catch(\Exception $e){
-            return redirect()->route('depots.index')->with('error', 'Le depot n\'a pas modifié creé');
+            return redirect()->route('depots.index')->with('error', "Le dépôt n'a pas pu être modifié.");
         }
     }
     
@@ -226,10 +215,10 @@ class DepotController extends Controller
            
             $depot->delete();
 
-            return redirect()->route('depots.index')->with('danger', 'Le depot a été supprimé avec succès.');
+            return redirect()->route('depots.index')->with('message', 'Le dépôt a été supprimé.');
     }
     catch(\Exception $e){
-       return redirect(route('depots.index'))->with('error', 'Operation echoue!');
+       return redirect(route('depots.index'))->with('error', 'Une erreur est survenue, veuillez réessayer.');
     }
     }
     
@@ -274,9 +263,10 @@ class DepotController extends Controller
                     ])->usingFileName($newFileName)->toMediaCollection();
             }
     
-            return redirect()->back()->with('message1', 'Le fichier a été ajouté avec succès');
+            return redirect()->back()->with('message1', 'Votre fichier a bien été envoyé.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Le fichier n\'a pas été ajouté' . $e->getMessage());
+            report($e);
+            return redirect()->back()->with('error', "Le fichier n'a pas pu être envoyé.");
         }
     }
     
@@ -307,22 +297,19 @@ public function deleteFile($id)
     try {
         $media = Media::findOrFail($id);
 
-        $fileName = $media->file_name;
+        $estReleve = strpos($media->file_name, 'notes') === 0;
+        $estAuteur = Auth::user()->email === $media->getCustomProperty('user_email');
 
-        $startsWithNotes = strpos($fileName, 'notes') === 0;
-
-        if(!$startsWithNotes){
-            // Check if the user is authorized to delete the file
-            if (Auth::user()->email != $media->custom_properties['user_email']) {
-                return redirect()->back()->with('error', 'vous n\'êtes pas autorisé a supprimer ce fichier');
-            }
-        }else{
-            // Delete the file
-            $media->delete();
+        // Un fichier rendu ne peut être supprimé que par son auteur, un relevé de notes que par un professeur
+        if (!$estAuteur && !($estReleve && Auth::user()->role_id == 2)) {
+            return redirect()->back()->with('error', "Vous n'êtes pas autorisé à supprimer ce fichier.");
         }
-        return redirect()->back()->with('message', 'Fichier Supprimé');
+
+        $media->delete();
+
+        return redirect()->back()->with('message', 'Le fichier a été supprimé.');
     } catch (\Exception $e) {
-        return redirect()->back()->with('error', 'Erreur lors de la suppression du fichier');
+        return redirect()->back()->with('error', "Le fichier n'a pas pu être supprimé.");
     }
 }
 
@@ -343,7 +330,7 @@ public function downloadProfessorFiles($depotId)
 
     if (!$media) {
         
-        return redirect()->back()->with('error', 'An error occurred while deleting the file');
+        return redirect()->back()->with('error', "Aucune ressource n'a été jointe à ce dépôt.");
     }
 
     // le chemin du media
@@ -410,7 +397,7 @@ public function submitNotes(Request $request, Depot $depot)
     $depot->addMedia(storage_path('app/pdf/' . $pdfFileName))->toMediaCollection();
 
     // Redirection avec un message de succès
-    return redirect()->route('depots.show', $depot)->with('message', 'Votre fichier de notes est enregistré avec succès');
+    return redirect()->route('depots.show', $depot)->with('message', 'Le relevé de notes a été généré.');
 }
 
 

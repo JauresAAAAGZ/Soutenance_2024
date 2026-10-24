@@ -77,13 +77,13 @@ class AuthenticatedSessionController extends Controller
                     break;
                 default:
                     Auth::logout();
-                    redirect()->route('welcome')->with('error','no rule assigned');
+                    return redirect()->route('welcome')->with('error', "Aucun rôle n'est associé à ce compte.");
 
             }
 
         }else{
 
-            return redirect()->route('welcome')->with('error','');
+            return redirect()->route('welcome')->with('error', 'Email ou mot de passe incorrect.')->withInput($request->only('email'));
         }
 
     }

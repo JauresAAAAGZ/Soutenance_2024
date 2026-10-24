@@ -57,7 +57,6 @@ class DepotSeeder extends Seeder
                 'description' => $depot['description'],
                 'dateCreation' => $depot['dateCreation'],
                 'dateFermeture' => $depot['dateFermeture'],
-                'delai' => '23:59:00',
                 'etat' => $depot['etat'],
                 'professeur_id' => DB::table('professeurs')->where('numEmploye', $depot['professeur'])->value('id'),
                 'matiere_id' => DB::table('matieres')->where('codeMatiere', $depot['matiere'])->value('id'),

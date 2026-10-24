@@ -12,7 +12,7 @@ class Depot extends Model implements HasMedia
     use InteractsWithMedia;
     use HasFactory;
     
-    protected $fillable=['nomDepot', 'dateCreation','delai','dateFermeture'];
+    protected $fillable=['nomDepot', 'dateCreation','dateFermeture'];
 
 
 
