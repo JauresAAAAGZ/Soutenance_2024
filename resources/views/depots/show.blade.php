@@ -4,10 +4,10 @@
 @php
     $role = Auth::user()->role_id;
     $ferme = $depot->etat == 'fermé';
-    $professorEmails = App\Models\Professeur::pluck('emailProfesseur')->toArray();
+    $emailProfesseur = $depot->professeur?->user?->email;
 
     $estNote = fn ($media) => strpos($media->file_name, 'notes') === 0;
-    $estRessource = fn ($media) => in_array($media->getCustomProperty('user_email'), $professorEmails);
+    $estRessource = fn ($media) => $media->getCustomProperty('user_email') === $emailProfesseur;
 
     $medias = $depot->getMedia();
     $releves = $medias->filter($estNote);

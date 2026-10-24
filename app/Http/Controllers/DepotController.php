@@ -12,7 +12,6 @@ use App\Models\Niveau;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use App\Models\Professeur;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\DepotCreated;
 use App\Models\Etudiant;
@@ -21,6 +20,41 @@ use Dompdf\Dompdf;
 
 class DepotController extends Controller
 {
+    // Le professeur connecté est-il celui qui a créé le dépôt ?
+    private function estProfesseurDuDepot(Depot $depot): bool
+    {
+        $user = Auth::user();
+
+        return $user->role_id == 2
+            && $user->professeur_id !== null
+            && $depot->professeur_id == $user->professeur_id;
+    }
+
+    // Le dépôt vise-t-il la filière et le niveau de l'étudiant connecté ?
+    private function etudiantConcerne(Depot $depot): bool
+    {
+        $etudiant = Auth::user()->etudiant;
+
+        return Auth::user()->role_id == 1
+            && $etudiant !== null
+            && $depot->filieres->contains('id', $etudiant->filiere_id)
+            && $depot->niveaux->contains('id', $etudiant->niveau_id);
+    }
+
+    // L'admin et le service examen voient tous les dépôts, les autres seulement les leurs
+    private function peutVoir(Depot $depot): bool
+    {
+        return in_array(Auth::user()->role_id, [3, 4])
+            || $this->estProfesseurDuDepot($depot)
+            || $this->etudiantConcerne($depot);
+    }
+
+    // Fichier joint par le professeur du dépôt, par opposition au rendu d'un étudiant
+    private function estRessource(Media $media, Depot $depot): bool
+    {
+        return $media->getCustomProperty('user_email') === $depot->professeur?->user?->email;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -148,6 +182,8 @@ class DepotController extends Controller
      */
     public function show(Depot $depot)
     {
+        abort_unless($this->peutVoir($depot), 403, 'Accès refusé.');
+
         try{
        
             return view('depots.show', compact('depot'));
@@ -162,7 +198,8 @@ class DepotController extends Controller
      */
     public function edit(Depot $depot)
     {
-       
+        abort_unless($this->estProfesseurDuDepot($depot), 403, 'Accès refusé.');
+
         $filieres=Filiere::all();
         $niveaux=Niveau::all();
         $matieres=Matiere::all();
@@ -175,6 +212,8 @@ class DepotController extends Controller
      */
     public function update(UpdateDepotRequest $request, Depot $depot)
     {
+        abort_unless($this->estProfesseurDuDepot($depot), 403, 'Accès refusé.');
+
         try{
             $depots = Depot::find($depot->id);
           
@@ -211,8 +250,9 @@ class DepotController extends Controller
      */
     public function destroy(Depot $depot)
     {
-        try{         
-           
+        abort_unless($this->estProfesseurDuDepot($depot), 403, 'Accès refusé.');
+
+        try{
             $depot->delete();
 
             return redirect()->route('depots.index')->with('message', 'Le dépôt a été supprimé.');
@@ -227,19 +267,33 @@ class DepotController extends Controller
 
     public function downloadFile($id)
     {
-        // Retrieve the media by ID
         $media = Media::findOrFail($id);
-    
-        // Get the path to the media file
-        $path = $media->getPath();
-    
-        // Return a download response
-        return response()->download($path, $media->file_name);
+        $depot = $media->model;
+
+        $estAuteur = Auth::user()->email === $media->getCustomProperty('user_email');
+        $estReleve = strpos($media->file_name, 'notes') === 0;
+
+        // L'auteur, le professeur du dépôt, le service examen pour les relevés,
+        // et les étudiants concernés pour les ressources du professeur
+        $autorise = $estAuteur
+            || $this->estProfesseurDuDepot($depot)
+            || (Auth::user()->role_id == 4 && $estReleve)
+            || ($this->etudiantConcerne($depot) && $this->estRessource($media, $depot));
+
+        abort_unless($autorise, 403, 'Accès refusé.');
+
+        return response()->download($media->getPath(), $media->file_name);
     }
 
 
     public function addFiles(Request $request, Depot $depot)
     {
+        abort_unless($this->etudiantConcerne($depot), 403, 'Accès refusé.');
+
+        if ($depot->etat == 'fermé' || now()->greaterThanOrEqualTo($depot->dateFermeture)) {
+            return redirect()->back()->with('error', 'Ce dépôt est fermé, il ne peut plus recevoir de fichier.');
+        }
+
         try {
             foreach ($request->file('fichiers') as $file) {
                 // Get the connected user's name
@@ -277,7 +331,11 @@ public function updateDepotEtat($depotId) {
     // Find the dépôt by ID
     $depot = Depot::find($depotId);
     if ($depot) {
-        // Check if the état is not already "fermé"
+        // Appelé par le compte à rebours : on ne ferme que si l'échéance est réellement passée
+        if (now()->lessThan($depot->dateFermeture)) {
+            return response()->json(['message' => "Le dépôt n'a pas encore atteint sa date de fermeture."], 422);
+        }
+
         if ($depot->etat !== 'fermé') {
             // Update the état to "fermé"
             $depot->etat = 'fermé';
@@ -296,13 +354,19 @@ public function deleteFile($id)
 {
     try {
         $media = Media::findOrFail($id);
+        $depot = $media->model;
 
         $estReleve = strpos($media->file_name, 'notes') === 0;
         $estAuteur = Auth::user()->email === $media->getCustomProperty('user_email');
 
-        // Un fichier rendu ne peut être supprimé que par son auteur, un relevé de notes que par un professeur
-        if (!$estAuteur && !($estReleve && Auth::user()->role_id == 2)) {
+        // Un fichier ne peut être supprimé que par son auteur, un relevé que par le professeur du dépôt
+        if (!$estAuteur && !($estReleve && $this->estProfesseurDuDepot($depot))) {
             return redirect()->back()->with('error', "Vous n'êtes pas autorisé à supprimer ce fichier.");
+        }
+
+        // Une fois le dépôt fermé, l'étudiant ne peut plus retirer son rendu
+        if (Auth::user()->role_id == 1 && $depot->etat == 'fermé') {
+            return redirect()->back()->with('error', 'Ce dépôt est fermé, votre rendu ne peut plus être supprimé.');
         }
 
         $media->delete();
@@ -315,18 +379,12 @@ public function deleteFile($id)
 
 public function downloadProfessorFiles($depotId)
 {
-    // Recupérer l'ID du depot
     $depot = Depot::findOrFail($depotId);
-    
-    // Récupérer l'email du prof
-    $professorEmails = Professeur::pluck('emailProfesseur')->toArray();
-    
-    // Obtenir le premier média associé au dépôt et correspondant aux adresses e-mail des professeurs.
-    $media = $depot->media()->where(function ($query) use ($professorEmails) {
-        foreach ($professorEmails as $email) {
-            $query->orWhereJsonContains('custom_properties->user_email', $email);
-        }
-    })->first();
+
+    abort_unless($this->estProfesseurDuDepot($depot) || $this->etudiantConcerne($depot), 403, 'Accès refusé.');
+
+    // Première ressource jointe par le professeur du dépôt
+    $media = $depot->getMedia()->first(fn ($media) => $this->estRessource($media, $depot));
 
     if (!$media) {
         
@@ -344,6 +402,8 @@ public function downloadProfessorFiles($depotId)
 
 public function showDepotStudents(Depot $depot)
 {
+    abort_unless($this->estProfesseurDuDepot($depot), 403, 'Accès refusé.');
+
     $filieres = $depot->filieres->pluck('id'); // Get the filiere IDs associated with this depot
     $niveaux = $depot->niveaux->pluck('id'); // Get the niveau IDs associated with this depot
 
@@ -360,6 +420,8 @@ public function showDepotStudents(Depot $depot)
 
 public function submitNotes(Request $request, Depot $depot)
 {
+    abort_unless($this->estProfesseurDuDepot($depot), 403, 'Accès refusé.');
+
     // Récupérer les données soumises depuis le formulaire
     $etudiantIds = $request->input('etudiant_ids');
     $notes = $request->input('notes');
