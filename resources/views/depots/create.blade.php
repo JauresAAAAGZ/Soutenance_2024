@@ -1,7 +1,5 @@
 @extends('layout.app')
 
-<body>
-
 @section('content')
     <?php
     // Récupérer l'utilisateur connecté
@@ -67,22 +65,26 @@
 
                                 <div class="page-body">
            
-           <h1 class="mb-0">Créer un nouveau répertoire</h1>
-           <hr />
+           <div class="ef-page-header">
+               <div>
+                   <h1 class="ef-page-title">Nouveau dépôt</h1>
+                   <p class="ef-page-subtitle">Les étudiants des filières et niveaux choisis pourront y déposer leur travail jusqu'à la date de fermeture.</p>
+               </div>
+           </div>
 
           <form action="{{route('depots.store')}}" method="post" id="adddepot" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 
                 <div class="col mb-3">
-                    <label for="nomDepot" class="form-label">Nom du répertoire</label>
+                    <label for="nomDepot" class="form-label">Nom du dépôt</label>
                     <input type="text" class="form-control" id="nomDepot" name="nomDepot" placeholder="ex: Devoir de maison" required>
                   
                 </div>
 
                 <div class="col mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <input type="text" class="form-control" id="description" name="description" placeholder="Expliquez dans quel but vous créez ce répertoire ou donnez les instructions..." required>
+                    <input type="text" class="form-control" id="description" name="description" placeholder="Consignes pour les étudiants : ce qu'il faut rendre et sous quelle forme" required>
                     
                 </div>
 
@@ -91,7 +93,7 @@
 
             <div class="row">
                 <div class="col mb-3">
-                    <label for="matiere" class="form-label">Matière Concernée</label>
+                    <label for="matiere" class="form-label">Matière</label>
                     <select name="matiere_id" id="matiere" class="form-control" required>
                         <option disabled selected value>Choisir la matière</option>
                         @foreach ($matieres as $matiere)
@@ -103,23 +105,23 @@
                 </div>
 
                 <div class="col mb-3">
-                    <label for="niveau" class="form-label">Niveaux Concernés</label>
+                    <label for="niveau" class="form-label">Niveaux concernés</label>
                     <select name="niveaux[]" id="niveau" class="form-control" required multiple>
-                        <option disabled selected value> Choisir le(s) Niveau(x)</option>
                         @foreach ($niveaux as $niveau)
                         <option value="{{$niveau->id}}" >{{$niveau->diplome_niveau}}</option>
                         @endforeach
                     </select>
+                    <div class="form-text-help">Ctrl + clic pour en sélectionner plusieurs</div>
                 </div>
 
                 <div class="col mb-3">
-                    <label for="filiere" class="form-label">Filieres Concernées</label>
+                    <label for="filiere" class="form-label">Filières concernées</label>
                     <select name="filieres[]" id="filiere" class="form-control" required multiple>
-                        <option disabled selected value> Choisir le(s) Filiere(s)</option>
                         @foreach ($filieres as $filiere)
                         <option value="{{$filiere->id}}" >{{$filiere->nomFiliere}}</option>
                         @endforeach
                     </select>
+                    <div class="form-text-help">Ctrl + clic pour en sélectionner plusieurs</div>
                 </div>
                 
             </div>
@@ -132,15 +134,15 @@
             </div>
 
             <div class="col mb-3">
-                <label for="fichier" class="form-label">Fichier (Veuillez compresser l'intégralité des fichiers)</label>
+                <label for="fichier" class="form-label">Ressource à joindre (facultatif)</label>
                 <input type="file" class="form-control" id="fichier" name="fichiers[]" accept=".zip, .rar, .pdf">
             </div>
           </div>
            
             <div class="d-flex justify-content-between">
                 
-                <button type="reset" class="btn btn-secondary" style="border-radius: 200px">Annuler</button>
-                <button id="depotadd" type="submit" class="btn btn-warning" style="border-radius: 200px">Créer le repertoire</button>
+                <a href="{{ route('depots.index') }}" class="btn btn-outline-secondary">Annuler</a>
+                <button id="depotadd" type="submit" class="btn btn-primary">Créer le dépôt</button>
             </div>
         </form>
         </div>
@@ -173,7 +175,3 @@
 </script>
 
 @endsection
-
-
-    
-</body>

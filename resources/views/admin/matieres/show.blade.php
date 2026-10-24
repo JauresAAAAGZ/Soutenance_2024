@@ -61,7 +61,7 @@
                                 <div class="page-wrapper">
 
                     <!-- Page Heading -->
-                    <h1 class="mb-0">Info matiere</h1>
+                    <h1 class="ef-page-title">Matière</h1>
                     <hr/>
                     @if(session('message1'))
                     <div id="success-message" class="alert alert-success">

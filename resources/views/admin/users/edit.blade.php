@@ -62,7 +62,7 @@
                                 <div class="page-body">
 
                 <!-- Begin Page Content -->
-                <h1 class="mb-0">Modifier le mot de passe du  compte utilisateur</h1>
+                <h1 class="ef-page-title">Modifier le mot de passe du compte</h1>
                 <hr />
                 <form action="{{ route('users.update', $user) }}" method="post" id="edituser">
                     @csrf
@@ -101,8 +101,8 @@
                       
                     </div>
                     <div class="d-flex justify-content-between">
-                        <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
-                        <button id="useredit" class="btn btn-warning" type="submit" style="border-radius: 150px">Modifier le compte</button>
+                        <a href="{{ route('users.index') }}" class="btn btn-outline-secondary">Annuler</a>
+                        <button id="useredit" class="btn btn-primary" type="submit">Modifier le compte</button>
                        
                     </div>
                    

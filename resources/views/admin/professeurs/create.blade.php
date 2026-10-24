@@ -61,7 +61,7 @@
 
                                 <div class="page-body">
            
-           <h1 class="mb-0">Enregistrer un professeur</h1>
+           <h1 class="ef-page-title">Nouveau professeur</h1>
            <hr />
 
           <form action="{{route('professeurs.store')}}" method="post" id="addprof">
@@ -79,7 +79,7 @@
                   
                 </div>
                 <div class="col mb-3">
-                    <label for="Prenom" class="form-label">Prenom</label>
+                    <label for="Prenom" class="form-label">Prénom</label>
                     <input type="text" class="form-control" id="Prenom" name="prenomProfesseur" required>
                     
                 </div>
@@ -126,8 +126,8 @@
                 
             </div>
            <div class="d-flex justify-content-between">
-                <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
-                <button id="profadd" class="btn btn-warning" type="submit" style="border-radius: 150px">Enregistrer le professeur</button>
+                <a href="{{ route('professeurs.index') }}" class="btn btn-outline-secondary">Annuler</a>
+                <button id="profadd" class="btn btn-primary" type="submit">Enregistrer le professeur</button>
             </div>
            
         </form>

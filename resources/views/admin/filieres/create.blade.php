@@ -61,7 +61,7 @@
 
                                 <div class="page-body">
            
-           <h1 class="mb-0">Enregistrer une filiere</h1>
+           <h1 class="ef-page-title">Nouvelle filière</h1>
            <hr />
 
           <form action="{{route('filieres.store')}}" method="post" id="addfil">
@@ -99,8 +99,8 @@
           
            
             <div class="d-flex justify-content-between">
-                <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
-                <button id="filadd" type="submit" class="btn btn-warning" style="border-radius: 150px">Créer filiere</button>
+                <a href="{{ route('filieres.index') }}" class="btn btn-outline-secondary">Annuler</a>
+                <button id="filadd" type="submit" class="btn btn-primary">Créer filiere</button>
             </div>
         </form>
         </div>

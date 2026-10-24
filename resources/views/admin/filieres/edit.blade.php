@@ -62,7 +62,7 @@
                                 <div class="page-body">
 
                 <!-- Begin Page Content -->
-                <h1 class="mb-0">Modifier une filiere</h1>
+                <h1 class="ef-page-title">Modifier la filière</h1>
                 <hr />
                 <form action="{{ route('filieres.update', $filiere) }}" method="post" id="editfil">
                     @csrf
@@ -109,8 +109,8 @@
                     </div>
                    
                     <div class="d-flex justify-content-between">
-                        <button type="reset" class="btn btn-secondary">Annuler</button>
-                        <button id="filedit" class="btn btn-warning" type="submit" style="border-radius: 150px">Modifier</button>
+                        <a href="{{ route('filieres.index') }}" class="btn btn-outline-secondary">Annuler</a>
+                        <button id="filedit" class="btn btn-primary" type="submit">Modifier</button>
                     </div>
                 </form>
             <!-- End of Main Content -->

@@ -61,7 +61,7 @@
 
                                 <div class="page-body">
            
-           <h1 class="mb-0">Enregistrer une matiere</h1>
+           <h1 class="ef-page-title">Nouvelle matière</h1>
            <hr />
 
           <form action="{{route('matieres.store')}}" method="post" id="addmat">
@@ -69,7 +69,7 @@
             <div class="row">
                 
                 <div class="col mb-3">
-                    <label for="intitule" class="form-label">Intitule</label>
+                    <label for="intitule" class="form-label">Intitulé</label>
                     <input type="text" class="form-control" id="intitule" name="intitule" required>
                   
                 </div>
@@ -81,7 +81,7 @@
             </div>
             <div class="row">
                 <div class="col mb-3">
-                    <label for="duree" class="form-label">Duree</label>
+                    <label for="duree" class="form-label">Durée</label>
                     <input type="duree" class="form-control" id="duree" name="duree" required>
                     
                 </div>
@@ -93,8 +93,8 @@
           
            
             <div class="d-flex justify-content-between">
-                <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
-                <button id="matadd" type="submit" class="btn btn-warning" style="border-radius: 150px">Créer la matiere</button>
+                <a href="{{ route('matieres.index') }}" class="btn btn-outline-secondary">Annuler</a>
+                <button id="matadd" type="submit" class="btn btn-primary">Créer la matiere</button>
             </div>
         </form>
         </div>

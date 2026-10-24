@@ -62,7 +62,7 @@
                                 <div class="page-body">
 
                 <!-- Begin Page Content -->
-                <h1 class="mb-0">Modifier un  Etudiant</h1>
+                <h1 class="ef-page-title">Modifier l'étudiant</h1>
                 <hr />
                 <form action="{{ route('etudiants.update', $etudiant) }}" method="post" id="editetu">
                     @csrf
@@ -80,7 +80,7 @@
                           
                         </div>
                         <div class="col mb-3">
-                            <label for="Prenom" class="form-label">Prenom</label>
+                            <label for="Prenom" class="form-label">Prénom</label>
                             <input type="text" class="form-control" id="Prenom" name="prenomEtudiant" required value="{{ $etudiant->prenomEtudiant }}">
                             
                         </div>
@@ -117,7 +117,7 @@
                                 
                             </select>
                         
-                        <label for="filiere" class="form-label">Filiere</label>
+                        <label for="filiere" class="form-label">Filière</label>
                         <select name="filiere_id" id="filiere" class="form-control" required>
                             
                             @foreach ($filieres as $filiere)
@@ -154,8 +154,8 @@
                     </div>
                    
                     <div class="d-flex justify-content-between">
-                        <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
-                        <button id="etuedit" class="btn btn-warning" type="submit" style="border-radius: 150px">Modifier</button>
+                        <a href="{{ route('etudiants.index') }}" class="btn btn-outline-secondary">Annuler</a>
+                        <button id="etuedit" class="btn btn-primary" type="submit">Modifier</button>
                     </div>
                 </form>
             <!-- End of Main Content -->

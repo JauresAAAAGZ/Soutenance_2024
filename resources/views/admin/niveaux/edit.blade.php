@@ -62,7 +62,7 @@
                                 <div class="page-body">
 
                 <!-- Begin Page Content -->
-                <h1 class="mb-0">Modifier un niveau</h1>
+                <h1 class="ef-page-title">Modifier le niveau</h1>
                 <hr />
                 <form action="{{ route('niveaux.update', $niveau) }}" method="post" id="editniv">
                     @csrf
@@ -70,7 +70,7 @@
                     <div class="row">
                 
                         <div class="col mb-3">
-                            <label for="diplome_niveau" class="form-label">Diplome et année</label>
+                            <label for="diplome_niveau" class="form-label">Diplôme</label>
                             <input type="text" class="form-control" id="diplome_niveau" name="diplome_niveau" value="{{ $niveau->diplome_niveau }}" required>
                           
                         </div>
@@ -84,8 +84,8 @@
                       
                     </div>
                     <div class="d-flex justify-content-between">
-                        <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
-                        <button id="nivedit" class="btn btn-warning" type="submit" style="border-radius: 150px">Modifier</button>
+                        <a href="{{ route('niveaux.index') }}" class="btn btn-outline-secondary">Annuler</a>
+                        <button id="nivedit" class="btn btn-primary" type="submit">Modifier</button>
                     </div>
                    
                 </form>

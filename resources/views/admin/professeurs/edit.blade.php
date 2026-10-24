@@ -62,7 +62,7 @@
                                 <div class="page-body">
 
                 <!-- Begin Page Content -->
-                <h1 class="mb-0">Modifier un Professeur</h1>
+                <h1 class="ef-page-title">Modifier le professeur</h1>
                 <hr />
                 <form action="{{ route('professeurs.update', $professeur) }}" method="post" id="editprof">
                     @csrf
@@ -80,7 +80,7 @@
                           
                         </div>
                         <div class="col mb-3">
-                            <label for="Prenom" class="form-label">Prenom</label>
+                            <label for="Prenom" class="form-label">Prénom</label>
                             <input type="text" class="form-control" id="Prenom" name="prenomProfesseur" required value="{{ $professeur->prenomProfesseur }}">
                             
                         </div>
@@ -136,8 +136,8 @@
                       
                     </div>
                     <div class="d-flex justify-content-between">
-                        <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
-                        <button id="profedit" class="btn btn-warning" type="submit" style="border-radius: 150px">Modifier</button>
+                        <a href="{{ route('professeurs.index') }}" class="btn btn-outline-secondary">Annuler</a>
+                        <button id="profedit" class="btn btn-primary" type="submit">Modifier</button>
                        
                     </div>
                    

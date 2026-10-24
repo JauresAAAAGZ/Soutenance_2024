@@ -61,7 +61,7 @@
 
                                 <div class="page-body">
            
-           <h1 class="mb-0">Enregistrer un Etudiant</h1>
+           <h1 class="ef-page-title">Nouvel étudiant</h1>
            <hr />
 
           <form action="{{route('etudiants.store')}}" method="post" id="addetu">
@@ -79,7 +79,7 @@
                   
                 </div>
                 <div class="col mb-3">
-                    <label for="Prenom" class="form-label">Prenom</label>
+                    <label for="Prenom" class="form-label">Prénom</label>
                     <input type="text" class="form-control" id="Prenom" name="prenomEtudiant" required>
                     
                 </div>
@@ -113,7 +113,7 @@
                     </select>
                 </div>
                 <div class="col mb-3">
-                    <label for="filiere" class="form-label">Filiere</label>
+                    <label for="filiere" class="form-label">Filière</label>
                     <select name="filiere_id" id="filiere" class="form-control" required>
                         <option disabled selected value> Choisir une filière</option>
                         @foreach ($filieres as $filiere)
@@ -136,8 +136,8 @@
             </div>
             
             <div class="d-flex justify-content-between">
-                <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
-                <button id="etuadd" type="submit" class="btn btn-warning" style="border-radius: 150px">Enregistrer l'étudiant</button>
+                <a href="{{ route('etudiants.index') }}" class="btn btn-outline-secondary">Annuler</a>
+                <button id="etuadd" type="submit" class="btn btn-primary">Enregistrer l'étudiant</button>
             </div>
         </form>
         </div>

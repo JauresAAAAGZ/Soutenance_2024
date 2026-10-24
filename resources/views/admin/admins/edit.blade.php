@@ -62,7 +62,7 @@
                                 <div class="page-body">
 
                 <!-- Begin Page Content -->
-                <h1 class="mb-0">Modifier un administrateur</h1>
+                <h1 class="ef-page-title">Modifier l'administrateur</h1>
                 <hr />
                 <form action="{{ route('admins.update', $admin) }}" method="post" id="editadmin">
                     @csrf
@@ -85,8 +85,8 @@
                     </div>
                    
                     <div class="d-flex justify-content-between">
-                        <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
-                        <button id="adminedit" class="btn btn-warning" type="submit" style="border-radius: 150px">Modifier</button>
+                        <a href="{{ route('admins.index') }}" class="btn btn-outline-secondary">Annuler</a>
+                        <button id="adminedit" class="btn btn-primary" type="submit">Modifier</button>
                     </div>
                 </form>
             <!-- End of Main Content -->

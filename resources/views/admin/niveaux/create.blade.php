@@ -61,7 +61,7 @@
 
                                 <div class="page-body">
            
-           <h1 class="mb-0">Enregistrer un niveau</h1>
+           <h1 class="ef-page-title">Nouveau niveau</h1>
            <hr />
 
           <form action="{{route('niveaux.store')}}" method="post" id="addniv">
@@ -82,8 +82,8 @@
                       
             
             <div class="d-flex justify-content-between">
-                <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
-                <button id="nivadd" type="submit" class="btn btn-warning" style="border-radius: 150px">Créer le niveau</button>
+                <a href="{{ route('niveaux.index') }}" class="btn btn-outline-secondary">Annuler</a>
+                <button id="nivadd" type="submit" class="btn btn-primary">Créer le niveau</button>
             </div>
            
         </form>

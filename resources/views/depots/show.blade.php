@@ -1,21 +1,22 @@
 @extends("layout.app")
 
-<body>
-
 @section("content")
+@php
+    $role = Auth::user()->role_id;
+    $ferme = $depot->etat == 'fermé';
+    $professorEmails = App\Models\Professeur::pluck('emailProfesseur')->toArray();
 
-<!-- Pre-loader start -->
-<div class="theme-loader">
-    <div class="ball-scale">
-        <div class='contain'>
-            <div class="ring">
-                <div class="frame"></div>
-            </div>
-            <!-- ... other rings ... -->
-        </div>
-    </div>
-</div>
-<!-- Pre-loader end -->
+    $estNote = fn ($media) => strpos($media->file_name, 'notes') === 0;
+    $estRessource = fn ($media) => in_array($media->getCustomProperty('user_email'), $professorEmails);
+
+    $medias = $depot->getMedia();
+    $releves = $medias->filter($estNote);
+    $ressources = $medias->reject($estNote)->filter($estRessource);
+    $rendus = $medias->reject($estNote)->reject($estRessource);
+    $mesRendus = $rendus->filter(fn ($media) => $media->getCustomProperty('user_email') === Auth::user()->email);
+@endphp
+
+<div class="theme-loader"></div>
 
 <div id="pcoded" class="pcoded">
     <div class="pcoded-overlay-box"></div>
@@ -25,303 +26,104 @@
         <div class="pcoded-main-container">
             <div class="pcoded-wrapper">
                 @include("partial.sidebar")
-               
+
                 <div class="pcoded-content">
                     <div class="pcoded-inner-content">
                         <div class="main-body">
                             <div class="page-wrapper">
-                                <!-- Page Heading -->
-                                <div class="d-flex justify-content-between align-items-center">
+
+                                <div class="ef-page-header">
                                     <div>
-                                        <h1 class="mb-0">{{ $depot->nomDepot }}</h1><br>
-                                        <h4>{{ $depot->description }}</h4>
+                                        <h1 class="ef-page-title">{{ $depot->nomDepot }}</h1>
+                                        <p class="ef-page-subtitle">
+                                            {{ $depot->matiere->intitule ?? '' }}
+                                            @if ($depot->professeur)
+                                                · {{ $depot->professeur->prenomProfesseur }} {{ $depot->professeur->nomProfesseur }}
+                                            @endif
+                                        </p>
                                     </div>
-                                    
                                     <div class="text-right">
-                                        Temps restant : <span id="remaining-time-{{ $depot->id }}" class="remaining-time-box"></span>
-                                        @php
-                                        if (Auth::user()->role_id == 2 && $depot->etat=='fermé') {
-                                            echo '<br>';
-                                            echo '<a href="' . route('depots.students', $depot) . '" class="btn btn-warning">Notes</a>';
-                                        }
-                                        @endphp
-                                    </div>
-                                </div>
-                                <hr/>
-
-                                @if(session('message1'))
-                                <div id="success-message" class="alert alert-success">
-                                    {{ session('message1') }}
-                                </div>
-                                @endif
-                                @if(session('message'))
-                                <div id="success-message" class="alert alert-success">
-                                    {{ session('message') }}
-                                </div>
-                                @endif
-                                @if(session('error'))
-                                <div id="success-message" class="alert alert-danger">
-                                    {{ session('error') }}
-                                </div>
-                                @endif
-
-                                @php
-                                    $professorEmails = App\Models\Professeur::pluck('emailProfesseur')->toArray();
-                                @endphp
-
-                            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
-                            <h3 style="text-align: center">Fichiers Soumis</h3><br>
-                            @endif
-                           
-                                <div class="row">
-                                    
-                                    @foreach($depot->getMedia() as $media)
-                                        @if (Auth::user()->role_id == 1)
-                                            @if (isset($media->custom_properties['user_email']) && $media->custom_properties['user_email'] == Auth::user()->email)
-                                                @php
-                                                    $fileName = $media->file_name;
-                                                    $startsWithNotes = strpos($fileName, 'notes') === 0;
-                                                @endphp
-                                                <div class="col-md-4 mb-4">
-                                                    <div class="card custom-card">
-                                                        <div class="card-body text-center">
-                                                            <img src="{{ asset('assets/images/zip.png') }}" style="max-width: 100%; height: 90px;" class="mx-auto d-block">
-                                                            <h6 class="card-title mt-3">{{ $fileName }}</h6>
-                                                        </div>
-                                                        <div class="card-footer d-flex justify-content-between" style="border-radius: 0 0 50px 50px">
-                                                            <a href="{{ route('depot.download', ['id' => $media->id]) }}">
-                                                                <i class="ri-folder-download-line"></i>
-                                                            </a>
-                                                            @if ($depot->etat !== 'fermé')
-                                                                <form action="{{ route('depot.delete-file', ['id' => $media->id]) }}" method="post">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="btn-link delete-button border-0">
-                                                                        <i class="ri-delete-bin-2-line"></i>
-                                                                    </button>
-                                                                </form>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endif
-                                        @elseif (Auth::user()->role_id == 2)
-                                            @php
-                                                $fileName = $media->file_name;
-                                                $startsWithNotes = strpos($fileName, 'notes') === 0;
-                                            @endphp
-                                            @if (!$startsWithNotes)
-                                                <div class="col-md-4 mb-4">
-                                                    <div class="card custom-card">
-                                                        <div class="card-body text-center">
-                                                            <img src="{{ asset('assets/images/zip.png') }}" style="max-width: 100%; height: 90px;" class="mx-auto d-block">
-                                                            <h6 class="card-title mt-3">{{ $fileName }}</h6>
-                                                        </div>
-                                                        <div class="card-footer d-flex justify-content-between" style="border-radius: 0 0 50px 50px">
-                                                            <a href="{{ route('depot.download', ['id' => $media->id]) }}">
-                                                                <i class="ri-folder-download-line"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endif
+                                        <span class="ef-badge {{ $ferme ? 'ef-badge-closed' : 'ef-badge-open' }}">{{ $ferme ? 'Fermé' : 'Ouvert' }}</span>
+                                        <div class="text-muted mt-2">
+                                            Fermeture : {{ \Carbon\Carbon::parse($depot->dateFermeture)->locale('fr')->isoFormat('D MMMM YYYY [à] HH:mm') }}
+                                            · <span class="js-countdown" data-depot="{{ $depot->id }}" data-closing="{{ $depot->dateFermeture }}" data-etat="{{ $depot->etat }}"></span>
+                                        </div>
+                                        @if ($role == 2 && $ferme)
+                                            <a href="{{ route('depots.students', $depot) }}" class="btn btn-primary mt-2">Saisir les notes</a>
                                         @endif
-                                    @endforeach
+                                    </div>
                                 </div>
 
-                                @if (Auth::user()->role_id == 2 || Auth::user()->role_id == 4)
-                                <h3 style="text-align: center">Fichiers des notes</h3><br>
-                                    <div class="row">
-                                        
-                                        @foreach($depot->getMedia() as $media)
-                                            @php
-                                                $fileName = $media->file_name;
-                                                $startsWithNotes = strpos($fileName, 'notes') === 0;
-                                            @endphp
-                                            @if ($startsWithNotes)
-                                                <div class="col-md-4 mb-4">
-                                                    <div class="card custom-card">
-                                                        <div class="card-body text-center">
-                                                            <img src="{{ asset('assets/images/zip.png') }}" style="max-width: 100%; height: 90px;" class="mx-auto d-block">
-                                                            <h6 class="card-title mt-3">{{ $fileName }}</h6>
-                                                        </div>
-                                                        <div class="card-footer d-flex justify-content-between" style="border-radius: 0 0 50px 50px">
-                                                            <a href="{{ route('depot.download', ['id' => $media->id]) }}">
-                                                                <i class="ri-folder-download-line"></i>
-                                                            </a>
-                                                            @if (Auth::user()->role_id == 2)
-                                                                <form action="{{ route('depot.delete-file', ['id' => $media->id]) }}" method="post">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="btn-link delete-button border-0">
-                                                                        <i class="ri-delete-bin-2-line"></i>
-                                                                    </button>
-                                                                </form>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endif
-                                        @endforeach
+                                <div class="card">
+                                    <div class="card-block">
+                                        <strong>Consignes</strong>
+                                        <p class="mb-0 mt-1">{{ $depot->description }}</p>
                                     </div>
+                                </div>
+
+                                @foreach (['message1' => 'success', 'message' => 'success', 'error' => 'danger'] as $cle => $type)
+                                    @if(session($cle))
+                                        <div class="alert alert-{{ $type }} js-flash">{{ session($cle) }}</div>
+                                    @endif
+                                @endforeach
+
+                                {{-- Ressources jointes par le professeur --}}
+                                @if ($role == 1 || $role == 2)
+                                    <h2 class="ef-section-title">Ressources</h2>
+                                    @include('depots.partials.fichiers', [
+                                        'fichiers' => $ressources,
+                                        'vide' => "Aucune ressource n'a été jointe à ce dépôt.",
+                                        'suppression' => $role == 2,
+                                    ])
                                 @endif
 
-                                @if ($depot->getMedia()->isEmpty())
-                                    <li>Aucun fichier ici</li>
-                                @endif
+                                {{-- Rendu de l'étudiant connecté --}}
+                                @if ($role == 1)
+                                    <h2 class="ef-section-title">Mon rendu</h2>
+                                    @include('depots.partials.fichiers', [
+                                        'fichiers' => $mesRendus,
+                                        'vide' => $ferme ? "Le dépôt est fermé et vous n'avez rien rendu." : "Vous n'avez encore rien déposé.",
+                                        'suppression' => !$ferme,
+                                    ])
 
-                                @if (Auth::user()->role_id == 1)
-                                    @if ($depot->etat !== 'fermé')
-                                        @php
-                                            $studentFiles = $depot->getMedia()->filter(function ($media) {
-                                                $customProperties = $media->getCustomProperty('user_email');
-                                                return $customProperties === Auth::user()->email;
-                                            });
-
-                                            $studentFilesExist = $studentFiles->isNotEmpty();
-                                        @endphp
-
-                                        @if (!$studentFilesExist)
-                                            <div id="uploadFormContainer">
-                                                <form id="uploadForm" action="{{ route('depots.add-files', $depot) }}" method="post" enctype="multipart/form-data">
-                                                    @csrf
-                                                    <div id="dropZone" class="drop-zone">
-                                                        <label for="fileInput" id="fileInputLabel">Deposez un fichier(.rar, .zip ou .pdf)</label>
-                                                        <input type="file" name="fichiers[]" id="fileInput" accept=".zip, .rar, .pdf" multiple>
-                                                    </div>
-                                                </form>
+                                    @if (!$ferme && $mesRendus->isEmpty())
+                                        <form id="uploadForm" action="{{ route('depots.add-files', $depot) }}" method="post" enctype="multipart/form-data" class="mt-3">
+                                            @csrf
+                                            <div id="dropZone" class="drop-zone">
+                                                <label for="fileInput" id="fileInputLabel">
+                                                    <i class="ri-upload-cloud-2-line"></i>
+                                                    Glissez votre fichier ici ou cliquez pour le choisir<br>
+                                                    <small>Formats acceptés : .zip, .rar, .pdf</small>
+                                                </label>
+                                                <input type="file" name="fichiers[]" id="fileInput" accept=".zip, .rar, .pdf" multiple>
                                             </div>
-                                        @endif
+                                            <div class="text-right mt-3">
+                                                <button type="submit" id="uploadButton" class="btn btn-primary" disabled>Envoyer</button>
+                                            </div>
+                                        </form>
                                     @endif
                                 @endif
 
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', function() {
-                                        var successMessage = document.getElementById('success-message');
-
-                                        if (successMessage) {
-                                            var timeout = 3000;
-                                            setTimeout(function() {
-                                                successMessage.style.display = 'none';
-                                            }, timeout);
-                                        }
-                                    });
-                                </script>
-
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', function() {
-                                        var dropZone = document.getElementById('dropZone');
-                                        var fileInput = document.getElementById('fileInput');
-                                        var fileInputLabel = document.getElementById('fileInputLabel');
-                                        var uploadForm = document.getElementById('uploadForm');
-
-                                        dropZone.addEventListener('dragover', function(e) {
-                                            e.preventDefault();
-                                            dropZone.classList.add('drag-over');
-                                        });
-
-                                        dropZone.addEventListener('dragleave', function() {
-                                            dropZone.classList.remove('drag-over');
-                                        });
-
-                                        dropZone.addEventListener('drop', function(e) {
-                                            e.preventDefault();
-                                            dropZone.classList.remove('drag-over');
-
-                                            var files = e.dataTransfer.files;
-                                            fileInput.files = files;
-                                            updateFileNameDisplay();
-
-                                            uploadForm.submit();
-                                        });
-
-                                        dropZone.addEventListener('click', function() {
-                                            fileInput.click();
-                                        });
-
-                                        fileInput.addEventListener('change', function() {
-                                            updateFileNameDisplay();
-                                        });
-
-                                        function updateFileNameDisplay() {
-                                            var filenameDisplay = '';
-                                            if (fileInput.files.length > 0) {
-                                                filenameDisplay = fileInput.files.length > 1 ? fileInput.files.length + ' files selected' : fileInput.files[0].name;
-                                            } else {
-                                                filenameDisplay = 'Choose a file';
-                                            }
-                                            fileInputLabel.textContent = filenameDisplay;
-                                        }
-                                    });
-                                </script>
-
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', function() {
-                                        @if (isset($studentFilesExist))
-                                            var studentFilesExist = {{ $studentFilesExist ? 'true' : 'false' }};
-                                            var uploadForm = document.getElementById('uploadForm');
-
-                                            if (studentFilesExist) {
-                                                uploadForm.style.display = 'none';
-                                            }
-                                        @endif
-                                    });
-                                </script>
-
-                                <script>
-                                    function updateRemainingTime(depotId) {
-                                        var depotClosureDate = new Date('{{ $depot->dateFermeture }}');
-                                        var remainingTime = depotClosureDate - new Date();
-
-                                        if (remainingTime <= 0) {
-                                            document.getElementById('remaining-time-' + depotId).textContent = 'Expiré';
-                                            updateDepotEtat(depotId);
-                                        } else {
-                                            var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
-                                            remainingTime -= days * (1000 * 60 * 60 * 24);
-                                            var hours = Math.floor(remainingTime / (1000 * 60 * 60));
-                                            remainingTime -= hours * (1000 * 60 * 60);
-                                            var minutes = Math.floor(remainingTime / (1000 * 60));
-                                            remainingTime -= minutes * (1000 * 60);
-                                            var seconds = Math.floor(remainingTime / 1000);
-
-                                            document.getElementById('remaining-time-' + depotId).textContent = days + "j " + hours + "h " + minutes + "m " + seconds + "s";
-                                        }
-                                    }
-
-                                    updateRemainingTime({{ $depot->id }});
-
-                                    setInterval(function() {
-                                        updateRemainingTime({{ $depot->id }});
-                                    }, 1000);
-                                </script>
-
-                                <script>
-                                    function updateDepotEtat(depotId) {
-                                        var csrfToken = $('meta[name="csrf-token"]').attr('content');
-                                        $.ajax({
-                                            url: '/update-depot-etat/' + depotId,
-                                            type: 'POST',
-                                            headers: {
-                                                'X-CSRF-TOKEN': csrfToken
-                                            },
-                                            success: function(response) {
-                                                console.log(response);
-                                            },
-                                            error: function(xhr) {
-                                                console.error(xhr.responseText);
-                                            }
-                                        });
-                                    }
-                                </script>
-                               
-                                
-
-                                @if (Auth::user()->role_id == 2)
-                                    <div class="floating-button">
-                                        <a href="" class="btn btn-success btn-lg">Tout Télécharger</a>
-                                    </div>
+                                {{-- Rendus de tous les étudiants --}}
+                                @if ($role == 2)
+                                    <h2 class="ef-section-title">Rendus des étudiants ({{ $rendus->count() }})</h2>
+                                    @include('depots.partials.fichiers', [
+                                        'fichiers' => $rendus,
+                                        'vide' => "Aucun étudiant n'a encore rendu de fichier.",
+                                        'suppression' => false,
+                                    ])
                                 @endif
+
+                                {{-- Relevés de notes générés --}}
+                                @if ($role == 2 || $role == 4)
+                                    <h2 class="ef-section-title">Relevés de notes</h2>
+                                    @include('depots.partials.fichiers', [
+                                        'fichiers' => $releves,
+                                        'vide' => $ferme ? "Les notes n'ont pas encore été saisies." : "Le relevé sera disponible après la fermeture du dépôt.",
+                                        'suppression' => $role == 2,
+                                    ])
+                                @endif
+
                             </div>
                         </div>
                     </div>
@@ -329,7 +131,54 @@
             </div>
         </div>
     </div>
+</div>
+
+<script>
+    setTimeout(function () {
+        document.querySelectorAll('.js-flash').forEach(function (el) { el.style.display = 'none'; });
+    }, 4000);
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var dropZone = document.getElementById('dropZone');
+        if (!dropZone) {
+            return;
+        }
+
+        var fileInput = document.getElementById('fileInput');
+        var label = document.getElementById('fileInputLabel');
+        var bouton = document.getElementById('uploadButton');
+
+        function afficherFichiers() {
+            var n = fileInput.files.length;
+            bouton.disabled = n === 0;
+            if (n === 0) {
+                return;
+            }
+
+            var icone = document.createElement('i');
+            icone.className = 'ri-file-zip-line';
+            label.textContent = n === 1 ? fileInput.files[0].name : n + ' fichiers sélectionnés';
+            label.prepend(icone);
+        }
+
+        dropZone.addEventListener('dragover', function (e) {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+        });
+
+        dropZone.addEventListener('dragleave', function () {
+            dropZone.classList.remove('drag-over');
+        });
+
+        dropZone.addEventListener('drop', function (e) {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+            fileInput.files = e.dataTransfer.files;
+            afficherFichiers();
+        });
+
+        fileInput.addEventListener('change', afficherFichiers);
+    });
+</script>
 
 @endsection
-
-</body>

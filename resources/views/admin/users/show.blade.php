@@ -61,7 +61,7 @@
                                 <div class="page-wrapper">
 
                     <!-- Page Heading -->
-                    <h1 class="mb-0">Informations sur l'utilisateur</h1>
+                    <h1 class="ef-page-title">Compte utilisateur</h1>
                     <hr/>
                     @if(session('message1'))
                     <div id="success-message" class="alert alert-success">
@@ -71,7 +71,6 @@
                     <ul>
                         <li>Nom : {{$user->name}}</li>
                         <li>Email : {{$user->email}}</li>
-                        <li>Mot de passe: {{$user->password}}</li>
                         <li>Role : @if ($user->role)
                             {{$user->role->nomRole }}
                             @endif</li>

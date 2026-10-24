@@ -84,22 +84,20 @@
                                         @endif
                                         <div class="card">
                                             <div class="card-header">
-                                                <h5>Liste des matieres</h5>
-                                                <a href="{{ route('matieres.create') }}" class="btn btn-info" style="border-radius: 150px">Ajouter <i class="ri-add-circle-line"></i></a>
-
-                                                <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>            </ul></div>
+                                                <h5>Matières</h5>
+                                                <a href="{{ route('matieres.create') }}" class="btn btn-primary btn-sm ml-3"><i class="ri-add-line"></i> Ajouter</a>
                                             </div>
 
                                         <div class="table-responsive">
                                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                                 <thead>
                                                     <tr>
-                                                        <th>Matiere N°</th>
-                                                        <th>Intitule</th>
-                                                        <th>Code Matiere</th>
-                                                        <th>Duree</th>
+                                                        <th>N°</th>
+                                                        <th>Intitulé</th>
+                                                        <th>Code</th>
+                                                        <th>Durée</th>
                                                        
-                                                        <th>Opérations</th>
+                                                        <th>Actions</th>
                                                     </tr>
                                                 </thead>
                                               
@@ -130,13 +128,13 @@
                                                
                                                            
                                                             <td>
-                                                                <a href={{route('matieres.show', $matiere)}} class="btn btn-info" style="border-radius: 200px"><i class="ri-eye-line" style="font-size: 20px"></i></a>
+                                                                <a href={{route('matieres.show', $matiere)}} class="btn btn-sm btn-icon-action" title="Voir"><i class="ri-eye-line"></i></a>
                                                                
-                                                                <a href={{route('matieres.edit', $matiere)}} class="btn btn-primary" style="border-radius: 200px"><i class="ri-edit-box-fill" style="font-size: 20px"></i></a>
+                                                                <a href={{route('matieres.edit', $matiere)}} class="btn btn-sm btn-icon-action" title="Modifier"><i class="ri-edit-line"></i></a>
                                                                 <form action={{route('matieres.destroy', $matiere)}} method="POST" style="display: inline;" id="supprimer-matiere-{{ $matiere->id }}">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="button" onclick="confirmerSuppression({{ $matiere->id }})" class="btn btn-danger" style="border-radius: 200px"><i class="ri-delete-bin-7-fill" style="font-size: 20px"></i></button>
+                                                                    <button type="button" onclick="confirmerSuppression({{ $matiere->id }})" class="btn btn-sm btn-icon-action danger" title="Supprimer"><i class="ri-delete-bin-line"></i></button>
                                                                 </form>
                                                             </td>
                                     

@@ -61,7 +61,7 @@
 
                                 <div class="page-body">
            
-           <h1 class="mb-0">Enregistrer un Administrateur</h1>
+           <h1 class="ef-page-title">Nouvel administrateur</h1>
            <hr />
 
           <form action="{{route('admins.store')}}" method="post" id="addadmin">
@@ -86,8 +86,8 @@
           
             
             <div class="d-flex justify-content-between">
-                <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
-                <button id="adminadd" type="submit" class="btn btn-warning" style="border-radius: 150px">Créer Admin</button>
+                <a href="{{ route('admins.index') }}" class="btn btn-outline-secondary">Annuler</a>
+                <button id="adminadd" type="submit" class="btn btn-primary">Créer Admin</button>
             </div>
         </form>
         </div>

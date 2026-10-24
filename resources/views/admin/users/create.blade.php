@@ -61,14 +61,14 @@
 
                                 <div class="page-body">
            
-           <h1 class="mb-0">Enregistrer un Compte utilisateur</h1>
+           <h1 class="ef-page-title">Nouveau compte utilisateur</h1>
            <hr />
 
           <form action="{{route('users.store')}}" method="post" id="adduser">
             @csrf
             <div class="row">
                 <div class="col mb-3">
-                    <label for="role" class="form-label">Role</label>
+                    <label for="role" class="form-label">Rôle</label>
                     <select name="role_id" id="role" class="form-control" required>
                         <option disabled selected value> Choisir le role de l'utilisateur</option>
                         @foreach ($roles as $role)
@@ -141,8 +141,8 @@
 
             </div>
             <div class="d-flex justify-content-between">
-                <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
-                <button id="useradd" type="submit" class="btn btn-warning" style="border-radius: 150px">Créer le compte</button>
+                <a href="{{ route('users.index') }}" class="btn btn-outline-secondary">Annuler</a>
+                <button id="useradd" type="submit" class="btn btn-primary">Créer le compte</button>
                
             </div>
 

@@ -1,0 +1,493 @@
+/* Edu-Flow : surcharges légères du template pour une interface cohérente */
+
+:root {
+    --ef-primary: #2b59c3;
+    --ef-primary-hover: #2349a3;
+    --ef-primary-soft: #e8eefb;
+    --ef-text: #1f2937;
+    --ef-muted: #6b7280;
+    --ef-border: #e5e7eb;
+    --ef-bg: #f5f7fb;
+    --ef-success: #15803d;
+    --ef-success-soft: #e7f6ec;
+    --ef-danger: #c62828;
+    --ef-danger-soft: #fdecec;
+    --ef-radius: 10px;
+}
+
+body {
+    color: var(--ef-text);
+}
+
+/* Titres */
+.ef-page-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.ef-page-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--ef-text);
+}
+
+.ef-page-subtitle {
+    color: var(--ef-muted);
+    margin: 4px 0 0;
+}
+
+.ef-section-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 28px 0 14px;
+    color: var(--ef-text);
+}
+
+/* Boutons */
+.btn {
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 8px 18px;
+    text-transform: none;
+}
+
+.btn-sm {
+    padding: 4px 10px;
+}
+
+.btn-primary,
+.btn-primary:focus {
+    background-color: var(--ef-primary);
+    border-color: var(--ef-primary);
+    color: #fff;
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+    background-color: var(--ef-primary-hover) !important;
+    border-color: var(--ef-primary-hover);
+    color: #fff;
+}
+
+.btn-outline-secondary {
+    color: var(--ef-text);
+    border-color: var(--ef-border);
+    background: #fff;
+}
+
+.btn-outline-secondary:hover {
+    background: var(--ef-bg);
+    color: var(--ef-text);
+    border-color: #cfd4dc;
+}
+
+.btn-icon-action {
+    padding: 4px 9px;
+    border: 1px solid var(--ef-border);
+    background: #fff;
+    color: var(--ef-muted);
+    border-radius: 8px;
+}
+
+.btn-icon-action:hover {
+    color: var(--ef-primary);
+    border-color: var(--ef-primary);
+}
+
+.btn-icon-action.danger:hover {
+    color: var(--ef-danger);
+    border-color: var(--ef-danger);
+}
+
+/* Cartes */
+.card {
+    border-radius: var(--ef-radius);
+    border: 1px solid var(--ef-border);
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+.card .card-header h5 {
+    font-weight: 600;
+}
+
+/* Icônes des cartes de statistiques : une seule couleur */
+.widget-card-1 .card1-icon {
+    background: var(--ef-primary) !important;
+}
+
+.widget-card-1 span[class*="text-c-"],
+.widget-card-1 i[class*="text-c-"] {
+    color: var(--ef-primary) !important;
+}
+
+.widget-card-1 a {
+    color: inherit;
+}
+
+.widget-card-1 .ef-stat-detail {
+    display: block;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--ef-muted);
+    margin-top: 10px;
+}
+
+/* Cartes de dépôt */
+.ef-depot-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 18px 20px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ef-depot-card:hover {
+    border-color: #c9d6f3;
+    box-shadow: 0 4px 14px rgba(43, 89, 195, 0.08);
+}
+
+.ef-depot-card h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--ef-text);
+}
+
+.ef-depot-card h5 a {
+    color: inherit;
+}
+
+.ef-depot-card .ef-depot-description {
+    color: var(--ef-muted);
+    margin: 10px 0 16px;
+    flex-grow: 1;
+}
+
+.ef-depot-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.85rem;
+    color: var(--ef-muted);
+    border-top: 1px solid var(--ef-border);
+    padding-top: 12px;
+}
+
+.ef-depot-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.ef-depot-card .dropdown-menu {
+    font-size: 0.9rem;
+}
+
+/* Badges d'état */
+.ef-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.ef-badge-open {
+    background: var(--ef-success-soft);
+    color: var(--ef-success);
+}
+
+.ef-badge-closed {
+    background: #eef0f3;
+    color: var(--ef-muted);
+}
+
+/* Pastille avec l'initiale du dépôt */
+.project-task .task-contain h6 {
+    background: var(--ef-primary-soft) !important;
+    color: var(--ef-primary) !important;
+    font-weight: 700;
+}
+
+/* Liste vide */
+.ef-empty {
+    text-align: center;
+    padding: 32px 16px;
+    color: var(--ef-muted);
+    border: 1px dashed var(--ef-border);
+    border-radius: var(--ef-radius);
+    background: #fff;
+}
+
+.ef-empty i {
+    display: block;
+    font-size: 28px;
+    margin-bottom: 6px;
+    color: #b3bac5;
+}
+
+/* Fichiers d'un dépôt */
+.custom-card {
+    width: 100%;
+}
+
+.custom-card .card-footer {
+    border-radius: 0 0 var(--ef-radius) var(--ef-radius) !important;
+    background: #fff;
+}
+
+.custom-card img {
+    height: 64px !important;
+}
+
+/* Zone de dépôt de fichier */
+.drop-zone {
+    height: 180px;
+    border: 2px dashed #c9d6f3;
+    border-radius: var(--ef-radius);
+    background: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.drop-zone:hover,
+.drop-zone.drag-over {
+    background: var(--ef-primary-soft);
+    border-color: var(--ef-primary);
+}
+
+.drop-zone label {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--ef-muted);
+    text-align: center;
+    margin: 0;
+    cursor: pointer;
+}
+
+.drop-zone label i {
+    display: block;
+    font-size: 30px;
+    color: var(--ef-primary);
+    margin-bottom: 6px;
+}
+
+/* Tableaux */
+.table thead th {
+    font-weight: 600;
+    color: var(--ef-muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    border-bottom-width: 1px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table td,
+.table th {
+    padding: 0.65rem 0.6rem;
+    vertical-align: middle;
+}
+
+#dataTable td {
+    font-size: 0.875rem;
+}
+
+table.dataTable thead th {
+    white-space: normal;
+    padding: 10px 10px;
+    border-bottom: 1px solid var(--ef-border);
+}
+
+#dataTable td:last-child {
+    white-space: nowrap;
+}
+
+/* Sur mobile, chaque ligne devient une petite carte */
+@media (max-width: 767px) {
+    .ef-table-stack thead {
+        display: none;
+    }
+
+    .ef-table-stack tr {
+        display: block;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--ef-border);
+    }
+
+    .ef-table-stack td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 0 !important;
+        padding: 4px 0 !important;
+        white-space: normal !important;
+    }
+
+    .ef-table-stack td[data-label]::before {
+        content: attr(data-label);
+        color: var(--ef-muted);
+        font-size: 0.8rem;
+        margin-right: 12px;
+    }
+
+    .ef-table-stack td.text-right {
+        justify-content: flex-start;
+        gap: 6px;
+        padding-top: 8px !important;
+    }
+}
+
+/* Tri DataTables : flèches en texte */
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+    background-image: none !important;
+}
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc:after {
+    margin-left: 6px;
+    color: #b3bac5;
+}
+
+table.dataTable thead .sorting:after { content: "↕"; }
+table.dataTable thead .sorting_asc:after { content: "↑"; color: var(--ef-primary); }
+table.dataTable thead .sorting_desc:after { content: "↓"; color: var(--ef-primary); }
+
+/* Barre latérale : une seule couleur pour les icônes */
+.pcoded .pcoded-item.pcoded-left-item > li > a > .pcoded-micon {
+    background-color: var(--ef-primary-soft) !important;
+    color: var(--ef-primary) !important;
+}
+
+.pcoded .pcoded-navbar .pcoded-item > li.active > a {
+    color: var(--ef-primary) !important;
+}
+
+.ef-sidebar-action {
+    padding: 18px 20px 6px;
+}
+
+.ef-sidebar-action .btn {
+    display: inline-block;
+    max-width: 100%;
+    padding: 7px 16px;
+    white-space: nowrap;
+}
+
+/* Barre du haut : nom complet sans déborder */
+.header-navbar .user-profile span {
+    display: inline-block;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+/* Page de connexion */
+.ef-login {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    background: linear-gradient(160deg, #eef2fb 0%, #f7f8fb 60%);
+}
+
+.ef-login-card {
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    border: 1px solid var(--ef-border);
+    border-radius: 14px;
+    padding: 32px 30px;
+    box-shadow: 0 10px 30px rgba(16, 24, 40, 0.06);
+}
+
+.ef-login-card .ef-login-logo {
+    display: block;
+    max-width: 170px;
+    margin: 0 auto 24px;
+}
+
+.ef-login-card h1 {
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin: 0 0 4px;
+}
+
+.ef-login-card .ef-login-subtitle {
+    color: var(--ef-muted);
+    margin-bottom: 24px;
+}
+
+.ef-login-card label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+}
+
+.ef-login-card .form-control {
+    height: 44px;
+    border-radius: 8px;
+}
+
+.ef-login-card .form-control:focus {
+    border-color: var(--ef-primary);
+    box-shadow: 0 0 0 3px var(--ef-primary-soft);
+}
+
+.ef-login-card .btn-primary {
+    width: 100%;
+    height: 44px;
+    margin-top: 8px;
+}
+
+.ef-login-card .ef-login-forgot {
+    font-size: 0.85rem;
+    color: var(--ef-primary);
+}
+
+.ef-login-footer {
+    text-align: center;
+    color: var(--ef-muted);
+    font-size: 0.8rem;
+    margin-top: 20px;
+}
+
+/* Formulaires */
+.form-label,
+form label {
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+select[multiple] option:checked {
+    background: var(--ef-primary-soft) linear-gradient(0deg, var(--ef-primary-soft), var(--ef-primary-soft));
+    color: var(--ef-primary);
+}
+
+.form-text-help {
+    color: var(--ef-muted);
+    font-size: 0.8rem;
+    margin-top: 4px;
+}

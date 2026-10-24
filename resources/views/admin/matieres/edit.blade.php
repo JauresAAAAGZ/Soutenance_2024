@@ -62,7 +62,7 @@
                                 <div class="page-body">
 
                 <!-- Begin Page Content -->
-                <h1 class="mb-0">Modifier une matiere</h1>
+                <h1 class="ef-page-title">Modifier la matière</h1>
                 <hr />
                 <form action="{{ route('matieres.update', $matiere) }}" method="post" id="editmat">
                     @csrf
@@ -70,7 +70,7 @@
                     <div class="row">
                 
                         <div class="col mb-3">
-                            <label for="intitule" class="form-label">Intitule</label>
+                            <label for="intitule" class="form-label">Intitulé</label>
                             <input type="text" class="form-control" id="intitule" name="intitule" value="{{ $matiere->intitule }}" required>
                           
                         </div>
@@ -82,7 +82,7 @@
                     </div>
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="duree" class="form-label">Duree</label>
+                            <label for="duree" class="form-label">Durée</label>
                             <input type="duree" class="form-control" id="email" name="duree" value="{{ $matiere->duree }}" required>
                             
                         </div>
@@ -96,8 +96,8 @@
                     </div>
                    
                     <div class="d-flex justify-content-between">
-                        <button type="reset" class="btn btn-secondary" style="border-radius: 150px">Annuler</button>
-                        <button id="matedit" class="btn btn-warning" type="submit" style="border-radius: 150px">Modifier</button>
+                        <a href="{{ route('matieres.index') }}" class="btn btn-outline-secondary">Annuler</a>
+                        <button id="matedit" class="btn btn-primary" type="submit">Modifier</button>
                     </div>
                    
                 </form>

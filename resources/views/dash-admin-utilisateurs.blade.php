@@ -1,136 +1,71 @@
 @extends("layout.app")
 
+@section("content")
+@php
+    $stats = [
+        [
+            'titre' => 'Comptes',
+            'total' => App\Models\User::count(),
+            'detail' => 'Accès à la plateforme',
+            'icone' => 'ri-account-circle-line',
+            'lien' => route('users.index'),
+        ],
+        [
+            'titre' => 'Étudiants',
+            'total' => App\Models\Etudiant::count(),
+            'detail' => 'Créer, modifier, supprimer',
+            'icone' => 'ri-graduation-cap-line',
+            'lien' => route('etudiants.index'),
+        ],
+        [
+            'titre' => 'Professeurs',
+            'total' => App\Models\Professeur::count(),
+            'detail' => 'Créer, modifier, supprimer',
+            'icone' => 'ri-briefcase-4-line',
+            'lien' => route('professeurs.index'),
+        ],
+        [
+            'titre' => 'Administrateurs',
+            'total' => App\Models\Admin::count(),
+            'detail' => 'Créer, modifier, supprimer',
+            'icone' => 'ri-user-settings-line',
+            'lien' => route('admins.index'),
+        ],
+    ];
+@endphp
 
-  <body>
+<div class="theme-loader"></div>
 
+<div id="pcoded" class="pcoded">
+    <div class="pcoded-overlay-box"></div>
+    <div class="pcoded-container navbar-wrapper">
+        @include("partial.headbar")
+        <div class="pcoded-main-container">
+            <div class="pcoded-wrapper">
+                @include("partial.sidebar")
+                <div class="pcoded-content">
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                <div class="page-body">
 
-    @section("content")
+                                    <div class="ef-page-header">
+                                        <div>
+                                            <h1 class="ef-page-title">Utilisateurs</h1>
+                                            <p class="ef-page-subtitle">Comptes de connexion et fiches des étudiants, professeurs et administrateurs</p>
+                                        </div>
+                                    </div>
 
-    <!-- Pre-loader start -->
-    <div class="theme-loader">
-        <div class="ball-scale">
-            <div class='contain'>
-                <div class="ring">
-                    <div class="frame"></div>
-                </div>
-                <div class="ring">
-                    <div class="frame"></div>
-                </div>
-                <div class="ring">
+                                    @include('partial.stat-cards', ['stats' => $stats])
 
-                    <div class="frame"></div>
-                </div>
-                <div class="ring">
-                    <div class="frame"></div>
-                </div>
-                <div class="ring">
-                    <div class="frame"></div>
-                </div>
-                <div class="ring">
-                    <div class="frame"></div>
-                </div>
-                <div class="ring">
-                    <div class="frame"></div>
-                </div>
-                <div class="ring">
-                    <div class="frame"></div>
-                </div>
-                <div class="ring">
-                    <div class="frame"></div>
-                </div>
-                <div class="ring">
-                    <div class="frame"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Pre-loader end -->
-    <div id="pcoded" class="pcoded">
-        <div class="pcoded-overlay-box"></div>
-        <div class="pcoded-container navbar-wrapper">
+</div>
 
-            
-            @include("partial.headbar")
-            <div class="pcoded-main-container">
-            <div class="pcoded-wrapper">
-            @include("partial.sidebar")
-        
-                    <div class="pcoded-content">
-                        <div class="pcoded-inner-content">
-                            <div class="main-body">
-                                <div class="page-wrapper">
-
-                                    <div class="page-body">
-                                        <div class="row">
-                                              <!-- card1 start -->
-                                              <div class="col-md-6 col-xl-3">
-                                                <div class="card widget-card-1">
-                                                    <div class="card-block-small">
-                                                        <a href={{route('users.index')}}><i class="ri-account-circle-line bg-c-yellow card1-icon"></i></a>
-                                                        <span class="text-c-yellow f-w-600">Comptes</span>
-                                                        <h4>+99</h4>
-                                                        <div>
-                                                            <span class="f-left m-t-10 text-muted">
-                                                                <i class="text-c-yellow f-16 ri-list-settings-line m-r-10"></i>Créer, Modifier, Sup...
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- card1 end -->
-                                            <!-- card1 start -->
-                                            <div class="col-md-6 col-xl-3">
-                                                <div class="card widget-card-1">
-                                                    <div class="card-block-small">
-                                                        <a href={{route('etudiants.index')}}><i class="ri-graduation-cap-line bg-c-blue card1-icon"></i></a>
-                                                        <span class="text-c-blue f-w-600">Etudiants</span>
-                                                        <h4>+99</h4>
-                                                        <div>
-                                                            <span class="f-left m-t-10 text-muted">
-                                                                <i class="text-c-blue f-16 ri-list-settings-line m-r-10"></i>Créer, Modifier, Sup...
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- card1 end -->
-                                            <!-- card1 start -->
-                                            <div class="col-md-6 col-xl-3">
-                                                <div class="card widget-card-1">
-                                                    <div class="card-block-small">
-                                                        <a href={{route('professeurs.index')}}><i class="ri-briefcase-4-line bg-c-pink card1-icon"></i></a>
-                                                        <span class="text-c-pink f-w-600">Professeurs</span>
-                                                        <h4>+5</h4>
-                                                        <div>
-                                                            <span class="f-left m-t-10 text-muted">
-                                                                <i class="text-c-pink f-16 ri-list-settings-line m-r-10"></i>Créer, Modifier, Sup...
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- card1 end -->
-                                            <!-- card1 start -->
-                                            <div class="col-md-6 col-xl-3">
-                                                <div class="card widget-card-1">
-                                                    <div class="card-block-small">
-                                                        <a href={{route('admins.index')}}><i class="ri-user-settings-line bg-c-green card1-icon"></i></a>
-                                                        <span class="text-c-green f-w-600">Admins</span>
-                                                        <h4>5</h4>
-                                                        <div>
-                                                            <span class="f-left m-t-10 text-muted">
-                                                                <i class="text-c-green f-16 ri-list-settings-line m-r-10"></i>Créer, Modifier, Sup...
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- card1 end -->
-                                           
-                                                               
-
-        
-    @endsection
-</body>
-
-
+@endsection

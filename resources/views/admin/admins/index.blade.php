@@ -84,22 +84,20 @@
                                         @endif
                                         <div class="card">
                                             <div class="card-header">
-                                                <h5>Liste des admins</h5>
-                                                <a href="{{ route('admins.create') }}" class="btn btn-info" style="border-radius: 150px">Ajouter <i class="ri-add-circle-line"></i></a>
-
-                                                <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>            </ul></div>
+                                                <h5>Administrateurs</h5>
+                                                <a href="{{ route('admins.create') }}" class="btn btn-primary btn-sm ml-3"><i class="ri-add-line"></i> Ajouter</a>
                                             </div>
 
                                         <div class="table-responsive">
                                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                                 <thead>
                                                     <tr>
-                                                        <th>Admin N°</th>
+                                                        <th>N°</th>
                                                         <th>Nom</th>
                                                         <th>Email</th>
                                                         
                                                        
-                                                        <th>Opérations</th>
+                                                        <th>Actions</th>
                                                     </tr>
                                                 </thead>
                                               
@@ -130,13 +128,13 @@
                                                
                                                            
                                                             <td>
-                                                                <a href={{route('admins.show', $admin)}} class="btn btn-info" style="border-radius: 200px"><i class="ri-eye-line" style="font-size: 20px"></i></a>
+                                                                <a href={{route('admins.show', $admin)}} class="btn btn-sm btn-icon-action" title="Voir"><i class="ri-eye-line"></i></a>
                                                                
-                                                                <a href={{route('admins.edit', $admin)}} class="btn btn-primary" style="border-radius: 200px"><i class="ri-edit-box-fill" style="font-size: 20px"></i></a>
+                                                                <a href={{route('admins.edit', $admin)}} class="btn btn-sm btn-icon-action" title="Modifier"><i class="ri-edit-line"></i></a>
                                                                 <form action={{route('admins.destroy', $admin)}} method="POST" style="display: inline;" id="supprimer-admin-{{ $admin->id }}">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="button" onclick="confirmerSuppression({{ $admin->id }})" class="btn btn-danger" style="border-radius: 200px"><i class="ri-delete-bin-7-fill" style="font-size: 20px"></i></button>
+                                                                    <button type="button" onclick="confirmerSuppression({{ $admin->id }})" class="btn btn-sm btn-icon-action danger" title="Supprimer"><i class="ri-delete-bin-line"></i></button>
                                                                 </form>
                                                             </td>
                                     

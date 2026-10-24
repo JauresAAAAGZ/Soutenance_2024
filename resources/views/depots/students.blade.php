@@ -14,12 +14,18 @@
                         <div class="main-body">
                             <div class="page-wrapper">
                                 <div class="page-body">
-                                    <div class="col-md-12">
+                                    <div class="ef-page-header">
+                                        <div>
+                                            <h1 class="ef-page-title">Saisie des notes</h1>
+                                            <p class="ef-page-subtitle">{{ $depot->nomDepot }} · {{ $students->count() }} étudiant{{ $students->count() > 1 ? 's' : '' }}</p>
+                                        </div>
+                                        <a href="{{ route('depots.show', $depot) }}" class="btn btn-outline-secondary">Retour au dépôt</a>
+                                    </div>
+
+                                    <div>
                                         <div class="card project-task">
                                             <div class="card-header">
-                                                <h5>Liste des notes des etudiants pour le repertoire @php
-                                                    echo $depot->nomDepot;
-                                                @endphp</h5>
+                                                <h5>Notes sur 20</h5>
                                             </div>
                                             <form action="{{ route('depots.submitNotes', ['depot' => $depot->id]) }}" method="POST">
                                                 @csrf
@@ -44,7 +50,7 @@
                                                                     <td>{{ $student->niveau->diplome_niveau }}</td>
                                                                     <td>
                                                                         <input type="hidden" name="etudiant_ids[]" value="{{ $student->id }}">
-                                                                        <input type="number" min="0" max="20" name="notes[]" placeholder=".../20" class="form-control">
+                                                                        <input type="number" min="0" max="20" step="0.25" name="notes[]" placeholder="/20" class="form-control" style="max-width: 110px;">
                                                                     </td>
                                                                 </tr>
                                                                 @endforeach
@@ -52,8 +58,8 @@
                                                         </table>
                                                     </div>
                                                 </div>
-                                                <div class="card-footer">
-                                                    <button type="submit" class="btn btn-primary">Soumettre les notes</button>
+                                                <div class="card-footer text-right">
+                                                    <button type="submit" class="btn btn-primary">Générer le relevé de notes</button>
                                                 </div>
                                             </form>
                                         </div>
