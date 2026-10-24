@@ -85,6 +85,8 @@ Route::get('/dashboard', function () {
 
 
 
+Route::middleware('auth')->group(function () {
+
 // Route pour récupérer les informations de l'administrateur avec une requete AJAX
 Route::get('/get-admin-info/{id}', [AdminController::class,'getAdminInfo'])->name('get.admin.info');
 
@@ -99,8 +101,6 @@ Route::get('/download/{id}', [DepotController::class,'downloadFile'])->name('dep
 
 //ajouter un fichier a un depot après creation
 Route::post('depots/{depot}/add-files', [DepotController::class,'addFiles'])->name('depots.add-files');
-
-
 
 //update the etat field of a depot
 Route::post('/update-depot-etat/{depotId}', [DepotController::class,'updateDepotEtat'])->name('updateDepotEtat');
@@ -117,9 +117,6 @@ Route::get('/depots/{depot}/students',[DepotController::class, 'showDepotStudent
 //pdfNotes
 Route::post('/depots/{depot}/submit-notes', [DepotController::class, 'submitNotes'])->name('depots.submitNotes');
 
-
-Route::middleware('auth')->group(function () {
-    
 Route::resource('etudiants', EtudiantController::class);
 Route::resource('professeurs', ProfesseurController::class);
 Route::resource('filieres', FiliereController::class);
