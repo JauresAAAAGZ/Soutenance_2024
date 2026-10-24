@@ -410,17 +410,19 @@ table.dataTable thead .sorting_desc:after { content: "↓"; color: var(--ef-prim
     align-items: center;
     justify-content: center;
     padding: 24px 16px;
-    background: linear-gradient(160deg, #eef2fb 0%, #f7f8fb 60%);
+    background: linear-gradient(rgba(17, 24, 39, 0.45), rgba(17, 24, 39, 0.45)),
+                url("../images/backlog.jpg") center / cover no-repeat;
 }
 
 .ef-login-card {
     width: 100%;
     max-width: 400px;
-    background: #fff;
-    border: 1px solid var(--ef-border);
+    background: rgba(255, 255, 255, 0.68);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 14px;
     padding: 32px 30px;
-    box-shadow: 0 10px 30px rgba(16, 24, 40, 0.06);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
 }
 
 .ef-login-card .ef-login-logo {
@@ -436,7 +438,7 @@ table.dataTable thead .sorting_desc:after { content: "↓"; color: var(--ef-prim
 }
 
 .ef-login-card .ef-login-subtitle {
-    color: var(--ef-muted);
+    color: #374151;
     margin-bottom: 24px;
 }
 
@@ -469,7 +471,7 @@ table.dataTable thead .sorting_desc:after { content: "↓"; color: var(--ef-prim
 
 .ef-login-footer {
     text-align: center;
-    color: var(--ef-muted);
+    color: rgba(255, 255, 255, 0.85);
     font-size: 0.8rem;
     margin-top: 20px;
 }
